@@ -6,4 +6,6 @@ const routesNotFoundMiddleware = (req, res) => {
         })
 }
 
-export {routesNotFoundMiddleware};
+export {
+    routesNotFoundMiddleware
+};

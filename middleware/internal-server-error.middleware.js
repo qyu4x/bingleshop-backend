@@ -6,4 +6,6 @@ const internalServerErrorMiddleware = (err, req, res, next) => {
         })
 }
 
-export {internalServerErrorMiddleware};
+export {
+    internalServerErrorMiddleware
+};
