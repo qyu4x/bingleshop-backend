@@ -1,4 +1,4 @@
-const getHealthCheck = (req, res) => {
+const getStatus = (req, res) => {
     res.status(200)
         .json({
             code: 200,
@@ -10,4 +10,6 @@ const getHealthCheck = (req, res) => {
         })
 }
 
-export {getHealthCheck};
+export default {
+    getStatus
+};

@@ -1,4 +1,4 @@
-const routesNotFound = (req, res) => {
+const routesNotFoundMiddleware = (req, res) => {
     res.status(404)
         .json({
             code: 404,
@@ -6,4 +6,4 @@ const routesNotFound = (req, res) => {
         })
 }
 
-export {routesNotFound};
+export {routesNotFoundMiddleware};

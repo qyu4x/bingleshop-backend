@@ -1,4 +1,4 @@
-const internalServerError = (err, req, res, next) => {
+const internalServerErrorMiddleware = (err, req, res, next) => {
     res.status(500)
         .json({
             code: 500,
@@ -6,4 +6,4 @@ const internalServerError = (err, req, res, next) => {
         })
 }
 
-export {internalServerError};
+export {internalServerErrorMiddleware};
