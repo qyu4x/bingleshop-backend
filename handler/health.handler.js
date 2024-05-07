@@ -1,10 +1,8 @@
 const getStatus = (req, res) => {
     res.status(200)
-        .json({
-            code: 200,
-            status: "OK",
+        .json({code: 200, status: "OK",
             data: {
-                backendHealth: "UP",
+                status: "UP",
                 checkedAt: Date.now()
             }
         })
