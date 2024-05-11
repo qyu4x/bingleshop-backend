@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Categories.init({
-    id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true
+    },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     is_active: DataTypes.BOOLEAN,

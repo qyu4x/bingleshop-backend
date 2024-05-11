@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   SubCategories.init({
-    id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true
+    },
     parent_categories_id: DataTypes.STRING,
     name: DataTypes.STRING,
     description: DataTypes.TEXT,

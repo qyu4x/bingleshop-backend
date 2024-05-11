@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   OrdersDetails.init({
-    id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true
+    },
     order_id: DataTypes.STRING,
     product_id: DataTypes.STRING,
     logistic_id: DataTypes.STRING,

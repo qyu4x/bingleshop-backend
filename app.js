@@ -3,6 +3,7 @@ require('dotenv/config');
 const {routeNotFoundMiddleware} = require('./middleware/route-not-found.middleware');
 const {router} = require('./route/api');
 const {errorMiddleware} = require('./middleware/error.middleware');
+const {Categories} = require('./model')
 
 const port = process.env.APP_PORT || 3000;
 const appName = process.env.APP_NAME || "uwupedia";
