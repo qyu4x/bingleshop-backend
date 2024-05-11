@@ -3,32 +3,31 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Logistics extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The `model/index` file will call this method automatically.
      */
     static associate(models) {
       // define association here
     }
   }
-  User.init({
-    username: DataTypes.UUID,
-    full_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    birthdate: DataTypes.DATE,
-    role: DataTypes.ENUM('USER', 'ADMIN'),
+  Logistics.init({
+    id: DataTypes.UUID,
+    name: DataTypes.STRING,
+    payment_fees_permile: DataTypes.DECIMAL,
+    logo_url: DataTypes.STRING,
     is_active: DataTypes.BOOLEAN,
+    description: DataTypes.TEXT,
     created_at: DataTypes.BIGINT,
-    updated_at: DataTypes.BIGINT,
+    updated_at: DataTypes.BIGINT
   }, {
     sequelize,
-    modelName: 'User',
-    tableName: 'users',
+    modelName: 'Logistics',
+    tableName: 'logistics',
     underscored: true,
     timestamps: false
   });
-  return User;
+  return Logistics;
 };

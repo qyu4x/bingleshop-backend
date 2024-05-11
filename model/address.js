@@ -3,29 +3,36 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Categories extends Model {
+  class Address extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The `model/index` file will call this method automatically.
      */
     static associate(models) {
       // define association here
     }
   }
-  Categories.init({
+  Address.init({
     id: DataTypes.UUID,
+    user_id: DataTypes.STRING,
     name: DataTypes.STRING,
-    description: DataTypes.TEXT,
+    phone_number: DataTypes.STRING,
+    street: DataTypes.STRING,
+    province: DataTypes.STRING,
+    city: DataTypes.STRING,
+    district: DataTypes.STRING,
+    postal_code: DataTypes.INTEGER,
+    is_main_address: DataTypes.BOOLEAN,
     is_active: DataTypes.BOOLEAN,
     created_at: DataTypes.BIGINT,
     updated_at: DataTypes.BIGINT,
   }, {
     sequelize,
-    modelName: 'Categories',
-    tableName: 'categories',
+    modelName: 'Address',
+    tableName: 'addresses',
     underscored: true,
     timestamps: false
   });
-  return Categories;
+  return Address;
 };
