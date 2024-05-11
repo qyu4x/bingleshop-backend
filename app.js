@@ -1,8 +1,8 @@
-import express from "express";
-import "dotenv/config";
-import {routeNotFoundMiddleware} from "./middleware/route-not-found.middleware.js";
-import {router} from "./route/api.js";
-import {errorMiddleware} from "./middleware/error.middleware.js";
+const express = require('express');
+require('dotenv/config');
+const {routeNotFoundMiddleware} = require('./middleware/route-not-found.middleware');
+const {router} = require('./route/api');
+const {errorMiddleware} = require('./middleware/error.middleware');
 
 const port = process.env.APP_PORT || 3000;
 const appName = process.env.APP_NAME || "uwupedia";

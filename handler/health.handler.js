@@ -1,4 +1,4 @@
-import healthInfrastructure from '../infrastructure/health.infrastructure.js';
+const healthInfrastructure = require('../infrastructure/health.infrastructure');
 
 const getStatus = (req, res, next) => {
     try {
@@ -10,6 +10,6 @@ const getStatus = (req, res, next) => {
     }
 }
 
-export default {
+module.exports = {
     getStatus
 };

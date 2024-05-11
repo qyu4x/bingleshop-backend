@@ -1,10 +1,11 @@
-import healthHandler from "../handler/health.handler.js";
+const healthHandler = require("../handler/health.handler");
 
-import express from "express";
+const express = require("express");
+
 const healthRouter = express.Router();
 
 healthRouter.get("/ping", healthHandler.getStatus);
 
-export  {
+module.exports = {
     healthRouter
 };

@@ -7,6 +7,6 @@ class ResponseError extends Error {
 
 }
 
-export {
+module.exports = {
     ResponseError
 }

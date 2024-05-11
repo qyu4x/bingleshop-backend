@@ -1,11 +1,11 @@
-import {healthRouter} from "./health.route.js";
+const {healthRouter} = require('./health.route');
 
-import express from "express";
+const express = require("express");
 const router = express.Router();
 
 // Health API
 router.use("/api/v1/healths", healthRouter);
 
-export {
+module.exports = {
     router
 };

@@ -1,4 +1,4 @@
-import {ResponseError} from '../error/response-error.js'
+const {ResponseError} = require('../error/response-error');
 
 const errorMiddleware = (err, req, res, next) => {
     if (!err) {
@@ -18,6 +18,6 @@ const errorMiddleware = (err, req, res, next) => {
     }
 }
 
-export {
+module.exports = {
     errorMiddleware
 }

@@ -2,6 +2,6 @@ const get = () => {
     return 'PONG';
 }
 
-export default {
+module.exports = {
     get
 }

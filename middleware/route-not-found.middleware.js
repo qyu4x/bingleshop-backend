@@ -5,6 +5,6 @@ const routeNotFoundMiddleware = (req, res) => {
         }).end();
 }
 
-export {
+module.exports = {
     routeNotFoundMiddleware
 };
