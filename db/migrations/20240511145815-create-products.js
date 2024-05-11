@@ -9,11 +9,11 @@ module.exports = {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4
             },
-            categories_id: {
+            category_id: {
                 allowNull: false,
                 type: Sequelize.STRING
             },
-            sub_categories_id: {
+            sub_category_id: {
                 allowNull: false,
                 type: Sequelize.STRING
             },
