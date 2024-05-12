@@ -11,10 +11,10 @@ Request Body :
 
 ```json
 {
-  "name": "JNE",
+  "name": "INDOMART",
   "payment_fees": 200,
   "logo_url" : "https://uwu.png",
-  "description" : "JNE Logistic"
+  "description" : "Indomart Payment"
 }
 ```
 
@@ -24,10 +24,10 @@ Response Body Success :
 {
   "data": {
     "id": "uuidv4",
-    "name": "JNE",
+    "name": "INDOMART",
     "payment_fees": 200,
     "logo_url" : "https://uwu.png",
-    "description" : "JNE Logistic",
+    "description" : "Indomart Payment",
     "is_active" : true,
     "created_at" : 914829382,
     "updated_at" : 147281372
@@ -55,20 +55,20 @@ Response Body Success :
   "data": [
     {
       "id": "uuidv4",
-      "name": "JNE",
+      "name": "INDOMART",
       "payment_fees": 200,
       "logo_url": "https://uwu.png",
-      "description": "JNE Logistic",
+      "description": "Indomart Payment",
       "is_active": true,
       "created_at": 914829382,
       "updated_at": 147281372
     },
     {
       "id": "uuidv4",
-      "name": "SICEPET",
+      "name": "ALFAMART",
       "payment_fees": 200,
       "logo_url": "https://uwu.png",
-      "description": "SICEPAT Logistic",
+      "description": "Alfamart Payment",
       "is_active": true,
       "created_at": 914829382,
       "updated_at": 147281372
@@ -97,7 +97,7 @@ Response Body Error :
 
 ```json
 {
-  "errors" : "Address is not found"
+  "errors" : "Payment is not found"
 }
 ```
 
