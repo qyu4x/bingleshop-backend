@@ -6,8 +6,7 @@ module.exports = {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4
+                type: Sequelize.STRING
             },
             user_id: {
                 type: Sequelize.STRING,
@@ -19,6 +18,9 @@ module.exports = {
             },
             total_price: {
                 type: Sequelize.DECIMAL
+            },
+            payment_code: {
+              type: Sequelize.STRING
             },
             payment_status: {
                 type: Sequelize.BOOLEAN,
