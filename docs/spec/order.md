@@ -20,22 +20,14 @@ Request Body :
       "logistic_id" : "uuidv4",
       "address_id" : "uuidv4",
       "quantity" : 2,
-      "unit_price" : {
-        "amount": 100000,
-        "currency": "IDR",
-        "display": "Rp."
-      }
+      "unit_price" : 100000
     },
     {
       "product_id": "uuidv4",
       "logistic_id" : "uuidv4",
       "address_id" : "uuidv4",
       "quantity" : 3,
-      "unit_price" : {
-        "amount": 100000,
-        "currency": "IDR",
-        "display": "Rp."
-      }
+      "unit_price" : 100000
     }
   ]
 }
