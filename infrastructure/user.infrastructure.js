@@ -68,12 +68,12 @@ const login = async (request) => {
 
     const isPasswordValid = bcrypt.compare(loginRequest.password, user.password);
     if (!isPasswordValid) {
-        throw new ResponseError(401, "Email or password is incorrect")
+        throw new ResponseError(401, "Email or password is incorrect");
     }
 
     const token = uuidv4().toString();
     await User.update(
-        {token: token},
+        {token: token, updated_at: Date.now()},
         {
             where: {
                 id: user.id
@@ -84,7 +84,23 @@ const login = async (request) => {
     return token;
 }
 
+const get = async (userId) => {
+    const user = await User.findOne({
+        where: {
+            id: userId
+        },
+        attributes: ['id', 'username', 'full_name', 'email', 'birth_date', 'role', 'is_active', 'created_at', 'updated_at']
+    })
+
+    if (!user) {
+        throw new ResponseError(404, "User not found");
+    }
+
+    return user;
+}
+
 module.exports = {
     register,
-    login
+    login,
+    get
 }

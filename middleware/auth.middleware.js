@@ -1,5 +1,6 @@
 const {ResponseError} = require('../error/response-error');
 const {User} = require('../model');
+const {Op, where} = require('sequelize');
 
 const authorize = (hasRoles = []) => {
     return async (req, res, next) => {
@@ -14,7 +15,8 @@ const authorize = (hasRoles = []) => {
                     token: {
                         [Op.eq]: token
                     }
-                }
+                },
+                attributes: ['id', 'username', 'email', 'role']
             })
 
             if (!user) {

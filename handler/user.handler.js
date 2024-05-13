@@ -24,7 +24,19 @@ const login = async (req, res, next) => {
     }
 }
 
+const get = async (req, res, next) => {
+    try {
+        const userResponse = await userInfrastructure.get(req.user.id);
+        res.status(200).json({
+            data: userResponse
+        });
+    }catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     register,
-    login
+    login,
+    get
 }
