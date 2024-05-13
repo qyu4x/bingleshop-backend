@@ -1,5 +1,5 @@
 const {ResponseError} = require('../error/response-error');
-const {User} = require('../model')
+const {User} = require('../model');
 
 const authorize = (hasRoles = []) => {
     return async (req, res, next) => {
@@ -27,7 +27,7 @@ const authorize = (hasRoles = []) => {
             }
 
             req.user = user;
-            next()
+            next();
         } catch (error) {
             next(error);
         }
