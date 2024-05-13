@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         password: DataTypes.STRING,
         birthdate: DataTypes.DATE,
         role: DataTypes.ENUM('USER', 'ADMIN'),
+        token: DataTypes.STRING,
         is_active: DataTypes.BOOLEAN,
         created_at: DataTypes.BIGINT,
         updated_at: DataTypes.BIGINT,

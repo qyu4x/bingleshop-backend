@@ -32,6 +32,10 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.ENUM('USER', 'ADMIN')
             },
+            token: {
+                allowNull: true,
+                type: Sequelize.STRING
+            },
             is_active: {
                 allowNull: false,
                 type: Sequelize.BOOLEAN,
