@@ -6,7 +6,7 @@ const register = async (req, res, next) => {
         res.status(200).json({
             data: userResponse
         });
-    }catch (error) {
+    } catch (error) {
         next(error);
     }
 }
@@ -19,7 +19,18 @@ const login = async (req, res, next) => {
                 token: userResponse
             }
         });
-    }catch (error) {
+    } catch (error) {
+        next(error);
+    }
+}
+
+const logout = async (req, res, next) => {
+    try {
+        await userInfrastructure.logout(req.user.id);
+        res.status(200).json({
+            data: "OK"
+        });
+    } catch (error) {
         next(error);
     }
 }
@@ -30,7 +41,7 @@ const get = async (req, res, next) => {
         res.status(200).json({
             data: userResponse
         });
-    }catch (error) {
+    } catch (error) {
         next(error);
     }
 }
@@ -38,5 +49,6 @@ const get = async (req, res, next) => {
 module.exports = {
     register,
     login,
+    logout,
     get
 }

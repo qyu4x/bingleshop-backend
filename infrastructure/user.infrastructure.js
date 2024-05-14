@@ -99,8 +99,20 @@ const get = async (userId) => {
     return user;
 }
 
+const logout = async (userId) => {
+    await User.update(
+        {token: null, updated_at: Date.now()},
+        {
+            where: {
+                id: userId
+            }
+        }
+    );
+}
+
 module.exports = {
     register,
     login,
+    logout,
     get
 }
