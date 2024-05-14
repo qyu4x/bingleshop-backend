@@ -1,0 +1,136 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Enum role {
+  USER
+  ADMIN
+}
+
+Table users {
+  id integer [primary key]
+  username varchar(255) [unique]
+  full_name varchar [not null]
+  email varchar [not null, unique]
+  password varchar [not null]
+  birthdate date
+  role role
+  is_active bool [not null, default: true]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table address {
+  id varchar [primary key]
+  user_id varchar [ref: > users.id]
+  name varchar [not null]
+  phone_number varchar (15) [not null]
+  street varchar [not null]
+  province varchar (50) [not null]
+  city varhcar (50) [not null]
+  district varchar (50) [not null]
+  postal_code tinyint [not null]
+  is_main_address bool [not null]
+  is_active bool [default: true]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table categories {
+  id varchar [primary key]
+  name varchar (50) [not null]
+  description text
+  is_active bool [not null, default: true]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table sub_categories {
+  id varchar [primary key]
+  parent_categories_id varchar [ref: > categories.id]
+  name varchar (50) [not null]
+  description text
+  is_active bool [not null, default: true]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table products {
+  id varchar [primary key]
+  categories_id varchar [ref: > categories.id]
+  sub_categories_id varchar [ref: > sub_categories.id]
+  title varchar(255) [not null]
+  price decimal [not null, default: 0]
+  stock integer [not null, default: 0]
+  is_preorder bool [not null, default: false]
+  description text
+  is_active bool [not null, default: true]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table payment_methods {
+  id varchar [primary key]
+  name varchar [not null]
+  payment_fees decimal [not null]
+  logo_url varchar [not null]
+  is_active bool [not null, default: true]
+  description text
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table logistics {
+  id varchar [primary key]
+  name varchar [not null]
+  payment_fees_permile decimal [not null]
+  logo_url varchar [not null]
+  is_active bool [not null, default: true]
+  description text
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table orders {
+  id varchar [primary key]
+  user_id varchar [ref: > users.id]
+  payment_method_id varchar [ref: > payment_methods.id]
+  total_price decimal [not null]
+  payment_status bool [not null, default: false]
+  payment_date bigint [note: 'unix time stamp UTC']
+  payment_code varchar [not null]
+  note text
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Enum order_status {
+ processing
+ awaiting_shipped
+ shipped
+ awaiting_payment
+ order_completed
+ canceled
+ refunded
+ failed
+}
+Table orders_details {
+  id varchar [primary key]
+  order_id varchar [ref: > orders.id]
+  product_id varchar [ref: > products.id]
+  logistic_id varchar [ref: > logistics.id]
+  address_id varchar [ref: > address.id]
+  quantity int [not null, default: 1]
+  order_status order_status [not null, default: 'awaiting_payment']
+  unit_price decimal [not null]
+  //total_price decimal [not null]
+  received_at bigint
+  is_received bool [not null, default: false]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+// Ref: posts.user_id > users.id // many-to-one
+
+// Ref: users.id < follows.following_user_id
+
+// Ref: users.id < follows.followed_user_id
