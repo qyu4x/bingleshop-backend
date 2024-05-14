@@ -74,6 +74,28 @@ Response Body Error :
 }
 ```
 
+## Logout User API
+
+Endpoint : DELETE /api/v1/users/logout
+
+Headers:
+- Authorization : token
+
+Response Body Success :
+```json
+{
+  "data" : "OK"
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "errors" : "Unauthorized"
+}
+```
+
 ## Get Current User API
 
 Endpoint : POST /api/v1/users/current
@@ -106,3 +128,5 @@ Response Body Error :
   "errors": "Unauthorized"
 }
 ```
+
+
