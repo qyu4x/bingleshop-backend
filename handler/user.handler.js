@@ -1,4 +1,4 @@
-const userInfrastructure = require('../infrastructure/user.infrastructure');
+const userInfrastructure = require('../service/user.service');
 
 const register = async (req, res, next) => {
     try {

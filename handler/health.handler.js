@@ -1,4 +1,4 @@
-const healthInfrastructure = require('../infrastructure/health.infrastructure');
+const healthInfrastructure = require('../service/health.service');
 
 const getStatus = (req, res, next) => {
     try {
