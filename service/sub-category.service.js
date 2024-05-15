@@ -6,10 +6,10 @@ const {ResponseError} = require('../error/response-error');
 const {capitalizeEachFirstWord} = require('../helper/capitalize.helper');
 const {
     subCreateCategorySchema, getSubCategoryValidation
-} = require('../validation/sub-categories.validation');
+} = require('../validation/sub-category.validation');
 const {
     getCategoryValidation
-} = require('../validation/categories.validation');
+} = require('../validation/category.validation');
 
 const checkCategoryMustExist = async (categoryId) => {
     const category = await Categories.findOne({

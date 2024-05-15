@@ -1,7 +1,7 @@
 const {healthRouter} = require('./health.route');
 const {userRouter} = require('./user.route');
 const {addressRouter} = require('./address.route');
-const {categoriesRouter} = require('./categories.route');
+const {categoriesRouter} = require('./category.route');
 const {subCategoriesRouter} = require('./sub-category.route');
 
 const express = require("express");

@@ -6,7 +6,7 @@ const {ResponseError} = require('../error/response-error');
 const {capitalizeEachFirstWord} = require('../helper/capitalize.helper');
 const {
     createCategorySchema
-} = require('../validation/categories.validation');
+} = require('../validation/category.validation');
 
 const create = async (request) => {
     const category = validate(createCategorySchema, request);

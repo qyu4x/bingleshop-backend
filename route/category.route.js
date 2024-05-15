@@ -1,4 +1,4 @@
-const categoriesHandler = require('../handler/categories.handler');
+const categoriesHandler = require('../handler/category.handler');
 const {authorize} = require('../middleware/auth.middleware');
 
 const categoriesRouter = require('express').Router();

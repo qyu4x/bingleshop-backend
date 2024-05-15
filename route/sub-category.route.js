@@ -1,4 +1,4 @@
-const subCategoriesHandler = require('../handler/sub-categories.handler');
+const subCategoriesHandler = require('../handler/sub-category.handler');
 const {authorize} = require('../middleware/auth.middleware');
 
 const subCategoriesRouter = require('express').Router();
