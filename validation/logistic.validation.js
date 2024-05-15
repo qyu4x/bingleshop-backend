@@ -7,6 +7,9 @@ const createLogisticValidation = Joi.object({
     description: Joi.string().min(5).required()
 })
 
+const getLogisticValidation = Joi.string().uuid().required();
+
 module.exports = {
-    createLogisticValidation
+    createLogisticValidation,
+    getLogisticValidation
 }
