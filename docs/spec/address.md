@@ -102,6 +102,26 @@ Response Body Error :
 }
 ```
 
+## Update Main Address API
+Endpoint : PATCH /api/v1/addresses/{id}/set-main
+Headers:
+- Authorization : token
+
+Response Body Success :
+```json
+{
+  "data" : "OK"
+}
+```
+Response Body Error :
+
+```json
+{
+  "errors": "Unauthorized"
+}
+```
+
+
 ## Delete Address API
 
 Endpoint : DELETE /api/v1/addresses/{id}
