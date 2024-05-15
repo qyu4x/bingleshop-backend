@@ -5,6 +5,9 @@ const subCreateCategorySchema = Joi.object({
     description: Joi.string().min(5).required()
 })
 
+const getSubCategoryValidation = Joi.string().uuid().required();
+
 module.exports = {
-    subCreateCategorySchema
+    subCreateCategorySchema,
+    getSubCategoryValidation
 }

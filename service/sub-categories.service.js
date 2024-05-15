@@ -5,7 +5,7 @@ const {validate} = require('../validation/validation');
 const {ResponseError} = require('../error/response-error');
 const {capitalizeEachFirstWord} = require('../helper/capitalize.helper');
 const {
-    subCreateCategorySchema
+    subCreateCategorySchema, getSubCategoryValidation
 } = require('../validation/sub-categories.validation');
 const {
     getCategoryValidation
@@ -64,6 +64,7 @@ const create = async (request, categoryId) => {
 }
 
 const list = async (categoryId) => {
+    categoryId = validate(getCategoryValidation, categoryId);
     categoryId = await checkCategoryMustExist(categoryId);
 
     return await SubCategories.findAll({
@@ -78,10 +79,14 @@ const list = async (categoryId) => {
     })
 }
 
-const remove = async (subCategoryId) => {
+const remove = async (categoryId, subCategoryId) => {
+    categoryId = validate(getCategoryValidation, categoryId);
+    subCategoryId = validate(getSubCategoryValidation, subCategoryId);
+
     const subCategory = await SubCategories.findOne({
         where: {
             id: subCategoryId,
+            category_id: categoryId,
             is_active: true
         }
     })
