@@ -1,0 +1,1 @@
+const subCategoriesInfrastructure = require('../service/sub-categories.service');

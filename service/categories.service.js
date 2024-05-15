@@ -14,7 +14,8 @@ const create = async (request) => {
     category.name = capitalizeEachFirstWord(category.name);
     const isCategoryExist = await Categories.findOne({
         where: {
-            name: category.name
+            name: category.name,
+            is_active: true
         },
         attributes: ['id']
     });

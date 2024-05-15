@@ -1,8 +1,8 @@
-const healthInfrastructure = require('../service/health.service');
+const healthService = require('../service/health.service');
 
 const getStatus = (req, res, next) => {
     try {
-        const result = healthInfrastructure.get();
+        const result = healthService.get();
         res.status(200)
             .send(result)
     } catch (error) {

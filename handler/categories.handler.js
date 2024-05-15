@@ -1,10 +1,10 @@
-const categoriesInfrastructure = require('../service/categories.service');
+const categoriesService = require('../service/categories.service');
 
 const create = async (req, res, next) => {
     try {
         const request = req.body;
 
-        const categoryResponse = await categoriesInfrastructure.create(request);
+        const categoryResponse = await categoriesService.create(request);
         res.status(200).json({
             data: categoryResponse
         });
@@ -15,7 +15,7 @@ const create = async (req, res, next) => {
 
 const list = async (req, res, next) => {
     try {
-        const categoryResponse = await categoriesInfrastructure.list();
+        const categoryResponse = await categoriesService.list();
         res.status(200).json({
             data: categoryResponse
         });
@@ -28,7 +28,7 @@ const remove = async (req, res, next) => {
     try {
         const categoryId = req.params.categoryId;
 
-        await categoriesInfrastructure.remove(categoryId);
+        await categoriesService.remove(categoryId);
         res.status(200).json({
             data: "OK"
         });
