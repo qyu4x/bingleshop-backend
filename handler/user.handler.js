@@ -2,7 +2,9 @@ const userInfrastructure = require('../service/user.service');
 
 const register = async (req, res, next) => {
     try {
-        const userResponse = await userInfrastructure.register(req.body);
+        const request = req.body;
+
+        const userResponse = await userInfrastructure.register(request);
         res.status(200).json({
             data: userResponse
         });
@@ -13,7 +15,9 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
     try {
-        const userResponse = await userInfrastructure.login(req.body);
+        const request = req.body;
+
+        const userResponse = await userInfrastructure.login(request);
         res.status(200).json({
             data: {
                 token: userResponse
@@ -26,7 +30,9 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        await userInfrastructure.logout(req.user.id);
+        const userId = req.user.id;
+
+        await userInfrastructure.logout(userId);
         res.status(200).json({
             data: "OK"
         });
@@ -37,7 +43,9 @@ const logout = async (req, res, next) => {
 
 const get = async (req, res, next) => {
     try {
-        const userResponse = await userInfrastructure.get(req.user.id);
+        const userId = req.user.id;
+
+        const userResponse = await userInfrastructure.get(userId);
         res.status(200).json({
             data: userResponse
         });

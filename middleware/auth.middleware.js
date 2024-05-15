@@ -5,11 +5,12 @@ const {Op, where} = require('sequelize');
 const authorize = (hasRoles = []) => {
     return async (req, res, next) => {
         try {
-            const token = req.get('Authorization').trim();
+            let token = req.get('Authorization');
             if (!token) {
                 throw new ResponseError(401, "Unauthorized");
             }
 
+            token = token.trim();
             const user = await User.findOne({
                 where: {
                     token: {

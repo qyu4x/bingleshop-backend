@@ -14,6 +14,7 @@ Request Body :
   "name": "Shiina Mahiru",
   "phone_number" : "082351252125",
   "street" : "shibuya no 12",
+  "city" : "Tokyo",
   "province" : "Tokyo",
   "district" : "Shibuya",
   "postal_code" : "S7238",
@@ -31,6 +32,7 @@ Response Body Success :
     "name": "Shiina Mahiru",
     "phone_number" : "082351252125",
     "street" : "shibuya no 12",
+    "city" : "Tokyo",
     "province" : "Tokyo",
     "district" : "Shibuya",
     "postal_code" : "S7238",
@@ -68,6 +70,7 @@ Response Body Success :
       "name": "Shiina Mahiru",
       "phone_number" : "082351252125",
       "street" : "shibuya no 12",
+      "city" : "Tokyo",
       "province" : "Tokyo",
       "district" : "Shibuya",
       "postal_code" : "S7238",
@@ -82,6 +85,7 @@ Response Body Success :
       "name": "Shiina Mahiru 2",
       "phone_number" : "082351252125",
       "street" : "shibuya no 12",
+      "city" : "Tokyo",
       "province" : "Tokyo",
       "district" : "Shibuya",
       "postal_code" : "S7238",
@@ -103,7 +107,7 @@ Response Body Error :
 ```
 
 ## Update Main Address API
-Endpoint : PATCH /api/v1/addresses/{id}/set-main
+Endpoint : PATCH /api/v1/addresses/{id}/main
 Headers:
 - Authorization : token
 
