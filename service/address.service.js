@@ -6,6 +6,7 @@ const {ResponseError} = require('../error/response-error')
 const {
     createAddressSchema, getAddressValidation
 } = require('../validation/address.validation');
+const {add} = require("nodemon/lib/rules");
 
 const checkAddressMustExist = async (userId, addressId) => {
     const address = await Address.findOne({
@@ -96,18 +97,17 @@ const remove = async (userId, addressId) => {
         attributes: ['id', 'is_main_address']
     })
 
+    if (!address) {
+        throw new ResponseError(404, 'Address not found');
+    }
+
     if (address.is_main_address) {
         throw new ResponseError(400, 'Main address cannot be deleted');
     }
 
-    await Address.update({
-        is_active: false,
-        updated_at: Date.now()
-    }, {
-        where: {
-            id: addressId, user_id: userId
-        }
-    })
+    address.is_active = false;
+    address.updated_at = Date.now();
+    await address.save()
 }
 
 module.exports = {
