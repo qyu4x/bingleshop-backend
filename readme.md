@@ -84,6 +84,3 @@ Happy coding! 🚀
 
 *Note: Make sure you have Docker and Node.js installed on your machine before you start. For further information, please refer to the official Docker and Node.js documentation.*
 
----
-
-Feel free to customize the README further to better suit your project and style preferences.
