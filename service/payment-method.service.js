@@ -10,6 +10,22 @@ const {
 const {PaymentMethodResponse} = require('../payload/response/payment-method.response')
 const {CurrencyResponse} = require('../payload/response/currency.response')
 
+const mapToPaymentResponse = (paymentMethodResponse) => {
+    return new PaymentMethodResponse(
+        paymentMethodResponse.id,
+        paymentMethodResponse.name,
+        new CurrencyResponse(
+            paymentMethodResponse.payment_fees,
+            formatCurrency(paymentMethodResponse.payment_fees, 'id-ID', 'IDR', 'code'),
+            formatCurrency(paymentMethodResponse.payment_fees, 'id-ID', 'IDR', 'symbol')
+        ),
+        paymentMethodResponse.logo_url,
+        paymentMethodResponse.is_active,
+        paymentMethodResponse.description,
+        paymentMethodResponse.created_at,
+        paymentMethodResponse.updated_at
+    );
+}
 
 const create = async (request) => {
     const paymentMethod = validate(createPaymentValidation, request);
@@ -29,20 +45,7 @@ const create = async (request) => {
     paymentMethod.created_at = Date.now();
 
     const paymentMethodResponse = await PaymentMethods.create(paymentMethod);
-    return new PaymentMethodResponse(
-        paymentMethodResponse.id,
-        paymentMethodResponse.name,
-        new CurrencyResponse(
-            paymentMethodResponse.payment_fees,
-            formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'code'),
-            formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'symbol')
-        ),
-        paymentMethodResponse.logo_url,
-        paymentMethodResponse.is_active,
-        paymentMethodResponse.description,
-        paymentMethodResponse.created_at,
-        paymentMethodResponse.updated_at
-    );
+    return mapToPaymentResponse(paymentMethodResponse);
 }
 
 const list = async () => {
@@ -52,21 +55,8 @@ const list = async () => {
         }, order: [['created_at', 'ASC']]
     })
 
-    return paymentMethodResponses.map(paymentMethod => {
-        return new PaymentMethodResponse(
-            paymentMethod.id,
-            paymentMethod.name,
-            new CurrencyResponse(
-                paymentMethod.payment_fees,
-                formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'code'),
-                formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'symbol')
-            ),
-            paymentMethod.logo_url,
-            paymentMethod.is_active,
-            paymentMethod.description,
-            paymentMethod.created_at,
-            paymentMethod.updated_at
-        );
+    return paymentMethodResponses.map(paymentMethodResponse => {
+        return mapToPaymentResponse(paymentMethodResponse);
     })
 }
 
