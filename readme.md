@@ -72,7 +72,7 @@ Use the following credentials to log in as an admin:
 
 ## 📚 Documentation and Support
 
-For more details and documentation, please visit our [Wiki](https://github.com/qyu4x/24001132-11-ak-uwupedia-gold/wiki) or join our [Discord](https://discord.gg/your-invite-link).
+For more details and documentation, please visit our [Wiki](https://github.com/qyu4x/24001132-11-ak-uwupedia-gold/tree/main/docs/spec) or join our [Discord](https://discord.gg/qirayuki).
 
 ## 🎉 You're All Set!
 
