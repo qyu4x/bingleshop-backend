@@ -50,7 +50,6 @@ const mapToProductResponse = (productResponse) => {
     );
 }
 const create = async (request, categoryId, subCategoryId) => {
-    console.log('here')
     categoryId = validate(getCategoryValidation, categoryId);
     subCategoryId = validate(getSubCategoryValidation, subCategoryId);
 
@@ -87,6 +86,22 @@ const create = async (request, categoryId, subCategoryId) => {
 const get = async (productId) => {
     productId = validate(getProductValidation, productId);
 
+    const productResponse = await Products.findByPk(productId, {
+        include: [
+            {
+                model: Categories,
+                as: 'category',
+                attributes: ['id', 'name', 'description']
+            },
+            {
+                model: SubCategories,
+                as: 'sub_category',
+                attributes: ['id', 'name', 'description']
+            },
+        ]
+    })
+
+    return mapToProductResponse(productResponse);
 }
 
 const list = async (request) => {

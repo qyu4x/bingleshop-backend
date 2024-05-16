@@ -17,9 +17,11 @@ const create = async (req, res, next) => {
 
 const get = async (req, res, next) => {
     try {
+        const productId = req.params.productId;
 
+        const productResponse = await productService.get(productId);
         res.status(200).json({
-            data: ''
+            data: productResponse
         });
     } catch (error) {
         next(error);

@@ -33,6 +33,7 @@ router.use('/api/v1/logistics', logisticRouter);
 
 // product
 router.use('/api/v1/categories', productRouter);
+router.use('/api/v1/products', productRouter);
 
 module.exports = {
     router
