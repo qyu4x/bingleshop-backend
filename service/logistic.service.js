@@ -8,6 +8,8 @@ const {
     getLogisticValidation,
     createLogisticValidation
 } = require('../validation/logistic.validation');
+const {LogisticResponse} = require('../payload/response/logistic-response')
+const {CurrencyResponse} = require('../payload/response/currency.response')
 
 const create = async (request) => {
     const logistic = validate(createLogisticValidation, request);
@@ -27,17 +29,48 @@ const create = async (request) => {
     logistic.is_active = true;
     logistic.created_at = Date.now();
 
-    return await Logistics.create(logistic);
+    const logisticResponse = await Logistics.create(logistic);
+    return new LogisticResponse(
+        logisticResponse.id,
+        logisticResponse.name,
+        new CurrencyResponse(
+            logisticResponse.payment_fees_permile,
+            formatCurrency(logisticResponse.payment_fees_permile, 'id-ID', 'IDR', 'code'),
+            formatCurrency(logisticResponse.payment_fees_permile, 'id-ID', 'IDR', 'symbol')
+        ),
+        logisticResponse.logo_url,
+        logisticResponse.is_active,
+        logisticResponse.description,
+        logisticResponse.created_at,
+        logisticResponse.updated_at
+    );
 }
 
 const list = async () => {
-    return await Logistics.findAll({
+    const logistics = await Logistics.findAll({
         where: {
             is_active: true
         },
         order: [
             ['created_at', 'ASC']
         ]
+    })
+
+    return logistics.map(logistic => {
+        return new LogisticResponse(
+            logistic.id,
+            logistic.name,
+            new CurrencyResponse(
+                logistic.payment_fees_permile,
+                formatCurrency(logistic.payment_fees_permile, 'id-ID', 'IDR', 'code'),
+                formatCurrency(logistic.payment_fees_permile, 'id-ID', 'IDR', 'symbol')
+            ),
+            logistic.logo_url,
+            logistic.is_active,
+            logistic.description,
+            logistic.created_at,
+            logistic.updated_at
+        );
     })
 }
 

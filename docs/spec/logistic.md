@@ -22,15 +22,19 @@ Response Body Success :
 
 ```json
 {
-  "data": {
-    "id": "uuidv4",
+  "data":  {
+    "id": "f3116a66-f415-4689-9f46-e0b33f36b320",
     "name": "JNE",
-    "payment_fees_permile": 200,
-    "logo_url" : "https://uwu.png",
-    "description" : "JNE Logistic",
-    "is_active" : true,
-    "created_at" : 914829382,
-    "updated_at" : 147281372
+    "payment_fees": {
+      "amount": "200",
+      "currency": "IDR 200,00",
+      "display": "Rp 200,00"
+    },
+    "logo_url": "https://uwu.png",
+    "is_active": true,
+    "description": "JNE Logistic",
+    "created_at": "1715788569490",
+    "updated_at": null
   }
 }
 ```
@@ -54,24 +58,32 @@ Response Body Success :
 {
   "data": [
     {
-      "id": "uuidv4",
+      "id": "f3116a66-f415-4689-9f46-e0b33f36b320",
       "name": "JNE",
-      "payment_fees_permile": 200,
+      "payment_fees": {
+        "amount": "200",
+        "currency": "IDR 200,00",
+        "display": "Rp 200,00"
+      },
       "logo_url": "https://uwu.png",
-      "description": "JNE Logistic",
       "is_active": true,
-      "created_at": 914829382,
-      "updated_at": 147281372
+      "description": "JNE Logistic",
+      "created_at": "1715788569490",
+      "updated_at": null
     },
     {
-      "id": "uuidv4",
-      "name": "SICEPET",
-      "payment_fees_permile": 200,
+      "id": "f3116a66-f415-4689-9f46-e0b33f36b320",
+      "name": "JNE",
+      "payment_fees": {
+        "amount": "200",
+        "currency": "IDR 200,00",
+        "display": "Rp 200,00"
+      },
       "logo_url": "https://uwu.png",
-      "description": "SICEPAT Logistic",
       "is_active": true,
-      "created_at": 914829382,
-      "updated_at": 147281372
+      "description": "JNE Logistic",
+      "created_at": "1715788569490",
+      "updated_at": null
     }
   ]
 }

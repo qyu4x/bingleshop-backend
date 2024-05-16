@@ -5,18 +5,19 @@ const {validate} = require('../validation/validation');
 const {ResponseError} = require('../error/response-error');
 const {formatCurrency} = require('../helper/i18n-currency.helper');
 const {
-    createPaymentValidation,
-    getPaymentMethodValidation
+    createPaymentValidation, getPaymentMethodValidation
 } = require('../validation/payment-method.validation');
+const {PaymentMethodResponse} = require('../payload/response/payment-method.response')
+const {CurrencyResponse} = require('../payload/response/currency.response')
+
 
 const create = async (request) => {
     const paymentMethod = validate(createPaymentValidation, request);
 
     const isPaymentMethodExist = await PaymentMethods.findOne({
         where: {
-            name: paymentMethod.name
-        },
-        attributes: ['id']
+            name: paymentMethod.name, is_active: true
+        }, attributes: ['id']
     })
 
     if (isPaymentMethodExist) {
@@ -27,17 +28,45 @@ const create = async (request) => {
     paymentMethod.is_active = true;
     paymentMethod.created_at = Date.now();
 
-    return await PaymentMethods.create(paymentMethod);
+    const paymentMethodResponse = await PaymentMethods.create(paymentMethod);
+    return new PaymentMethodResponse(
+        paymentMethodResponse.id,
+        paymentMethodResponse.name,
+        new CurrencyResponse(
+            paymentMethodResponse.payment_fees,
+            formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'code'),
+            formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'symbol')
+        ),
+        paymentMethodResponse.logo_url,
+        paymentMethodResponse.is_active,
+        paymentMethodResponse.description,
+        paymentMethodResponse.created_at,
+        paymentMethodResponse.updated_at
+    );
 }
 
 const list = async () => {
-    return await PaymentMethods.findAll({
+    const paymentMethodResponses = await PaymentMethods.findAll({
         where: {
             is_active: true
-        },
-        order: [
-            ['created_at', 'ASC']
-        ]
+        }, order: [['created_at', 'ASC']]
+    })
+
+    return paymentMethodResponses.map(paymentMethod => {
+        return new PaymentMethodResponse(
+            paymentMethod.id,
+            paymentMethod.name,
+            new CurrencyResponse(
+                paymentMethod.payment_fees,
+                formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'code'),
+                formatCurrency(paymentMethod.payment_fees, 'id-ID', 'IDR', 'symbol')
+            ),
+            paymentMethod.logo_url,
+            paymentMethod.is_active,
+            paymentMethod.description,
+            paymentMethod.created_at,
+            paymentMethod.updated_at
+        );
     })
 }
 
@@ -46,8 +75,7 @@ const remove = async (paymentMethodId) => {
 
     const paymentMethod = await PaymentMethods.findOne({
         where: {
-            id: paymentMethodId,
-            is_active: true
+            id: paymentMethodId, is_active: true
         }
     })
 
@@ -61,7 +89,5 @@ const remove = async (paymentMethodId) => {
 }
 
 module.exports = {
-    create,
-    list,
-    remove
+    create, list, remove
 }

@@ -23,14 +23,18 @@ Response Body Success :
 ```json
 {
   "data": {
-    "id": "uuidv4",
-    "name": "INDOMART",
-    "payment_fees": 200,
-    "logo_url" : "https://uwu.png",
-    "description" : "Indomart Payment",
-    "is_active" : true,
-    "created_at" : 914829382,
-    "updated_at" : 147281372
+    "id": "0493988a-7105-4dfe-87d2-83d2b71904e1",
+    "name": "Indomart",
+    "payment_fees": {
+      "amount": "2000",
+      "currency": "IDR 2.000,00",
+      "display": "Rp 2.000,00"
+    },
+    "logo_url": "https://uwupedia.com/indomart.png",
+    "is_active": true,
+    "description": "Payment with indomart",
+    "created_at": "1715788398220",
+    "updated_at": null
   }
 }
 ```
@@ -54,24 +58,32 @@ Response Body Success :
 {
   "data": [
     {
-      "id": "uuidv4",
-      "name": "INDOMART",
-      "payment_fees": 200,
-      "logo_url": "https://uwu.png",
-      "description": "Indomart Payment",
+      "id": "0493988a-7105-4dfe-87d2-83d2b71904e1",
+      "name": "Indomart",
+      "payment_fees": {
+        "amount": "2000",
+        "currency": "IDR 2.000,00",
+        "display": "Rp 2.000,00"
+      },
+      "logo_url": "https://uwupedia.com/indomart.png",
       "is_active": true,
-      "created_at": 914829382,
-      "updated_at": 147281372
+      "description": "Payment with indomart",
+      "created_at": "1715788398220",
+      "updated_at": null
     },
     {
-      "id": "uuidv4",
-      "name": "ALFAMART",
-      "payment_fees": 200,
-      "logo_url": "https://uwu.png",
-      "description": "Alfamart Payment",
+      "id": "971c7680-3939-47d0-ba48-ebcd5a0e710d",
+      "name": "Alfamart",
+      "payment_fees": {
+        "amount": "2000",
+        "currency": "IDR 2.000,00",
+        "display": "Rp 2.000,00"
+      },
+      "logo_url": "https://uwupedia.com/alfa.png",
       "is_active": true,
-      "created_at": 914829382,
-      "updated_at": 147281372
+      "description": "Payment with Alfamart",
+      "created_at": "1715827110097",
+      "updated_at": null
     }
   ]
 }
