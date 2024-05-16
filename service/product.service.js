@@ -76,7 +76,7 @@ const create = async (request, categoryId, subCategoryId) => {
                 model: SubCategories,
                 as: 'sub_category',
                 attributes: ['id', 'name', 'description']
-            },
+            }
         ]
     })
 
@@ -100,7 +100,7 @@ const get = async (productId) => {
                 model: SubCategories,
                 as: 'sub_category',
                 attributes: ['id', 'name', 'description']
-            },
+            }
         ]
     })
 
