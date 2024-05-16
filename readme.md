@@ -1,7 +1,3 @@
-Sure, here's a more visually appealing and structured version of your README:
-
----
-
 # UWUpedia Gold Project
 
 ![UWUpedia Logo](https://ih1.redbubble.net/image.5285530497.6871/raf,360x360,075,t,fafafa:ca443f4786.jpg)
