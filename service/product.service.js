@@ -79,10 +79,6 @@ const create = async (request, categoryId, subCategoryId) => {
         ]
     })
 
-    if (!productResponse) {
-        throw new ResponseError(404, 'Product not found');
-    }
-
     return mapToProductResponse(productResponse);
 }
 
@@ -106,6 +102,10 @@ const get = async (productId) => {
             }
         ]
     })
+
+    if (!productResponse) {
+        throw new ResponseError(404, 'Product not found');
+    }
 
     return mapToProductResponse(productResponse);
 }
