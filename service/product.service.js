@@ -87,6 +87,9 @@ const get = async (productId) => {
     productId = validate(getProductValidation, productId);
 
     const productResponse = await Products.findByPk(productId, {
+        where : {
+            is_active: true
+        },
         include: [
             {
                 model: Categories,
