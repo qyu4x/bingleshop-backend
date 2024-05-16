@@ -10,22 +10,23 @@ const {
 const {
     getCategoryValidation
 } = require('../validation/category.validation');
+const {checkCategoryMustExist} = require('./category.service');
 
-const checkCategoryMustExist = async (categoryId) => {
-    const category = await Categories.findOne({
+
+const checkSubCategoryMustExist = async (subCategoryId) => {
+    const category = await SubCategories.findOne({
         where: {
-            id: categoryId,
+            id: subCategoryId,
             is_active: true
         },
         attributes: ['id']
     })
 
     if (!category) {
-        throw new ResponseError(404, "Category not found");
+        throw new ResponseError(404, "Sub category not found");
     }
 
     return category.id;
-
 }
 
 const create = async (request, categoryId) => {
@@ -103,5 +104,6 @@ const remove = async (categoryId, subCategoryId) => {
 module.exports = {
     create,
     list,
-    remove
+    remove,
+    checkSubCategoryMustExist
 }

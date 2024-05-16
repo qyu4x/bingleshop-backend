@@ -8,6 +8,23 @@ const {
     createCategorySchema
 } = require('../validation/category.validation');
 
+const checkCategoryMustExist = async (categoryId) => {
+    const category = await Categories.findOne({
+        where: {
+            id: categoryId,
+            is_active: true
+        },
+        attributes: ['id']
+    })
+
+    if (!category) {
+        throw new ResponseError(404, "Category not found");
+    }
+
+    return category.id;
+}
+
+
 const create = async (request) => {
     const category = validate(createCategorySchema, request);
 
@@ -61,5 +78,6 @@ const remove = async (categoryId) => {
 module.exports = {
     create,
     list,
-    remove
+    remove,
+    checkCategoryMustExist
 }
