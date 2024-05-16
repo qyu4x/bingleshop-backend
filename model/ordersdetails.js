@@ -40,9 +40,9 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true
         },
         order_id: DataTypes.STRING,
-        product_id: DataTypes.STRING,
-        logistic_id: DataTypes.STRING,
-        address_id: DataTypes.STRING,
+        product_id: DataTypes.UUID,
+        logistic_id: DataTypes.UUID,
+        address_id: DataTypes.UUID,
         quantity: DataTypes.INTEGER,
         order_status: DataTypes.ENUM(
             'processing',

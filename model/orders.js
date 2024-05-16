@@ -32,11 +32,11 @@ module.exports = (sequelize, DataTypes) => {
 
     Orders.init({
         id: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             primaryKey: true
         },
-        user_id: DataTypes.STRING,
-        payment_method_id: DataTypes.STRING,
+        user_id: DataTypes.UUID,
+        payment_method_id: DataTypes.UUID,
         total_price: DataTypes.DECIMAL,
         payment_status: DataTypes.BOOLEAN,
         payment_date: DataTypes.BIGINT,

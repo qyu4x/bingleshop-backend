@@ -11,11 +11,11 @@ module.exports = {
             },
             category_id: {
                 allowNull: false,
-                type: Sequelize.STRING
+                type: Sequelize.UUID
             },
             sub_category_id: {
                 allowNull: false,
-                type: Sequelize.STRING
+                type: Sequelize.UUID
             },
             title: {
                 allowNull: false,

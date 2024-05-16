@@ -14,15 +14,15 @@ module.exports = {
                 allowNull: false,
             },
             product_id: {
-                type: Sequelize.STRING,
+                type: Sequelize.UUID,
                 allowNull: false,
             },
             logistic_id: {
-                type: Sequelize.STRING,
+                type: Sequelize.UUID,
                 allowNull: false,
             },
             address_id: {
-                type: Sequelize.STRING,
+                type: Sequelize.UUID,
                 allowNull: false,
             },
             quantity: {

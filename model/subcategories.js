@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             })
 
             SubCategories.hasMany(models.Products, {
-                foreignKey: 'category_id',
+                foreignKey: 'sub_category_id',
                 onDelete: 'RESTRICT',
                 onUpdate: 'RESTRICT',
                 as: 'product'
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             primaryKey: true
         },
-        category_id: DataTypes.STRING,
+        category_id: DataTypes.UUID,
         name: DataTypes.STRING,
         description: DataTypes.TEXT,
         is_active: DataTypes.BOOLEAN,

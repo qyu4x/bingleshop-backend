@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             })
 
             Products.belongsTo(models.SubCategories, {
-                foreignKey: 'category_id',
+                foreignKey: 'sub_category_id',
                 as: 'sub_category'
             })
 
@@ -35,8 +35,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             primaryKey: true
         },
-        category_id: DataTypes.STRING,
-        sub_category_id: DataTypes.STRING,
+        category_id: DataTypes.UUID,
+        sub_category_id: DataTypes.UUID,
         title: DataTypes.STRING,
         price: DataTypes.DECIMAL,
         stock: DataTypes.INTEGER,

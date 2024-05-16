@@ -9,11 +9,11 @@ module.exports = {
                 type: Sequelize.STRING
             },
             user_id: {
-                type: Sequelize.STRING,
+                type: Sequelize.UUID,
                 allowNull: false
             },
             payment_method_id: {
-                type: Sequelize.STRING,
+                type: Sequelize.UUID,
                 allowNull: false
             },
             total_price: {

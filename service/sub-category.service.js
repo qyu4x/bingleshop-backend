@@ -13,10 +13,11 @@ const {
 const {checkCategoryMustExist} = require('./category.service');
 
 
-const checkSubCategoryMustExist = async (subCategoryId) => {
+const checkSubCategoryMustExist = async (categoryId, subCategoryId) => {
     const category = await SubCategories.findOne({
         where: {
             id: subCategoryId,
+            category_id: categoryId,
             is_active: true
         },
         attributes: ['id']

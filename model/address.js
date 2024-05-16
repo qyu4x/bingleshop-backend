@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             primaryKey: true
         },
-        user_id: DataTypes.STRING,
+        user_id: DataTypes.UUID,
         name: DataTypes.STRING,
         phone_number: DataTypes.STRING,
         street: DataTypes.STRING,
