@@ -46,7 +46,6 @@ const mapToProductResponse = (productResponse) => {
         productResponse.is_active,
         productResponse.created_at,
         productResponse.updated_at
-
     );
 }
 const create = async (request, categoryId, subCategoryId) => {
@@ -80,6 +79,10 @@ const create = async (request, categoryId, subCategoryId) => {
         ]
     })
 
+    if (!productResponse) {
+        throw new ResponseError(404, 'Product not found');
+    }
+
     return mapToProductResponse(productResponse);
 }
 
@@ -87,7 +90,7 @@ const get = async (productId) => {
     productId = validate(getProductValidation, productId);
 
     const productResponse = await Products.findByPk(productId, {
-        where : {
+        where: {
             is_active: true
         },
         include: [
