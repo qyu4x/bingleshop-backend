@@ -28,11 +28,19 @@ const get = async (req, res, next) => {
     }
 }
 
-const list = async (req, res, next) => {
+const search = async (req, res, next) => {
     try {
+        const request = {
+            title: req.query.keyword,
+            categoryId: req.query.category_id,
+            subCategoryId: req.query.sub_category_id,
+            page: req.query.page ?? 1,
+            size: req.query.size ?? 10
+        }
 
+        const productResponse = await productService.search(request);
         res.status(200).json({
-            data: ''
+            data: productResponse
         });
     } catch (error) {
         next(error);
@@ -65,7 +73,7 @@ const remove = async (req, res, next) => {
 module.exports = {
     create,
     get,
-    list,
+    search,
     update,
     remove
 }

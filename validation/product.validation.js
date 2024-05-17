@@ -10,7 +10,16 @@ const createProductValidation = Joi.object({
 
 const getProductValidation = Joi.string().uuid().required();
 
+const searchProductValidation = Joi.object({
+    title: Joi.string().min(1),
+    categoryId: Joi.string(),
+    subCategoryId: Joi.string(),
+    page: Joi.number().required(),
+    size: Joi.number().required()
+})
+
 module.exports = {
     createProductValidation,
-    getProductValidation
+    getProductValidation,
+    searchProductValidation
 }

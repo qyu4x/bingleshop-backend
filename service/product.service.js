@@ -1,11 +1,13 @@
 const {Products, Categories, SubCategories} = require('../model');
-const {Op, where} = require('sequelize');
+const {Op} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
 const {validate} = require('../validation/validation');
 const {ResponseError} = require('../error/response-error');
 const {formatCurrency} = require('../helper/i18n-currency.helper');
 const {
-    getProductValidation, createProductValidation
+    getProductValidation,
+    createProductValidation,
+    searchProductValidation
 } = require('../validation/product.validation');
 const {
     getCategoryValidation
@@ -110,23 +112,77 @@ const get = async (productId) => {
     return mapToProductResponse(productResponse);
 }
 
-const list = async (request) => {
+const search = async (request) => {
+    console.log('herehrer')
+    request = validate(searchProductValidation, request);
 
+    const skip = (request.page - 1) * request.size;
+
+    const filters = {
+        is_active: true,
+        stock: {[Op.gt] : 0}
+    };
+
+    if (request.title) {
+        filters.title = {[Op.iLike] : `%${request.title}%`};
+    }
+
+    if (request.categoryId) {
+        filters.category_id = request.categoryId;
+    }
+
+    if (request.subCategoryId) {
+        filters.sub_category_id = request.subCategoryId;
+    }
+
+    const products = await Products.findAll({
+        where: filters,
+        include: [
+            {
+                model: Categories,
+                as: 'category',
+                attributes: ['id', 'name', 'description']
+            },
+            {
+                model: SubCategories,
+                as: 'sub_category',
+                attributes: ['id', 'name', 'description']
+            }
+        ],
+        offset: skip,
+        limit: request.size
+    })
+
+    const totalProduct = await Products.count({
+        where: filters
+    })
+
+    console.log(products)
+    return {
+        data: products.map(productResponse => mapToProductResponse(productResponse)),
+        pagination: {
+            current_page: request.page,
+            total_item: totalProduct,
+            total_page: Math.floor(totalProduct / request.size)
+        }
+    };
 }
 
 const update = async (request, productId) => {
     productId = validate(getProductValidation, productId);
     const product = await get(productId);
+
 }
 
 const remove = async (productId) => {
     productId = validate(getProductValidation, productId);
+
 }
 
 module.exports = {
     create,
     get,
-    list,
+    search,
     update,
     remove
 }
