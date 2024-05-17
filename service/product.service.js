@@ -8,7 +8,7 @@ const {
     getProductValidation,
     createProductValidation,
     searchProductValidation,
-    updateProductValidation
+    updateProductValidation, updateStockProductValidation
 } = require('../validation/product.validation');
 const {
     getCategoryValidation
@@ -214,11 +214,27 @@ const remove = async (productId) => {
     await availableProduct.save();
 }
 
+const updateStock = async (productId, sold) => {
+    sold = validate(updateStockProductValidation, sold);
+
+    const availableProduct = await Products.findOne({
+        where: {
+            id: productId,
+            is_active: true
+        }
+    });
+
+    availableProduct.stock = availableProduct.stock - sold;
+
+    await availableProduct.save();
+}
+
 module.exports = {
     create,
     get,
     search,
     update,
-    remove
+    remove,
+    updateStock
 }
 

@@ -28,9 +28,11 @@ const updateProductValidation = Joi.object({
     description: Joi.string().min(5).required()
 })
 
+const updateStockProductValidation= Joi.number().min(1).required();
 module.exports = {
     createProductValidation,
     getProductValidation,
     searchProductValidation,
-    updateProductValidation
+    updateProductValidation,
+    updateStockProductValidation
 }

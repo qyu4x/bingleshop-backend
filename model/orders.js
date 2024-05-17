@@ -38,6 +38,8 @@ module.exports = (sequelize, DataTypes) => {
         user_id: DataTypes.UUID,
         payment_method_id: DataTypes.UUID,
         total_price: DataTypes.DECIMAL,
+        payment_code: DataTypes.STRING,
+        payment_expires_at: DataTypes.BIGINT,
         payment_status: DataTypes.BOOLEAN,
         payment_date: DataTypes.BIGINT,
         note: DataTypes.TEXT,

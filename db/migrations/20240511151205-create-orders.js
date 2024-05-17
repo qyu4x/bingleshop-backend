@@ -22,6 +22,9 @@ module.exports = {
             payment_code: {
               type: Sequelize.STRING
             },
+            payment_expires_at: {
+                type: Sequelize.BIGINT,
+            },
             payment_status: {
                 type: Sequelize.BOOLEAN,
                 allowNull: false,

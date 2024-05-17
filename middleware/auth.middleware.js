@@ -17,7 +17,7 @@ const authorize = (hasRoles = []) => {
                         [Op.eq]: token
                     }
                 },
-                attributes: ['id', 'username', 'email', 'role']
+                attributes: ['id', 'username', 'email','role', 'full_name', 'created_at']
             })
 
             if (!user) {
