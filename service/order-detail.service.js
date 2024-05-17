@@ -7,6 +7,7 @@ const orderStatus = require('../helper/order-status.helper');
 const addressService = require('./address.service');
 const productService = require('./product.service');
 const {getOrderValidation} = require('../validation/order.validation');
+const {getOrderDetailValidation, updateOrderStatusValidation} = require('../validation/order-detail.validation');
 const {OrderDetailResponse} = require("../payload/response/order-detail.response");
 const {SpecificOrderDetailResponse} = require("../payload/response/specific-order-detail.response");
 const {AddressResponse} = require("../payload/response/address.response");
@@ -163,6 +164,9 @@ const list = async (userId) => {
 }
 
 const getSpecific = async (userId, orderId, orderDetailId) => {
+    orderId = validate(getOrderValidation, orderId);
+    orderDetailId = validate(getOrderDetailValidation, orderDetailId);
+
     const orderDetail = await OrdersDetails.findOne({
         where: {
             id: orderDetailId,
@@ -196,10 +200,58 @@ const getSpecific = async (userId, orderId, orderDetailId) => {
     return mapToSpecificOrderDetailResponse(orderDetail);
 }
 
+const updateOrderStatus = async (request, orderId, orderDetailId) => {
+    const orderRequest = validate(updateOrderStatusValidation, request);
+    orderId = validate(getOrderValidation, orderId);
+    orderDetailId = validate(getOrderDetailValidation, orderDetailId);
+
+    const orderDetail = await OrdersDetails.findOne({
+            where: {
+                id: orderDetailId,
+                order_id: orderId
+            }
+        }
+    )
+
+    if (!orderDetail) {
+        throw new ResponseError(404, 'Order detail not found');
+    }
+
+    orderDetail.order_status = orderRequest.order_status;
+    orderDetail.updated_at = orderRequest.updated_at;
+
+    await orderDetail.save();
+}
+
+const updateOrderStatusReceived = async (orderId, orderDetailId) => {
+    orderId = validate(getOrderValidation, orderId);
+    orderDetailId = validate(getOrderDetailValidation, orderDetailId);
+
+    const orderDetail = await OrdersDetails.findOne({
+            where: {
+                id: orderDetailId,
+                order_id: orderId
+            }
+        }
+    )
+
+    if (!orderDetail) {
+        throw new ResponseError(404, 'Order detail not found');
+    }
+
+    orderDetail.is_received = true;
+    orderDetail.received_at = Date.now();
+    orderDetail.updated_at = Date.now();
+
+    await orderDetail.save();
+}
+
 
 module.exports = {
     create,
     get,
     list,
-    getSpecific
+    getSpecific,
+    updateOrderStatus,
+    updateOrderStatusReceived
 }
