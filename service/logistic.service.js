@@ -8,7 +8,7 @@ const {
     getLogisticValidation,
     createLogisticValidation
 } = require('../validation/logistic.validation');
-const {LogisticResponse} = require('../payload/response/logistic-response')
+const {LogisticResponse} = require('../payload/response/logistic.response')
 const {CurrencyResponse} = require('../payload/response/currency.response')
 
 const mapToLogisticResponse = (logisticResponse) => {

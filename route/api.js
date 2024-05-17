@@ -38,10 +38,11 @@ router.use('/api/v1/categories', productRouter);
 router.use('/api/v1/products', productRouter);
 
 // order
-router.use('/api/v1/orders', orderRouter)
+router.use('/api/v1/orders', orderRouter);
 
 // order detail
-router.use('/api/v1/orders', orderDetailRouter)
+router.use('/api/v1/orders', orderDetailRouter);
+router.use('/api/v1/order-details', orderDetailRouter);
 
 module.exports = {
     router

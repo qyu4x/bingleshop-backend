@@ -1,4 +1,4 @@
-const {OrdersDetails, sequelize} = require('../model');
+const {OrdersDetails, Orders, Products, Logistics, Address, sequelize} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
 const {validate} = require('../validation/validation');
@@ -8,8 +8,14 @@ const addressService = require('./address.service');
 const productService = require('./product.service');
 const {getOrderValidation} = require('../validation/order.validation');
 const {OrderDetailResponse} = require("../payload/response/order-detail.response");
+const {SpecificOrderDetailResponse} = require("../payload/response/specific-order-detail.response");
+const {AddressResponse} = require("../payload/response/address.response");
+const {LogisticResponse} = require("../payload/response/logistic.response");
+const {UserResponse} = require("../payload/response/user.response");
+const {ProductResponse} = require("../payload/response/product.response");
 const {CurrencyResponse} = require("../payload/response/currency.response");
 const {formatCurrency} = require("../helper/i18n-currency.helper");
+const {SimpleProductResponse} = require("../payload/response/simple-product.response");
 
 const mapToOrderDetailResponse = (orderDetail) => {
     return new OrderDetailResponse(
@@ -18,6 +24,61 @@ const mapToOrderDetailResponse = (orderDetail) => {
         orderDetail.product_id,
         orderDetail.logistic_id,
         orderDetail.address_id,
+        orderDetail.quantity,
+        orderDetail.order_status,
+        new CurrencyResponse(
+            orderDetail.unit_price,
+            formatCurrency(orderDetail.unit_price, 'id-ID', 'IDR', 'code'),
+            formatCurrency(orderDetail.unit_price, 'id-ID', 'IDR', 'symbol')
+        ),
+        orderDetail.received_at,
+        orderDetail.is_received,
+        orderDetail.created_at,
+        orderDetail.updated_at
+    )
+}
+
+const mapToSpecificOrderDetailResponse = (orderDetail) => {
+    return new SpecificOrderDetailResponse(
+        orderDetail.id,
+        orderDetail.order_id,
+        new SimpleProductResponse(
+            orderDetail.product.id,
+            orderDetail.product.title,
+            new CurrencyResponse(
+                orderDetail.product.price,
+                formatCurrency(orderDetail.product.price, 'id-ID', 'IDR', 'code'),
+                formatCurrency(orderDetail.product.price, 'id-ID', 'IDR', 'symbol')
+            )
+        ),
+        new LogisticResponse(
+            orderDetail.logistic.id,
+            orderDetail.logistic.name,
+            new CurrencyResponse(
+                orderDetail.logistic.payment_fees_permile,
+                formatCurrency( orderDetail.logistic.payment_fees_permile, 'id-ID', 'IDR', 'code'),
+                formatCurrency( orderDetail.logistic.payment_fees_permile, 'id-ID', 'IDR', 'symbol')
+            ),
+            orderDetail.logistic.logo_url,
+            orderDetail.logistic.is_active,
+            orderDetail.logistic.description,
+            orderDetail.logistic.created_at,
+            orderDetail.logistic.updated_at,
+        ),
+        new AddressResponse(
+            orderDetail.address.id,
+            orderDetail.address.name,
+            orderDetail.address.phone_number,
+            orderDetail.address.street,
+            orderDetail.address.city,
+            orderDetail.address.province,
+            orderDetail.address.district,
+            orderDetail.address.postal_code,
+            orderDetail.address.is_main_address,
+            orderDetail.address.is_active,
+            orderDetail.address.created_at,
+            orderDetail.address.updated_at,
+        ),
         orderDetail.quantity,
         orderDetail.order_status,
         new CurrencyResponse(
@@ -66,19 +127,79 @@ const create = async (userId, orderId, orderDetails) => {
     }
 }
 
-const get = async (orderId) => {
+const get = async (userId, orderId) => {
     orderId = validate(getOrderValidation, orderId);
 
     const orderDetails = await OrdersDetails.findAll({
         where: {
             order_id: orderId
+        },
+        include: {
+            model: Orders,
+            as: 'order',
+            where: {
+                user_id: userId
+            },
+            attributes: ['id']
         }
     })
 
     return orderDetails.map(orderDetail => mapToOrderDetailResponse(orderDetail));
 }
 
+const list = async (userId) => {
+    const orderDetails = await OrdersDetails.findAll({
+        include: {
+            model: Orders,
+            as: 'order',
+            where: {
+                user_id: userId
+            },
+            attributes: ['id']
+        }
+    })
+
+    return orderDetails.map(orderDetail => mapToOrderDetailResponse(orderDetail));
+}
+
+const getSpecific = async (userId, orderId, orderDetailId) => {
+    const orderDetail = await OrdersDetails.findOne({
+        where: {
+            id: orderDetailId,
+            order_id: orderId
+        },
+        include: [
+            {
+                model: Orders,
+                as: 'order',
+                where: {
+                    user_id: userId
+                },
+                attributes: ['id']
+            },
+            {
+                model: Products,
+                as: 'product',
+                attributes: ['id', 'title', 'price']
+            },
+            {
+                model: Logistics,
+                as: 'logistic'
+            },
+            {
+                model: Address,
+                as: 'address'
+            },
+        ],
+    })
+
+    return mapToSpecificOrderDetailResponse(orderDetail);
+}
+
+
 module.exports = {
     create,
-    get
+    get,
+    list,
+    getSpecific
 }
