@@ -6,8 +6,9 @@ const {subCategoriesRouter} = require('./sub-category.route');
 const {paymentMethodRouter} = require('./payment-method.route');
 const {logisticRouter} = require('./logistic.route');
 const {orderRouter} = require("./order.route");
-
 const {productRouter} = require("./product.route");
+const {orderDetailRouter} = require("./order-detail.route");
+
 const express = require("express");
 const router = express.Router();
 
@@ -38,6 +39,9 @@ router.use('/api/v1/products', productRouter);
 
 // order
 router.use('/api/v1/orders', orderRouter)
+
+// order detail
+router.use('/api/v1/orders', orderDetailRouter)
 
 module.exports = {
     router

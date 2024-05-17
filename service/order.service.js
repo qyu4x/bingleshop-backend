@@ -18,7 +18,32 @@ const {CurrencyResponse} = require("../payload/response/currency.response");
 const {formatCurrency} = require("../helper/i18n-currency.helper");
 
 const mapToOrderResponse = (orderResponse, hateos) => {
-    return new OrderResponse(orderResponse.id, new UserResponse(orderResponse.user.id, orderResponse.user.username, orderResponse.user.email, orderResponse.user.full_name,), new PaymentMethodResponse(orderResponse.payment_method.id, orderResponse.payment_method.name, new CurrencyResponse(orderResponse.payment_method.payment_fees, formatCurrency(orderResponse.payment_method.payment_fees, 'id-ID', 'IDR', 'code'), formatCurrency(orderResponse.payment_method.payment_fees, 'id-ID', 'IDR', 'symbol')), orderResponse.payment_method.logo_url, orderResponse.payment_method.is_active, orderResponse.payment_method.description, orderResponse.payment_method.created_at, orderResponse.payment_method.updated_at), new CurrencyResponse(orderResponse.total_price, formatCurrency(orderResponse.total_price, 'id-ID', 'IDR', 'code'), formatCurrency(orderResponse.total_price, 'id-ID', 'IDR', 'symbol')), orderResponse.note, orderResponse.payment_code, orderResponse.payment_expiress_at, orderResponse.payment_status, orderResponse.payment_date, hateos, orderResponse.created_at, orderResponse.updated_at)
+    return new OrderResponse(
+        orderResponse.id,
+        new UserResponse(orderResponse.user.id, orderResponse.user.username, orderResponse.user.email, orderResponse.user.full_name,),
+        new PaymentMethodResponse(orderResponse.payment_method.id, orderResponse.payment_method.name,
+            new CurrencyResponse(
+                orderResponse.payment_method.payment_fees,
+                formatCurrency(orderResponse.payment_method.payment_fees, 'id-ID', 'IDR', 'code'),
+                formatCurrency(orderResponse.payment_method.payment_fees, 'id-ID', 'IDR', 'symbol')),
+            orderResponse.payment_method.logo_url,
+            orderResponse.payment_method.is_active,
+            orderResponse.payment_method.description,
+            orderResponse.payment_method.created_at,
+            orderResponse.payment_method.updated_at),
+        new CurrencyResponse(
+            orderResponse.total_price,
+            formatCurrency(orderResponse.total_price, 'id-ID', 'IDR', 'code'),
+            formatCurrency(orderResponse.total_price, 'id-ID', 'IDR', 'symbol')),
+        orderResponse.note,
+        orderResponse.payment_code,
+        orderResponse.payment_expiress_at,
+        orderResponse.payment_status,
+        orderResponse.payment_date,
+        hateos,
+        orderResponse.created_at,
+        orderResponse.updated_at
+    )
 }
 
 const calculateTotalProductAndLogisticPrice = async (orderDetails) => {

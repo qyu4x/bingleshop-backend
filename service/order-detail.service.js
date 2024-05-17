@@ -6,6 +6,31 @@ const {ResponseError} = require('../error/response-error');
 const orderStatus = require('../helper/order-status.helper');
 const addressService = require('./address.service');
 const productService = require('./product.service');
+const {getOrderValidation} = require('../validation/order.validation');
+const {OrderDetailResponse} = require("../payload/response/order-detail.response");
+const {CurrencyResponse} = require("../payload/response/currency.response");
+const {formatCurrency} = require("../helper/i18n-currency.helper");
+
+const mapToOrderDetailResponse = (orderDetail) => {
+    return new OrderDetailResponse(
+        orderDetail.id,
+        orderDetail.order_id,
+        orderDetail.product_id,
+        orderDetail.logistic_id,
+        orderDetail.address_id,
+        orderDetail.quantity,
+        orderDetail.order_status,
+        new CurrencyResponse(
+            orderDetail.unit_price,
+            formatCurrency(orderDetail.unit_price, 'id-ID', 'IDR', 'code'),
+            formatCurrency(orderDetail.unit_price, 'id-ID', 'IDR', 'symbol')
+        ),
+        orderDetail.received_at,
+        orderDetail.is_received,
+        orderDetail.created_at,
+        orderDetail.updated_at
+    )
+}
 
 const create = async (userId, orderId, orderDetails) => {
     const tx = await sequelize.transaction();
@@ -41,6 +66,19 @@ const create = async (userId, orderId, orderDetails) => {
     }
 }
 
+const get = async (orderId) => {
+    orderId = validate(getOrderValidation, orderId);
+
+    const orderDetails = await OrdersDetails.findAll({
+        where: {
+            order_id: orderId
+        }
+    })
+
+    return orderDetails.map(orderDetail => mapToOrderDetailResponse(orderDetail));
+}
+
 module.exports = {
-    create
+    create,
+    get
 }

@@ -15,6 +15,9 @@ const createOrderValidation = Joi.object({
     )
 })
 
+const getOrderValidation = Joi.string().required()
+
 module.exports = {
-    createOrderValidation
+    createOrderValidation,
+    getOrderValidation
 }
