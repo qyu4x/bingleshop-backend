@@ -144,7 +144,7 @@ const create = async (request, user) => {
     }
 }
 
-const updatePayment = async (paymentCode, orderId) => {
+const updatePaymentStatus = async (paymentCode, orderId) => {
     paymentCode = validate(getPaymentCodeValidation, paymentCode);
     orderId = validate(getOrderValidation, orderId);
 
@@ -160,7 +160,8 @@ const updatePayment = async (paymentCode, orderId) => {
     }
 
     await OrdersDetails.update({
-            order_status: orderStatus.processing
+            order_status: orderStatus.processing,
+            updated_at: Date.now()
         },
         {
             where: {
@@ -171,6 +172,7 @@ const updatePayment = async (paymentCode, orderId) => {
 
     order.payment_status = true;
     order.payment_date = Date.now();
+    order.updated_at = Date.now();
 
     await order.save();
 }
@@ -178,5 +180,5 @@ const updatePayment = async (paymentCode, orderId) => {
 
 module.exports = {
     create,
-    updatePayment
+    updatePaymentStatus
 }
