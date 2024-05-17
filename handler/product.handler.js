@@ -49,9 +49,12 @@ const search = async (req, res, next) => {
 
 const update = async (req, res, next) => {
     try {
+        const request = req.body;
+        const productId = req.params.productId;
 
+        await productService.update(request, productId);
         res.status(200).json({
-            data: ''
+            data: "OK"
         });
     } catch (error) {
         next(error);
@@ -60,8 +63,9 @@ const update = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
     try {
+        const productId = req.params.productId;
 
-
+        await productService.remove(productId);
         res.status(200).json({
             data: "OK"
         });

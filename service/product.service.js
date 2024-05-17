@@ -7,7 +7,8 @@ const {formatCurrency} = require('../helper/i18n-currency.helper');
 const {
     getProductValidation,
     createProductValidation,
-    searchProductValidation
+    searchProductValidation,
+    updateProductValidation
 } = require('../validation/product.validation');
 const {
     getCategoryValidation
@@ -87,8 +88,9 @@ const create = async (request, categoryId, subCategoryId) => {
 const get = async (productId) => {
     productId = validate(getProductValidation, productId);
 
-    const productResponse = await Products.findByPk(productId, {
+    const productResponse = await Products.findOne({
         where: {
+            id: productId,
             is_active: true
         },
         include: [
@@ -113,18 +115,17 @@ const get = async (productId) => {
 }
 
 const search = async (request) => {
-    console.log('herehrer')
     request = validate(searchProductValidation, request);
 
     const skip = (request.page - 1) * request.size;
 
     const filters = {
         is_active: true,
-        stock: {[Op.gt] : 0}
+        stock: {[Op.gt]: 0}
     };
 
     if (request.title) {
-        filters.title = {[Op.iLike] : `%${request.title}%`};
+        filters.title = {[Op.iLike]: `%${request.title}%`};
     }
 
     if (request.categoryId) {
@@ -157,7 +158,6 @@ const search = async (request) => {
         where: filters
     })
 
-    console.log(products)
     return {
         data: products.map(productResponse => mapToProductResponse(productResponse)),
         pagination: {
@@ -169,14 +169,46 @@ const search = async (request) => {
 }
 
 const update = async (request, productId) => {
+    const product = validate(updateProductValidation, request);
     productId = validate(getProductValidation, productId);
-    const product = await get(productId);
 
+    const availableProduct = await Products.findOne({
+        where: {
+            id: productId,
+            is_active: true
+        }
+    });
+
+    if (!availableProduct) {
+        throw new ResponseError(404, 'Product not found');
+    }
+
+    availableProduct.title = product.title;
+    availableProduct.price = product.price;
+    availableProduct.stock = product.stock;
+    availableProduct.is_preorder = product.is_preorder;
+    availableProduct.description = product.description;
+    availableProduct.updated_at = Date.now();
+    await availableProduct.save()
 }
 
 const remove = async (productId) => {
     productId = validate(getProductValidation, productId);
 
+    const availableProduct = await Products.findOne({
+        where: {
+            id: productId,
+            is_active: true
+        }
+    });
+
+    if (!availableProduct) {
+        throw new ResponseError(404, 'Product not found');
+    }
+
+    availableProduct.is_active = false;
+    availableProduct.updated_at = Date.now();
+    await availableProduct.save();
 }
 
 module.exports = {
