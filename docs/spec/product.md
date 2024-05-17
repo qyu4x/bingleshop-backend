@@ -260,6 +260,41 @@ Response Body Success :
 
 ```
 
+## Update Products API
+
+Endpoint : PUT /api/v1/products/{productId}
+
+Headers:
+- Authorization : token
+
+Request Body :
+
+```json
+{
+  "title": "Dakimura Shiina Mahiru",
+  "price": 200000,
+  "stock" : "10",
+  "is_preorder" : false,
+  "description" : "Dakimura Shiina Mahiru"
+}
+```
+
+Response Body Success :
+
+```json
+{
+  "data": "OK"
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "errors": "Unauthorized"
+}
+```
+
 
 ## Delete Products API
 

@@ -172,6 +172,9 @@ const update = async (request, productId) => {
     const product = validate(updateProductValidation, request);
     productId = validate(getProductValidation, productId);
 
+    await checkCategoryMustExist(product.category_id);
+    await checkSubCategoryMustExist(product.category_id, product.sub_category_id);
+
     const availableProduct = await Products.findOne({
         where: {
             id: productId,
