@@ -42,8 +42,6 @@ const getSpecific = async (req, res, next) => {
     }
 }
 
-const updateOrderStatus = ()
-
 module.exports = {
     get,
     list,
