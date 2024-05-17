@@ -28,7 +28,21 @@ const updatePaymentStatus = async (req, res, next) => {
     }
 }
 
+const list = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+
+        const orderResponse = await orderService.list(userId);
+        res.status(200).json({
+            data: orderResponse
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     create,
-    updatePaymentStatus
+    updatePaymentStatus,
+    list
 }

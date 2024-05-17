@@ -100,7 +100,7 @@ Response Body Error :
 }
 ```
 ## Lists Order API
-Endpoint : PATCH /api/v1/payments/{paymentCode}/orders/{orderId}
+Endpoint : GET /api/v1/orders
 
 Headers:
 - Authorization : token

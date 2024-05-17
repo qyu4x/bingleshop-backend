@@ -137,7 +137,11 @@ const create = async (request, user) => {
             }]
         })
 
-        return mapToOrderResponse(orderResponse, new Hateos('OrderDetails', `http://localhost:8080/api/v1/orders/${orderResponse.id}/order-details`, 'GET'))
+        return mapToOrderResponse(orderResponse,
+            new Hateos('OrderDetails',
+                `http://localhost:8080/api/v1/orders/${orderResponse.id}/order-details`,
+                'GET')
+        )
     } catch (error) {
         tx.rollback();
         throw new ResponseError(error.statusCode, error.message);
@@ -177,8 +181,31 @@ const updatePaymentStatus = async (paymentCode, orderId) => {
     await order.save();
 }
 
+const list = async (userId) => {
+    const orders = await Orders.findAll({
+        where: {
+            user_id: userId
+        },
+        include: [{
+            model: User,
+            as: 'user',
+            attributes: ['id', 'username', 'email', 'full_name']
+        }, {
+            model: PaymentMethods, as: 'payment_method'
+        }]
+    })
+
+    return orders.map(orderResponse => {
+        return mapToOrderResponse(orderResponse,
+            new Hateos('OrderDetails',
+                `http://localhost:8080/api/v1/orders/${orderResponse.id}/order-details`,
+                'GET')
+        )
+    })
+}
 
 module.exports = {
     create,
-    updatePaymentStatus
+    updatePaymentStatus,
+    list
 }

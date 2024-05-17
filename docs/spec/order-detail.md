@@ -199,6 +199,14 @@ Endpoint : PATCH api/v1/orders/{orderId}/order-details/{orderDetailId}
 Headers:
 - Authorization : token
 
+Request Body: 
+
+```json
+{
+    "order_status" : "shipped"
+}
+```
+
 Response Body Success:
 
 ```json
