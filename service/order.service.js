@@ -39,7 +39,6 @@ const calculateTotalProductAndLogisticPrice = async (orderDetails) => {
         }
 
         if (!product) {
-
             throw new ResponseError(404, 'Product not found');
         }
 
