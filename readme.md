@@ -36,7 +36,7 @@ Dependencies:
     - Used to generate UUIDs (Universally Unique Identifiers), commonly used as unique IDs for database entities.
 
 - **winston**: Version ^3.13.0
-    - A logging library for Node.js that supports multiple log levels and flexible log output formats.
+    - A logging library for Node.js that supports multiple log levels and flexible log output formats. The logger is configured to log events when the 'finish' event is triggered, providing detailed information about requests and responses in the application.
 
 - **winston-daily-rotate-file**: Version ^5.0.0
     - A Winston transport that allows daily log file rotation, keeping log files manageable and preventing them from growing too large too quickly.
