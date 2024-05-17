@@ -43,10 +43,9 @@ Dependencies:
 
 ---
 
-**Note**: This application uses Unix timestamp format for datetime values because it is based on UTC. This approach provides greater flexibility in handling different timezones.
-
-
-**Note**: This project uses token-based authorization, where tokens are stored in the database. This allows the middleware to automatically identify user roles and identities.
+**Note**: 
+- This application uses Unix timestamp format for datetime values because it is based on UTC. This approach provides greater flexibility in handling different timezones.
+- This project uses token-based authorization, where tokens are stored in the database. This allows the middleware to automatically identify user roles and identities.
 
 ---
 
