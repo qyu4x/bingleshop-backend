@@ -4,6 +4,52 @@
 
 Welcome to the **UWUpedia Gold** project! Follow the steps below to set up and run the project on your local machine.
 
+Dependencies:
+
+---
+
+- **bcrypt**: Version ^5.1.1
+    - Used for secure password hashing and verification.
+
+- **dotenv**: Version ^16.4.5
+    - Allows loading environment variables from a `.env` file into `process.env`, facilitating application configuration management.
+
+- **express**: Version ^4.19.2
+    - A minimalist web framework for Node.js, used to build APIs and handle routing.
+
+- **joi**: Version ^17.13.1
+    - Used for input data validation, ensuring the received data adheres to the expected schema.
+
+- **nodemon**: Version ^3.1.0
+    - A development tool that automatically restarts the server upon detecting file changes during development.
+
+- **pg**: Version ^8.11.5
+    - PostgreSQL client for Node.js, used for interacting with PostgreSQL databases.
+
+- **pg-hstore**: Version ^2.3.4
+    - Used for serializing and deserializing hstore data type in PostgreSQL.
+
+- **sequelize**: Version ^6.37.3
+    - An Object-Relational Mapping (ORM) library for Node.js, simplifying interactions with SQL databases like PostgreSQL.
+
+- **uuid**: Version ^9.0.1
+    - Used to generate UUIDs (Universally Unique Identifiers), commonly used as unique IDs for database entities.
+
+- **winston**: Version ^3.13.0
+    - A logging library for Node.js that supports multiple log levels and flexible log output formats.
+
+- **winston-daily-rotate-file**: Version ^5.0.0
+    - A Winston transport that allows daily log file rotation, keeping log files manageable and preventing them from growing too large too quickly.
+
+---
+
+**Note**: This application uses Unix timestamp format for datetime values because it is based on UTC. This approach provides greater flexibility in handling different timezones.
+
+
+**Note**: This project uses token-based authorization, where tokens are stored in the database. This allows the middleware to automatically identify user roles and identities.
+
+---
+
 ## 🚀 Getting Started
 
 ### 1. Clone the Repository
