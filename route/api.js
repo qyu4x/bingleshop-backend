@@ -39,6 +39,7 @@ router.use('/api/v1/products', productRouter);
 
 // order
 router.use('/api/v1/orders', orderRouter);
+router.use('/api/v1/payments/', orderRouter);
 
 // order detail
 router.use('/api/v1/orders', orderDetailRouter);

@@ -17,7 +17,10 @@ const createOrderValidation = Joi.object({
 
 const getOrderValidation = Joi.string().required()
 
+const getPaymentCodeValidation = Joi.string().required();
+
 module.exports = {
     createOrderValidation,
-    getOrderValidation
+    getOrderValidation,
+    getPaymentCodeValidation
 }

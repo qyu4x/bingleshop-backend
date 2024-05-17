@@ -1,12 +1,12 @@
 const {
-    Orders, PaymentMethods, Logistics, Products, Address, sequelize, Categories, User, SubCategories
+    Orders, PaymentMethods, Logistics, Products, Address, sequelize, Categories, User, SubCategories, OrdersDetails
 } = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
 const {validate} = require('../validation/validation');
 const {ResponseError} = require('../error/response-error');
 const {
-    createOrderValidation
+    createOrderValidation, getPaymentCodeValidation, getOrderValidation
 } = require('../validation/order.validation');
 const {generateOrderId, generatePaymentCode} = require('../helper/order.helper');
 const orderDetailService = require('./order-detail.service');
@@ -16,6 +16,7 @@ const {PaymentMethodResponse} = require("../payload/response/payment-method.resp
 const {Hateos} = require("../payload/response/hateos");
 const {CurrencyResponse} = require("../payload/response/currency.response");
 const {formatCurrency} = require("../helper/i18n-currency.helper");
+const orderStatus = require("../helper/order-status.helper");
 
 const mapToOrderResponse = (orderResponse, hateos) => {
     return new OrderResponse(
@@ -138,12 +139,44 @@ const create = async (request, user) => {
 
         return mapToOrderResponse(orderResponse, new Hateos('OrderDetails', `http://localhost:8080/api/v1/orders/${orderResponse.id}/order-details`, 'GET'))
     } catch (error) {
-        console.log(error)
         tx.rollback();
         throw new ResponseError(error.statusCode, error.message);
     }
 }
 
+const updatePayment = async (paymentCode, orderId) => {
+    paymentCode = validate(getPaymentCodeValidation, paymentCode);
+    orderId = validate(getOrderValidation, orderId);
+
+    const order = await Orders.findOne({
+        where: {
+            id: orderId,
+            payment_code: paymentCode
+        }
+    })
+
+    if (!order) {
+        throw new ResponseError(404, 'Order not found');
+    }
+
+    await OrdersDetails.update({
+            order_status: orderStatus.processing
+        },
+        {
+            where: {
+                order_id: orderId
+            }
+        }
+    )
+
+    order.payment_status = true;
+    order.payment_date = Date.now();
+
+    await order.save();
+}
+
+
 module.exports = {
-    create
+    create,
+    updatePayment
 }
