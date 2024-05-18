@@ -163,6 +163,10 @@ const updatePaymentStatus = async (paymentCode, orderId) => {
         throw new ResponseError(404, 'Order not found');
     }
 
+    if (Date.now() > order.payment_expires_at) {
+        throw new ResponseError(410, 'Payment time has exceeded the grace period, please reorder!');
+    }
+
     await OrdersDetails.update({
             order_status: orderStatus.processing,
             updated_at: Date.now()
@@ -173,7 +177,6 @@ const updatePaymentStatus = async (paymentCode, orderId) => {
             }
         }
     )
-
     order.payment_status = true;
     order.payment_date = Date.now();
     order.updated_at = Date.now();
