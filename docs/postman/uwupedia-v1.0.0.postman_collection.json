@@ -599,7 +599,11 @@
 							"query": [
 								{
 									"key": "keyword",
-									"value": "kaguya sama"
+									"value": "kaguya sama",
+									"category_id": "4e8c78ea-bb8c-4e6c-93dd-be04536e5f91",
+									"sub_category_id": "a665ffb9-3045-4cf3-a4f5-78b3db5b4bfd",
+									"page" : 2,
+									"size": 5
 								}
 							]
 						}
