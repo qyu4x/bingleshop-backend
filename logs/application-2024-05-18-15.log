@@ -1,0 +1,5 @@
+2024-05-18 15:47:21 [[32minfo[39m]: GET /api/v1/addresses 401 318ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-18 15:47:38 [[32minfo[39m]: GET /api/v1/users/current 401 24ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-18 15:47:41 [[32minfo[39m]: GET /api/v1/users/current 401 7ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-18 15:49:56 [[32minfo[39m]: GET /api/v1/users/current 200 37ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-18 15:56:22 [[32minfo[39m]: GET /api/v1/orders 200 140ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}

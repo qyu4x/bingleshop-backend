@@ -1,0 +1,875 @@
+{
+	"info": {
+		"_postman_id": "e3ec535f-0008-4b7f-a553-f110723e50fb",
+		"name": "uwupedia-v1.0.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18411351",
+		"_collection_link": "https://red-trinity-154284.postman.co/workspace/nodejs~a906f4e1-601f-4a16-a658-398e34dda454/collection/18411351-e3ec535f-0008-4b7f-a553-f110723e50fb?action=share&source=collection_link&creator=18411351"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\" : \"pyonkyun\",\r\n  \"full_name\" : \"Shina Mahiru\",\r\n  \"email\" : \"pyonkyun@gmail.com\",\r\n  \"password\" : \"shinachan\",\r\n  \"birth_date\" : \"2002-08-08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"shironeko@uwupedia.com\",\r\n    \"password\" : \"nekonyan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "current",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "89348854-6eab-40d2-add7-d30e578743f3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/current",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "2319b1ce-d75c-4143-8468-c728d06cda52",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "address",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bab6ec6e-6fbb-4297-87b3-11a92a227b14",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Shiina Qirara\",\r\n    \"phone_number\" : \"082351252125\",\r\n    \"street\" : \"shibuya 09\",\r\n    \"city\" : \"Tokyo\",\r\n    \"province\" : \"Tokyo\",\r\n    \"district\" : \"Shibuya\",\r\n    \"postal_code\" : 123910,\r\n    \"is_main_address\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/addresses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update main",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "e2d72465-cee1-4be8-bdc4-3b438554a229",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/addresses/a70e834b-f685-4d5c-b603-5b4d5aae66a9/main",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"a70e834b-f685-4d5c-b603-5b4d5aae66a9",
+								"main"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "e2d72465-cee1-4be8-bdc4-3b438554a229",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/addresses/a70e834b-f685-4d5c-b603-5b4d5aae66a9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"a70e834b-f685-4d5c-b603-5b4d5aae66a9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "d0a6c048-1daf-4419-b1a2-d68554d2a1d9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Manga\",\r\n    \"description\" : \"Japanese Manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sub category",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "d0a6c048-1daf-4419-b1a2-d68554d2a1d9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Kaguya Sama Love is War\",\r\n    \"description\" : \"Manga Kaguya Sama Love is War\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/509d6f45-25e5-4c1f-a8ee-05f8d1cd4049/sub-categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"509d6f45-25e5-4c1f-a8ee-05f8d1cd4049",
+								"sub-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "64a33c83-5c38-4595-b91d-c3807584b746",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/4e30a22d-9712-4a55-a324-822a41178bb6/sub-categories/a20c912a-9a51-4799-87f3-5f3b92f3be36",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"4e30a22d-9712-4a55-a324-822a41178bb6",
+								"sub-categories",
+								"a20c912a-9a51-4799-87f3-5f3b92f3be36"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment method",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "a133c811-c32d-4854-9f75-57e2eae39104",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"BCA\",\r\n    \"payment_fees\" : 2000,\r\n    \"logo_url\" : \"https://uwupedia.com/dana.png\",\r\n    \"description\" : \"Payment with BCA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "Autho",
+									"value": "64a33c83-5c38-4595-b91d-c3807584b746",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logistic",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "a133c811-c32d-4854-9f75-57e2eae39104",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"TIKI\",\r\n  \"payment_fees_permile\": 200,\r\n  \"logo_url\" : \"https://uwu.png\",\r\n  \"description\" : \"TIKI Logistic\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/logistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/logistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "64a33c83-5c38-4595-b91d-c3807584b746",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/logistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logistics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "a133c811-c32d-4854-9f75-57e2eae39104",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Manga Kaguya Sama Love is War Volume 1\",\r\n    \"price\" : 500000,\r\n    \"stock\" : 100,\r\n    \"description\" : \"Manga Kaguya sama love is war volume 1 is about kaguya shinomiya and me....\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/categories/432eb980-0885-4ae7-88f6-c0d1605c2daf/sub-categories/a4dc707b-af83-4bea-ac88-23e97b6039b8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"432eb980-0885-4ae7-88f6-c0d1605c2daf",
+								"sub-categories",
+								"a4dc707b-af83-4bea-ac88-23e97b6039b8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/09fd843a-4922-4df1-9c23-9412ea66c54e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"09fd843a-4922-4df1-9c23-9412ea66c54e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/search?keyword=kaguya sama",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "kaguya sama"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "89348854-6eab-40d2-add7-d30e578743f3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Manga Konosuba Volume 2 Special\",\r\n    \"price\" : 700000,\r\n    \"stock\" : 10,\r\n    \"is_preorder\" : false,\r\n    \"category_id\" : \"4e8c78ea-bb8c-4e6c-93dd-be04536e5f91\",\r\n    \"sub_category_id\" : \"a665ffb9-3045-4cf3-a4f5-78b3db5b4bfd\",\r\n    \"description\" : \"Manga konosuba volume 2 is about kazuma meet with megumin aka mazoku ...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/fed2df43-6961-4c01-98f8-7090bebe18ae",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"fed2df43-6961-4c01-98f8-7090bebe18ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "89348854-6eab-40d2-add7-d30e578743f3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/products/09fd843a-4922-4df1-9c23-9412ea66c54e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"09fd843a-4922-4df1-9c23-9412ea66c54e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bab6ec6e-6fbb-4297-87b3-11a92a227b14",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_method_id\" : \"825405dd-c09d-453c-afec-6c4b4e0d9c14\",\r\n    \"total_price\" : 1002400,\r\n    \"note\" : \"test nyaaawww\",\r\n    \"order_details\" : [\r\n        {\r\n            \"product_id\" : \"b6f66049-e4be-40b6-bb44-468a5f914893\",\r\n            \"logistic_id\" : \"934bb17b-cd1c-44f8-9e2b-12b5d9316bcc\",\r\n            \"address_id\" : \"c8e9684b-5b8b-4f58-9e7d-cfbf69933373\",\r\n            \"quantity\" : 1,\r\n            \"unit_price\" : 500000\r\n        },\r\n        {\r\n            \"product_id\" : \"b2c24bf5-ec22-4e7d-9e30-f4eb5af2d5b4\",\r\n            \"logistic_id\" : \"934bb17b-cd1c-44f8-9e2b-12b5d9316bcc\",\r\n            \"address_id\" : \"c8e9684b-5b8b-4f58-9e7d-cfbf69933373\",\r\n            \"quantity\" : 1,\r\n            \"unit_price\" : 500000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update payment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "a133c811-c32d-4854-9f75-57e2eae39104",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/payments/58-94489-34/orders/PYO-1715945334-98450",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"58-94489-34",
+								"orders",
+								"PYO-1715945334-98450"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bab6ec6e-6fbb-4297-87b3-11a92a227b14",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order detail",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bab6ec6e-6fbb-4297-87b3-11a92a227b14",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/orders/PYO-1715945334-98450/order-details",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"PYO-1715945334-98450",
+								"order-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/order-details",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/orders/PYO-1715945334-98450/order-details/95d2b752-d73b-4f98-89c4-ce32ba8b0b5a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"PYO-1715945334-98450",
+								"order-details",
+								"95d2b752-d73b-4f98-89c4-ce32ba8b0b5a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update received",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "a133c811-c32d-4854-9f75-57e2eae39104",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/orders/PYO-1715945334-98450/order-details/95d2b752-d73b-4f98-89c4-ce32ba8b0b5a/received",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"PYO-1715945334-98450",
+								"order-details",
+								"95d2b752-d73b-4f98-89c4-ce32ba8b0b5a",
+								"received"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
