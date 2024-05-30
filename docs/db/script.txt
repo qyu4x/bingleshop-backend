@@ -1,6 +1,3 @@
-// Use DBML to define your database structure
-// Docs: https://dbml.dbdiagram.io/docs
-
 Enum role {
   USER
   ADMIN
@@ -14,6 +11,10 @@ Table users {
   password varchar [not null]
   birthdate date
   role role
+  otp_is_active_user bool
+  otp_code varchar
+  otp_validation_expired_at bigint
+  avatar_url varchar(255)
   is_active bool [not null, default: true]
   created_at bigint [not null, default: `now() unix timestamp UTC`]
   updated_at bigint
@@ -63,6 +64,16 @@ Table products {
   stock integer [not null, default: 0]
   is_preorder bool [not null, default: false]
   description text
+  is_active bool [not null, default: true]
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
+
+Table product_images {
+  id varchar [primary key]
+  product_id varchar [ref: > products.id]
+  sequence int
+  url varchar
   is_active bool [not null, default: true]
   created_at bigint [not null, default: `now() unix timestamp UTC`]
   updated_at bigint
@@ -129,8 +140,4 @@ Table orders_details {
   updated_at bigint
 }
 
-// Ref: posts.user_id > users.id // many-to-one
 
-// Ref: users.id < follows.following_user_id
-
-// Ref: users.id < follows.followed_user_id

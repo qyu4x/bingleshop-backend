@@ -3,12 +3,12 @@ const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const role = require('../helper/role.helper');
-const {validate} = require('../helper/validation');
+const {validate} = require('../helper/validation.helper');
 const {ResponseError} = require('../error/response-error')
 const {
     createUserSchema,
     loginUserSchema
-} = require('../payload/request/user.validation');
+} = require('../payload/request/user.request');
 
 const existByUsername = async (username) => {
     return await User.findOne({

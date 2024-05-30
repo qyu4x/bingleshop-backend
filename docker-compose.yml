@@ -6,11 +6,11 @@ services:
       - 5433:5432
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=neko
-      - POSTGRES_DB=uwupedia
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=bingleshop
     volumes:
-      - uwupedia-data-slaves:/var/lib/postgresql/data
+      - bingleshop-data-slaves:/var/lib/postgresql/data
 
 volumes:
-  uwupedia-data-master:
-  uwupedia-data-slaves:
+  bingleshop-data-master:
+  bingleshop-data-slaves:

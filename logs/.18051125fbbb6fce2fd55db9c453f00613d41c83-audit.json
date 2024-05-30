@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\.18051125fbbb6fce2fd55db9c453f00613d41c83-audit.json",
+    "files": [
+        {
+            "date": 1717084977592,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-05-30-23.log",
+            "hash": "b073840dc90ca8ce6cac911047f937e10dbde0f15925805b53ffbb8a25156e60"
+        }
+    ],
+    "hashType": "sha256"
+}

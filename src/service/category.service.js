@@ -1,12 +1,12 @@
 const {Categories} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../helper/validation');
+const {validate} = require('../helper/validation.helper');
 const {ResponseError} = require('../error/response-error');
 const {capitalizeEachFirstWord} = require('../helper/capitalize.helper');
 const {
     createCategorySchema
-} = require('../payload/request/category.validation');
+} = require('../payload/request/category.request');
 const categoryRepository = require('../repository/category.repository')
 
 const checkCategoryMustExist = async (categoryId) => {

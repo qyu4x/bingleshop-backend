@@ -1,15 +1,15 @@
 const {Categories, SubCategories} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../helper/validation');
+const {validate} = require('../helper/validation.helper');
 const {ResponseError} = require('../error/response-error');
 const {capitalizeEachFirstWord} = require('../helper/capitalize.helper');
 const {
     subCreateCategorySchema, getSubCategoryValidation
-} = require('../payload/request/sub-category.validation');
+} = require('../payload/request/sub-category.request');
 const {
     getCategoryValidation
-} = require('../payload/request/category.validation');
+} = require('../payload/request/category.request');
 const {checkCategoryMustExist} = require('./category.service');
 
 

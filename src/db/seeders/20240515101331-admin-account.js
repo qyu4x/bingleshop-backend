@@ -20,7 +20,7 @@ module.exports = {
         id: uuidv4(),
         username: 'shironeko',
         full_name: 'Admin Shiro Neko',
-        email: 'shironeko@uwupedia.com',
+        email: 'shironeko@bingleshop.com',
         password: await bcrypt.hash('nekonyan', 10),
         birth_date: '2000-10-10',
         role: role.admin,

@@ -1,13 +1,13 @@
 const {Logistics, PaymentMethods} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../helper/validation');
+const {validate} = require('../helper/validation.helper');
 const {ResponseError} = require('../error/response-error');
 const {formatCurrency} = require('../helper/i18n-currency.helper');
 const {
     getLogisticValidation,
     createLogisticValidation
-} = require('../payload/request/logistic.validation');
+} = require('../payload/request/logistic.request');
 const {LogisticResponse} = require('../payload/response/logistic.response')
 const {CurrencyResponse} = require('../payload/response/currency.response')
 

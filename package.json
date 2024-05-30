@@ -2,12 +2,12 @@
   "name": "uwupedia",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
-    "prod": "node app.js",
+    "dev": "nodemon src/app.js",
+    "prod": "node src/app.js",
     "sequelize-model": "npx sequelize-cli model:generate --name",
     "sequelize-migrate": "npx sequelize-cli db:migrate"
   },

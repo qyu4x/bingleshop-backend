@@ -1,8 +1,8 @@
-# UWUpedia Gold Project
+# BingleShop Project
 
-![UWUpedia Logo](https://ih1.redbubble.net/image.5285530497.6871/raf,360x360,075,t,fafafa:ca443f4786.jpg)
+![BingleShop Logo](https://ih1.redbubble.net/image.5285530497.6871/raf,360x360,075,t,fafafa:ca443f4786.jpg)
 
-Welcome to the **UWUpedia Gold** project! Follow the steps below to set up and run the project on your local machine.
+Welcome to the **BingleShop** project! Follow the steps below to set up and run the project on your local machine.
 
 Dependencies:
 
@@ -56,7 +56,7 @@ Dependencies:
 First, clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/qyu4x/24001132-11-ak-uwupedia-gold
+git clone https://github.com/qyu4x/kelompok1-bej-final-project 
 ```
 
 ### 2. Navigate to the Project Directory
@@ -64,7 +64,7 @@ git clone https://github.com/qyu4x/24001132-11-ak-uwupedia-gold
 Change your directory to the project folder:
 
 ```sh
-cd ./24001132-11-ak-uwupedia-gold
+cd ./
 ```
 
 ### 3. Install Dependencies
@@ -105,7 +105,7 @@ Use the following credentials to log in as an admin:
 
 ```json
 {
-  "email": "shironeko@uwupedia.com",
+  "email": "shironeko@bingleshop.com",
   "password": "rahasia"
 }
 ```
@@ -117,11 +117,11 @@ Use the following credentials to log in as an admin:
 
 ## 📚 Documentation and Support
 
-For more details and documentation, please visit our [Wiki](https://github.com/qyu4x/24001132-11-ak-uwupedia-gold/tree/main/docs/spec) or join our [Discord](https://discord.gg/qirayuki).
+For more details and documentation, please visit our [Wiki](https://github.com/qyu4x/kelompok1-bej-final-project/tree/main/docs/spec) or join our [Discord](https://discord.gg/qirayuki).
 
 ## 🎉 You're All Set!
 
-You now have everything you need to start using the **UWUpedia Gold** project. If you encounter any issues or have any questions, feel free to reach out or check the documentation.
+You now have everything you need to start using the **BingleShop** project. If you encounter any issues or have any questions, feel free to reach out or check the documentation.
 
 Happy coding! 🚀
 

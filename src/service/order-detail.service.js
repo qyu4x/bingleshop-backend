@@ -1,13 +1,13 @@
 const {OrdersDetails, Orders, Products, Logistics, Address, sequelize} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../helper/validation');
+const {validate} = require('../helper/validation.helper');
 const {ResponseError} = require('../error/response-error');
 const orderStatus = require('../helper/order-status.helper');
 const addressService = require('./address.service');
 const productService = require('./product.service');
-const {getOrderValidation} = require('../payload/request/order.validation');
-const {getOrderDetailValidation, updateOrderStatusValidation} = require('../payload/request/order-detail.validation');
+const {getOrderValidation} = require('../payload/request/order.request');
+const {getOrderDetailValidation, updateOrderStatusValidation} = require('../payload/request/order-detail.request');
 const {OrderDetailResponse} = require("../payload/response/order-detail.response");
 const {SpecificOrderDetailResponse} = require("../payload/response/specific-order-detail.response");
 const {AddressResponse} = require("../payload/response/address.response");
