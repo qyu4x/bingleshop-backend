@@ -1,5 +1,0 @@
-2024-05-17 22:42:23 [[32minfo[39m]: GET /api/v1/order-details 200 229ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
-2024-05-17 22:42:46 [[32minfo[39m]: PATCH /api/v1/payments/58-94489-34/orders/PYO-1715945334-98450 200 1559ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
-2024-05-17 22:42:59 [[32minfo[39m]: GET /api/v1/products/search?keyword=kaguya%20sama 200 49ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
-2024-05-17 22:43:18 [[32minfo[39m]: GET /api/v1/products/fed2df43-6961-4c01-98f8-7090bebe18ae 404 938ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
-2024-05-17 22:43:37 [[32minfo[39m]: POST /api/v1/logistics 409 54ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}

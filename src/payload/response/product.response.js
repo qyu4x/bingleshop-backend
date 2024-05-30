@@ -1,6 +1,5 @@
 class ProductResponse {
     id;
-    title;
     stock;
     price;
     category;
@@ -10,7 +9,6 @@ class ProductResponse {
     is_active;
     created_at;
     updated_at;
-
 
     constructor(id, title, stock, price, category, sub_category, is_preorder, description, is_active, created_at, updated_at) {
         this.id = id;

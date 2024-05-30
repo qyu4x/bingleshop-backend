@@ -1,7 +1,7 @@
 const {Products, Categories, SubCategories} = require('../model');
 const {Op} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../validation/validation');
+const {validate} = require('../helper/validation');
 const {ResponseError} = require('../error/response-error');
 const {formatCurrency} = require('../helper/i18n-currency.helper');
 const {
@@ -9,13 +9,13 @@ const {
     createProductValidation,
     searchProductValidation,
     updateProductValidation, updateStockProductValidation
-} = require('../validation/product.validation');
+} = require('../payload/request/product.validation');
 const {
     getCategoryValidation
-} = require('../validation/category.validation');
+} = require('../payload/request/category.validation');
 const {
     getSubCategoryValidation
-} = require('../validation/sub-category.validation');
+} = require('../payload/request/sub-category.validation');
 const {checkCategoryMustExist} = require('./category.service');
 const {checkSubCategoryMustExist} = require('./sub-category.service');
 const {ProductResponse} = require('../payload/response/product.response');

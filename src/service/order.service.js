@@ -3,11 +3,11 @@ const {
 } = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../validation/validation');
+const {validate} = require('../helper/validation');
 const {ResponseError} = require('../error/response-error');
 const {
     createOrderValidation, getPaymentCodeValidation, getOrderValidation
-} = require('../validation/order.validation');
+} = require('../payload/request/order.validation');
 const {generateOrderId, generatePaymentCode} = require('../helper/order.helper');
 const orderDetailService = require('./order-detail.service');
 const {OrderResponse} = require("../payload/response/order.response");

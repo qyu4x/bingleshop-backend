@@ -1,21 +1,16 @@
 const {Categories} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../validation/validation');
+const {validate} = require('../helper/validation');
 const {ResponseError} = require('../error/response-error');
 const {capitalizeEachFirstWord} = require('../helper/capitalize.helper');
 const {
     createCategorySchema
-} = require('../validation/category.validation');
+} = require('../payload/request/category.validation');
+const categoryRepository = require('../repository/category.repository')
 
 const checkCategoryMustExist = async (categoryId) => {
-    const category = await Categories.findOne({
-        where: {
-            id: categoryId,
-            is_active: true
-        },
-        attributes: ['id']
-    })
+    const category = await categoryRepository.findOne(categoryId);
 
     if (!category) {
         throw new ResponseError(404, "Category not found");
@@ -81,3 +76,4 @@ module.exports = {
     remove,
     checkCategoryMustExist
 }
+

@@ -12,7 +12,6 @@ class OrderDetailResponse {
     created_at;
     updated_at;
 
-
     constructor(id, order_id, product_id, logistic_id, address_id, quantity, order_status, unit_price, received_at, is_received, created_at, updated_at) {
         this.id = id;
         this.order_id = order_id;

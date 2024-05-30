@@ -1,11 +1,11 @@
 const {Address} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../validation/validation');
+const {validate} = require('../helper/validation');
 const {ResponseError} = require('../error/response-error')
 const {
     createAddressSchema, getAddressValidation
-} = require('../validation/address.validation');
+} = require('../payload/request/address.validation');
 
 const checkAddressMustExist = async (userId, addressId) => {
     const address = await Address.findOne({

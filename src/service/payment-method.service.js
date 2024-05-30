@@ -1,12 +1,12 @@
 const {PaymentMethods} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const {validate} = require('../validation/validation');
+const {validate} = require('../helper/validation');
 const {ResponseError} = require('../error/response-error');
 const {formatCurrency} = require('../helper/i18n-currency.helper');
 const {
     createPaymentValidation, getPaymentMethodValidation
-} = require('../validation/payment-method.validation');
+} = require('../payload/request/payment-method.validation');
 const {PaymentMethodResponse} = require('../payload/response/payment-method.response')
 const {CurrencyResponse} = require('../payload/response/currency.response')
 
