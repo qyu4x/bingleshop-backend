@@ -10,7 +10,7 @@ const {
 const categoryRepository = require('../repository/category.repository')
 
 const checkCategoryMustExist = async (categoryId) => {
-    const category = await categoryRepository.findOne(categoryId);
+    const category = await categoryRepository.findById(categoryId);
 
     if (!category) {
         throw new ResponseError(404, "Category not found");

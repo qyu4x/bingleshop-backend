@@ -1,5 +1,5 @@
 const {Categories} = require("../model");
-const findOne = async (categoryId) => {
+const findById = async (categoryId) => {
     return await Categories.findOne({
         where: {
             id: categoryId,
@@ -10,5 +10,5 @@ const findOne = async (categoryId) => {
 }
 
 module.exports = {
-    findOne
+    findById
 }
