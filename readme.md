@@ -64,7 +64,7 @@ git clone https://github.com/qyu4x/kelompok1-bej-final-project
 Change your directory to the project folder:
 
 ```sh
-cd ./
+cd ./kelompok1-bej-final-project 
 ```
 
 ### 3. Install Dependencies
