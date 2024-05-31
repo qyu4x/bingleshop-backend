@@ -1,6 +1,6 @@
 # BingleShop Project
 
-![BingleShop Logo](https://ih1.redbubble.net/image.5285530497.6871/raf,360x360,075,t,fafafa:ca443f4786.jpg)
+[BingleShop Logo](https://ih1.redbubble.net/image.5285530497.6871/raf,360x360,075,t,fafafa:ca443f4786.jpg)
 
 Welcome to the **BingleShop** project! Follow the steps below to set up and run the project on your local machine.
 
@@ -106,7 +106,7 @@ Use the following credentials to log in as an admin:
 ```json
 {
   "email": "shironeko@bingleshop.com",
-  "password": "rahasia"
+  "password": "nekonyan"
 }
 ```
 
