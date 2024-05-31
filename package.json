@@ -8,8 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js",
     "prod": "node src/app.js",
-    "sequelize-model": "npx sequelize-cli model:generate --name",
-    "sequelize-migrate": "npx sequelize-cli db:migrate"
+    "seed": "npx sequelize-cli db:seed:all",
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "keywords": [
     "onlineshop",
