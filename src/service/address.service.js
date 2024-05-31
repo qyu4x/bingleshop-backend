@@ -8,6 +8,7 @@ const {
 } = require('../payload/request/address.request');
 
 const addressRepository = require('../repository/address.repository');
+const {updateIsMainAddressByUserId, updateIsMainAddressByAddressIdAndUserId} = require("../repository/address.repository");
 
 const checkAddressMustExist = async (userId, addressId) => {
     const address = await addressRepository.findOneByUserIdAndAddressId(userId, addressId);
@@ -23,13 +24,7 @@ const create = async (userId, request) => {
     const address = validate(createAddressSchema, request);
 
     if (address.is_main_address) {
-        await Address.update({
-            is_main_address: false
-        }, {
-            where: {
-                user_id: userId
-            }
-        })
+        await addressRepository.updateIsMainAddressByUserId(false, userId);
     }
 
     address.id = uuidv4();
@@ -37,50 +32,20 @@ const create = async (userId, request) => {
     address.created_at = Date.now();
     address.is_active = true;
 
-    await Address.create(address);
-
-    return await Address.findOne({
-        where: {
-            id: address.id
-        },
-        attributes: ['id', 'user_id', 'name', 'phone_number', 'street', 'province', 'city',
-            'district', 'postal_code', 'is_main_address', 'is_active', 'created_at', 'updated_at']
-    })
+    await addressRepository.create(address);
+    return await addressRepository.findOneByAddressId(address.id);
 }
 
 const list = async (userId) => {
-    return await Address.findAll({
-        where: {
-            user_id: userId, is_active: true
-        },
-        order: [
-            ['created_at', 'ASC']
-        ],
-        attributes: ['id', 'user_id', 'name', 'phone_number', 'street', 'province', 'city',
-            'district', 'postal_code', 'is_main_address', 'is_active', 'created_at', 'updated_at']
-    })
+    return await addressRepository.findAllByUserId(userId);
 }
 
 const setMain = async (userId, addressId) => {
     addressId = validate(getAddressValidation, addressId);
     addressId = await checkAddressMustExist(userId, addressId);
 
-    await Address.update({
-        is_main_address: false
-    }, {
-        where: {
-            user_id: userId
-        }
-    })
-
-    await Address.update({
-        is_main_address: true,
-        updated_at: Date.now()
-    }, {
-        where: {
-            id: addressId, user_id: userId
-        }
-    })
+    await addressRepository.updateIsMainAddressByUserId(false, userId);
+    await updateIsMainAddressByAddressIdAndUserId(true, addressId, userId);
 }
 
 const remove = async (userId, addressId) => {
@@ -99,16 +64,12 @@ const remove = async (userId, addressId) => {
 }
 
 const get = async (userId, addressId) => {
-    const address = await Address.findOne({
-        where: {
-            id: addressId, user_id: userId
-        },
-        attributes: ['id', 'is_main_address']
-    })
+    const address = await addressRepository.findOneByUserIdAndAddressId(userId, addressId);
 
     if (!address) {
         throw new ResponseError(404, 'Address not found');
     }
+    return address;
 }
 
 module.exports = {
