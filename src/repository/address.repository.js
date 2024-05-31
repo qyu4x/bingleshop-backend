@@ -31,7 +31,7 @@ const updateIsMainAddressByAddressIdAndUserId = async (isMainAddress, addressId,
 }
 
 const create = async (address) => {
-    await Address.create(address);
+    return await Address.create(address);
 }
 
 const findOneByAddressId = async (addressId) => {

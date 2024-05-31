@@ -1,0 +1,10 @@
+2024-05-31 22:46:53 [[32minfo[39m]: POST /api/v1/logistics 401 109ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:46:59 [[32minfo[39m]: POST /api/v1/logistics 200 142ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:48:26 [[32minfo[39m]: GET /api/v1/logistics 200 29ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:54:50 [[32minfo[39m]: POST /api/v1/logistics 200 175ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:56:13 [[32minfo[39m]: GET /api/v1/logistics 200 26ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:57:21 [[32minfo[39m]: DELETE /api/v1/logistics/f17a45f4-d2de-47ea-a12e-7986d085efd2 401 22ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:57:25 [[32minfo[39m]: DELETE /api/v1/logistics/f17a45f4-d2de-47ea-a12e-7986d085efd2 404 9ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:57:36 [[32minfo[39m]: DELETE /api/v1/logistics/f17a45f4-d2de-47ea-a12e-7986d085efd2 401 23ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:57:43 [[32minfo[39m]: DELETE /api/v1/logistics/956bafcf-72ff-4619-a395-75bdf0a97348 200 57ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-05-31 22:57:46 [[32minfo[39m]: GET /api/v1/logistics 200 3ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}

@@ -10,6 +10,8 @@ const {
 } = require('../payload/request/logistic.request');
 const {LogisticResponse} = require('../payload/response/logistic.response')
 const {CurrencyResponse} = require('../payload/response/currency.response')
+const {log} = require("winston");
+const logisticRepository = require("../repository/logistic.repository");
 
 const mapToLogisticResponse = (logisticResponse) => {
     return new LogisticResponse(
@@ -31,12 +33,7 @@ const mapToLogisticResponse = (logisticResponse) => {
 const create = async (request) => {
     const logistic = validate(createLogisticValidation, request);
 
-    const isLogisticExist = await Logistics.findOne({
-        where: {
-            name: logistic.name
-        },
-        attributes: ['id']
-    })
+    const isLogisticExist = await logisticRepository.findOneByName(logistic.name);
 
     if (isLogisticExist) {
         throw new ResponseError(409, 'Logistic already exists');
@@ -46,19 +43,12 @@ const create = async (request) => {
     logistic.is_active = true;
     logistic.created_at = Date.now();
 
-    const logisticResponse = await Logistics.create(logistic);
+    const logisticResponse = await logisticRepository.create(logistic);
     return mapToLogisticResponse(logisticResponse);
 }
 
 const list = async () => {
-    const logistics = await Logistics.findAll({
-        where: {
-            is_active: true
-        },
-        order: [
-            ['created_at', 'ASC']
-        ]
-    })
+    const logistics = await logisticRepository.findAll();
 
     return logistics.map(logistic => {
         return mapToLogisticResponse(logistic);
@@ -68,12 +58,7 @@ const list = async () => {
 const remove = async (logisticId) => {
     logisticId = validate(getLogisticValidation, logisticId);
 
-    const logistic = await Logistics.findOne({
-        where: {
-            id: logisticId,
-            is_active: true
-        }
-    })
+    const logistic = await logisticRepository.findOneById(logisticId);
 
     if (!logistic) {
         throw new ResponseError(404, 'Logistic not found');
