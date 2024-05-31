@@ -22,7 +22,7 @@ const checkCategoryMustExist = async (categoryId) => {
 
 const create = async (request) => {
     const category = validate(createCategorySchema, request);
-    console.log("test log " + category);
+
     category.name = capitalizeEachFirstWord(category.name);
     const isCategoryExist = await categoryRepository.findOneByName(category.name);
 
