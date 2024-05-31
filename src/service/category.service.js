@@ -8,9 +8,10 @@ const {
     createCategorySchema
 } = require('../payload/request/category.request');
 const categoryRepository = require('../repository/category.repository')
+const {findAll} = require("../repository/category.repository");
 
 const checkCategoryMustExist = async (categoryId) => {
-    const category = await categoryRepository.findById(categoryId);
+    const category = await categoryRepository.findOneById(categoryId);
 
     if (!category) {
         throw new ResponseError(404, "Category not found");
@@ -19,18 +20,11 @@ const checkCategoryMustExist = async (categoryId) => {
     return category.id;
 }
 
-
 const create = async (request) => {
     const category = validate(createCategorySchema, request);
-
+    console.log("test log " + category);
     category.name = capitalizeEachFirstWord(category.name);
-    const isCategoryExist = await Categories.findOne({
-        where: {
-            name: category.name,
-            is_active: true
-        },
-        attributes: ['id']
-    });
+    const isCategoryExist = await categoryRepository.findOneByName(category.name);
 
     if (isCategoryExist) {
         throw new ResponseError(409, 'Category already exists');
@@ -44,22 +38,11 @@ const create = async (request) => {
 }
 
 const list = async () => {
-    return await Categories.findAll({
-        where: {
-            is_active: true
-        },
-        order: [
-            ['name', 'ASC']
-        ]
-    })
+    return await findAll();
 }
 
 const remove = async (categoryId) => {
-    const category = await Categories.findOne({
-        where: {
-            id: categoryId
-        }
-    })
+    const category = await categoryRepository.findOneById(categoryId);
 
     if (!category) {
         throw new ResponseError(404, 'Category not found');
