@@ -30,7 +30,13 @@ const findAll = async () => {
         ]
     });
 }
+
+const create = async (category) => {
+    return await Categories.create(category);
+}
+
 module.exports = {
+    create,
     findOneById,
     findOneByName,
     findAll

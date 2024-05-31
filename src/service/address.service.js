@@ -7,12 +7,10 @@ const {
     createAddressSchema, getAddressValidation
 } = require('../payload/request/address.request');
 
+const addressRepository = require('../repository/address.repository');
+
 const checkAddressMustExist = async (userId, addressId) => {
-    const address = await Address.findOne({
-        where: {
-            id: addressId, user_id: userId
-        }, attributes: ['id']
-    })
+    const address = await addressRepository.findOneByUserIdAndAddressId(userId, addressId);
 
     if (!address) {
         throw new ResponseError(404, "Address not found");

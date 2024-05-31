@@ -34,7 +34,7 @@ const create = async (request) => {
     category.is_active = true;
     category.created_at = Date.now();
 
-    return await Categories.create(category);
+    return await categoryRepository.create(category);
 }
 
 const list = async () => {
