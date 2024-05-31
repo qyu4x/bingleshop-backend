@@ -1,4 +1,5 @@
 const {Categories} = require("../model");
+
 const findOneById = async (categoryId) => {
     return await Categories.findOne({
         where: {
