@@ -18,6 +18,12 @@ const {CurrencyResponse} = require("../payload/response/currency.response");
 const {formatCurrency} = require("../helper/i18n-currency.helper");
 const orderStatus = require("../helper/order-status.helper");
 
+const logisticRepository = require('../repository/logistic.repository');
+const productRepository = require('../repository/product.repository');
+const orderRepository = require('../repository/order.repository');
+const orderDetailRepository = require('../repository/order-detail.repository');
+const paymentMethodRepository = require('../repository/payment-method.repository');
+
 const mapToOrderResponse = (orderResponse, hateos) => {
     return new OrderResponse(
         orderResponse.id,
@@ -52,18 +58,12 @@ const calculateTotalProductAndLogisticPrice = async (orderDetails) => {
     let totalProductPrice = 0;
 
     for (const orderDetail of orderDetails) {
-        const logistic = await Logistics.findByPk(orderDetail.logistic_id, {
-            attributes: ['id', 'payment_fees_permile']
-        })
-
-        const product = await Products.findByPk(orderDetail.product_id, {
-            attributes: ['id', 'price']
-        })
-
+        const logistic = await logisticRepository.findOneById(orderDetail.logistic_id);
         if (!logistic) {
             throw new ResponseError(404, 'Logistic not found');
         }
 
+        const product = await productRepository.findOneById(orderDetail.product_id);
         if (!product) {
             throw new ResponseError(404, 'Product not found');
         }
@@ -76,24 +76,18 @@ const calculateTotalProductAndLogisticPrice = async (orderDetails) => {
 
 }
 const calculateTotalPrice = async (orderRequest) => {
-    const payment = await PaymentMethods.findByPk(orderRequest.payment_method_id, {
-        attributes: ['id', 'payment_fees']
-    });
-
+    const payment = await paymentMethodRepository.findOneById(orderRequest.payment_method_id);
     if (!payment) {
         throw new ResponseError(404, 'Payment not found');
     }
 
     const totalProductAndLogisticPrice = await calculateTotalProductAndLogisticPrice(orderRequest.order_details);
-
     return totalProductAndLogisticPrice + parseInt(payment.payment_fees);
 }
 
 const checkStockProduct = async (orderDetails) => {
     for (const orderDetail of orderDetails) {
-        const product = await Products.findByPk(orderDetail.product_id, {
-            attributes: ['id', 'stock']
-        })
+        const product = await productRepository.findOneById(orderDetail.product_id);
 
         if (product.stock < orderDetail.quantity) {
             throw new ResponseError(400, 'Insufficient product stock!');
@@ -112,7 +106,6 @@ const create = async (request, user) => {
     await checkStockProduct(orderRequest.order_details);
 
     const tx = await sequelize.transaction();
-
     try {
         orderRequest.id = generateOrderId(user.username, user.created_at);
         orderRequest.user_id = user.id;
@@ -124,19 +117,9 @@ const create = async (request, user) => {
 
         const order = await Orders.create(orderRequest);
         await orderDetailService.create(user.id, order.id, orderRequest.order_details);
-
         tx.commit();
 
-        const orderResponse = await Orders.findByPk(order.id, {
-            include: [{
-                model: User,
-                as: 'user',
-                attributes: ['id', 'username', 'email', 'full_name']
-            }, {
-                model: PaymentMethods, as: 'payment_method'
-            }]
-        })
-
+        const orderResponse = await orderRepository.findWithUserAndPaymentMethodById(order.id);
         return mapToOrderResponse(orderResponse,
             new Hateos('OrderDetails',
                 `http://localhost:8080/api/v1/orders/${orderResponse.id}/order-details`,
@@ -152,13 +135,7 @@ const updatePaymentStatus = async (paymentCode, orderId) => {
     paymentCode = validate(getPaymentCodeValidation, paymentCode);
     orderId = validate(getOrderValidation, orderId);
 
-    const order = await Orders.findOne({
-        where: {
-            id: orderId,
-            payment_code: paymentCode
-        }
-    })
-
+    const order = await orderRepository.findOneByOrderIdAndPaymentCode(orderId, paymentCode);
     if (!order) {
         throw new ResponseError(404, 'Order not found');
     }
@@ -167,36 +144,16 @@ const updatePaymentStatus = async (paymentCode, orderId) => {
         throw new ResponseError(410, 'Payment time has exceeded the grace period, please reorder!');
     }
 
-    await OrdersDetails.update({
-            order_status: orderStatus.processing,
-            updated_at: Date.now()
-        },
-        {
-            where: {
-                order_id: orderId
-            }
-        }
-    )
+    await orderDetailRepository.updateOrderStatusByOrderId(orderStatus.processing, orderId);
+
     order.payment_status = true;
     order.payment_date = Date.now();
     order.updated_at = Date.now();
-
     await order.save();
 }
 
 const list = async (userId) => {
-    const orders = await Orders.findAll({
-        where: {
-            user_id: userId
-        },
-        include: [{
-            model: User,
-            as: 'user',
-            attributes: ['id', 'username', 'email', 'full_name']
-        }, {
-            model: PaymentMethods, as: 'payment_method'
-        }]
-    })
+    const orders = await orderRepository.findAllWithUserAndPaymentMethodByUserId(userId);
 
     return orders.map(orderResponse => {
         return mapToOrderResponse(orderResponse,

@@ -18,6 +18,8 @@ const {CurrencyResponse} = require("../payload/response/currency.response");
 const {formatCurrency} = require("../helper/i18n-currency.helper");
 const {SimpleProductResponse} = require("../payload/response/simple-product.response");
 
+const orderDetailRepository = require('../repository/order-detail.repository');
+
 const mapToOrderDetailResponse = (orderDetail) => {
     return new OrderDetailResponse(
         orderDetail.id,
@@ -96,18 +98,15 @@ const mapToSpecificOrderDetailResponse = (orderDetail) => {
 
 const create = async (userId, orderId, orderDetails) => {
     const tx = await sequelize.transaction();
-
     try {
         const addressPromises = orderDetails.map(orderDetail => {
             return addressService.get(userId, orderDetail.address_id);
         })
-
         await Promise.all(addressPromises);
 
         const productPromises = orderDetails.map(orderDetail => {
             productService.updateStock(orderDetail.product_id, orderDetail.quantity);
         })
-
         await Promise.all(productPromises);
 
         orderDetails.forEach(orderDetail => {
@@ -118,8 +117,7 @@ const create = async (userId, orderId, orderDetails) => {
             orderDetail.created_at = Date.now();
         })
 
-        console.log(orderDetails)
-        await OrdersDetails.bulkCreate(orderDetails);
+        await orderDetailRepository.bulkCreate(orderDetails);
 
         tx.commit();
     } catch (error) {
@@ -131,35 +129,12 @@ const create = async (userId, orderId, orderDetails) => {
 const get = async (userId, orderId) => {
     orderId = validate(getOrderValidation, orderId);
 
-    const orderDetails = await OrdersDetails.findAll({
-        where: {
-            order_id: orderId
-        },
-        include: {
-            model: Orders,
-            as: 'order',
-            where: {
-                user_id: userId
-            },
-            attributes: ['id']
-        }
-    })
-
+    const orderDetails = await orderDetailRepository.findAllWithOrderByOrderIdAndUserId(orderId, userId);
     return orderDetails.map(orderDetail => mapToOrderDetailResponse(orderDetail));
 }
 
 const list = async (userId) => {
-    const orderDetails = await OrdersDetails.findAll({
-        include: {
-            model: Orders,
-            as: 'order',
-            where: {
-                user_id: userId
-            },
-            attributes: ['id']
-        }
-    })
-
+    const orderDetails = await orderDetailRepository.findAllWithOrderByUserId(userId);
     return orderDetails.map(orderDetail => mapToOrderDetailResponse(orderDetail));
 }
 
@@ -167,36 +142,7 @@ const getSpecific = async (userId, orderId, orderDetailId) => {
     orderId = validate(getOrderValidation, orderId);
     orderDetailId = validate(getOrderDetailValidation, orderDetailId);
 
-    const orderDetail = await OrdersDetails.findOne({
-        where: {
-            id: orderDetailId,
-            order_id: orderId
-        },
-        include: [
-            {
-                model: Orders,
-                as: 'order',
-                where: {
-                    user_id: userId
-                },
-                attributes: ['id']
-            },
-            {
-                model: Products,
-                as: 'product',
-                attributes: ['id', 'title', 'price']
-            },
-            {
-                model: Logistics,
-                as: 'logistic'
-            },
-            {
-                model: Address,
-                as: 'address'
-            },
-        ],
-    })
-
+    const orderDetail = await orderDetailRepository.findOneWithRelationsByOrderDetailIdAndOrderIdAndUserId(orderDetailId, orderId, userId);
     return mapToSpecificOrderDetailResponse(orderDetail);
 }
 
@@ -205,21 +151,13 @@ const updateOrderStatus = async (request, orderId, orderDetailId) => {
     orderId = validate(getOrderValidation, orderId);
     orderDetailId = validate(getOrderDetailValidation, orderDetailId);
 
-    const orderDetail = await OrdersDetails.findOne({
-            where: {
-                id: orderDetailId,
-                order_id: orderId
-            }
-        }
-    )
-
+    const orderDetail = await orderDetailRepository.findOneByOrderDetailIdAndOrderId(orderDetailId, orderId);
     if (!orderDetail) {
         throw new ResponseError(404, 'Order detail not found');
     }
 
     orderDetail.order_status = orderRequest.order_status;
     orderDetail.updated_at = orderRequest.updated_at;
-
     await orderDetail.save();
 }
 
@@ -227,14 +165,7 @@ const updateOrderStatusReceived = async (orderId, orderDetailId) => {
     orderId = validate(getOrderValidation, orderId);
     orderDetailId = validate(getOrderDetailValidation, orderDetailId);
 
-    const orderDetail = await OrdersDetails.findOne({
-            where: {
-                id: orderDetailId,
-                order_id: orderId
-            }
-        }
-    )
-
+    const orderDetail = await orderDetailRepository.findOneByOrderDetailIdAndOrderId(orderDetailId, orderId);
     if (!orderDetail) {
         throw new ResponseError(404, 'Order detail not found');
     }
@@ -242,7 +173,6 @@ const updateOrderStatusReceived = async (orderId, orderDetailId) => {
     orderDetail.is_received = true;
     orderDetail.received_at = Date.now();
     orderDetail.updated_at = Date.now();
-
     await orderDetail.save();
 }
 
