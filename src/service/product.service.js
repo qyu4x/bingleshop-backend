@@ -22,6 +22,7 @@ const {ProductResponse} = require('../payload/response/product.response');
 const {CategoryResponse} = require('../payload/response/category.response');
 const {SubCategoryResponse} = require('../payload/response/sub-category.response');
 const {CurrencyResponse} = require("../payload/response/currency.response");
+const productRepository = require("../repository/product.repository");
 
 
 const mapToProductResponse = (productResponse) => {
@@ -66,21 +67,8 @@ const create = async (request, categoryId, subCategoryId) => {
     product.is_active = true;
     product.created_at = Date.now()
 
-    await Products.create(product);
-    const productResponse = await Products.findByPk(product.id, {
-        include: [
-            {
-                model: Categories,
-                as: 'category',
-                attributes: ['id', 'name', 'description']
-            },
-            {
-                model: SubCategories,
-                as: 'sub_category',
-                attributes: ['id', 'name', 'description']
-            }
-        ]
-    })
+    await productRepository.create(product);
+    const productResponse = await productRepository.findByIdWithCategoryAndSubCategory(product.id);
 
     return mapToProductResponse(productResponse);
 }
@@ -88,24 +76,7 @@ const create = async (request, categoryId, subCategoryId) => {
 const get = async (productId) => {
     productId = validate(getProductValidation, productId);
 
-    const productResponse = await Products.findOne({
-        where: {
-            id: productId,
-            is_active: true
-        },
-        include: [
-            {
-                model: Categories,
-                as: 'category',
-                attributes: ['id', 'name', 'description']
-            },
-            {
-                model: SubCategories,
-                as: 'sub_category',
-                attributes: ['id', 'name', 'description']
-            }
-        ]
-    })
+    const productResponse = await productRepository.findByIdWithCategoryAndSubCategory(productId);
 
     if (!productResponse) {
         throw new ResponseError(404, 'Product not found');
@@ -136,27 +107,8 @@ const search = async (request) => {
         filters.sub_category_id = request.subCategoryId;
     }
 
-    const products = await Products.findAll({
-        where: filters,
-        include: [
-            {
-                model: Categories,
-                as: 'category',
-                attributes: ['id', 'name', 'description']
-            },
-            {
-                model: SubCategories,
-                as: 'sub_category',
-                attributes: ['id', 'name', 'description']
-            }
-        ],
-        offset: skip,
-        limit: request.size
-    })
-
-    const totalProduct = await Products.count({
-        where: filters
-    })
+    const products = await productRepository.searchWithPagination(filters, skip, request.size);
+    const totalProduct = await productRepository.findTotalByFilters(filters);
 
     return {
         data: products.map(productResponse => mapToProductResponse(productResponse)),
@@ -175,13 +127,7 @@ const update = async (request, productId) => {
     await checkCategoryMustExist(product.category_id);
     await checkSubCategoryMustExist(product.category_id, product.sub_category_id);
 
-    const availableProduct = await Products.findOne({
-        where: {
-            id: productId,
-            is_active: true
-        }
-    });
-
+    const availableProduct = await productRepository.findOneById(productId);
     if (!availableProduct) {
         throw new ResponseError(404, 'Product not found');
     }
@@ -198,13 +144,7 @@ const update = async (request, productId) => {
 const remove = async (productId) => {
     productId = validate(getProductValidation, productId);
 
-    const availableProduct = await Products.findOne({
-        where: {
-            id: productId,
-            is_active: true
-        }
-    });
-
+    const availableProduct = await productRepository.findOneById(productId);
     if (!availableProduct) {
         throw new ResponseError(404, 'Product not found');
     }
@@ -217,15 +157,9 @@ const remove = async (productId) => {
 const updateStock = async (productId, sold) => {
     sold = validate(updateStockProductValidation, sold);
 
-    const availableProduct = await Products.findOne({
-        where: {
-            id: productId,
-            is_active: true
-        }
-    });
+    const availableProduct = await productRepository.findOneById(productId);
 
     availableProduct.stock = availableProduct.stock - sold;
-
     await availableProduct.save();
 }
 
