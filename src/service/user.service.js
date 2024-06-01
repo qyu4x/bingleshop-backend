@@ -9,31 +9,27 @@ const {
     createUserSchema,
     loginUserSchema
 } = require('../payload/request/user.request');
+const userRepository = require('../repository/user.repository');
 
 const existByUsername = async (username) => {
-    return await User.findOne({
-        where: {username: username, is_active: true},
-        attributes: ['id']
-    })
+    const user = await userRepository.findOneByUsername(username);
+    if (user) {
+        throw new ResponseError(409, "Username already registered")
+    }
 }
 
 const existByEmail = async (email) => {
-    return await User.findOne({
-        where: {email: email, is_active: true},
-        attributes: ['id']
-    })
+    const user = await userRepository.findOneByEmail(email);
+    if (user) {
+        throw new ResponseError(409, "Email already registered")
+    }
 }
 
 const register = async (request) => {
     const user = validate(createUserSchema, request);
 
-    if (await existByUsername(user.username)) {
-        throw new ResponseError(409, "Username already registered")
-    }
-
-    if (await existByEmail(user.email)) {
-        throw new ResponseError(409, "Email already registered")
-    }
+    await existByUsername(user.username);
+    await existByEmail(user.email)
 
     user.password = await bcrypt.hash(user.password, 10);
 
@@ -42,25 +38,14 @@ const register = async (request) => {
     user.is_active = true;
     user.created_at = Date.now();
 
-    const createdUser = await User.create(user);
-    return await User.findOne({
-        where: {
-            id: createdUser.id
-        },
-        attributes: ['id', 'username', 'full_name', 'email', 'birth_date', 'role', 'is_active', 'created_at', 'updated_at']
-    })
-
+    const createdUser = await userRepository.create(user);
+    return await userRepository.findOneById(createdUser.id);
 }
 
 const login = async (request) => {
     const loginRequest = validate(loginUserSchema, request);
 
-    const user = await User.findOne({
-        where: {
-            email: loginRequest.email
-        },
-        attributes: ['id', 'email', 'password']
-    })
+    const user = await userRepository.findOneByEmail(loginRequest.email);
 
     if (!user) {
         throw new ResponseError(401, "Email or password is incorrect");
@@ -72,26 +57,16 @@ const login = async (request) => {
     }
 
     const token = uuidv4().toString();
-    await User.update(
-        {token: token, updated_at: Date.now()},
-        {
-            where: {
-                id: user.id
-            }
-        }
-    );
+
+    user.token = token;
+    user.updated_at = Date.now();
+    user.save();
 
     return token;
 }
 
 const get = async (userId) => {
-    const user = await User.findOne({
-        where: {
-            id: userId
-        },
-        attributes: ['id', 'username', 'full_name', 'email', 'birth_date', 'role', 'is_active', 'created_at', 'updated_at']
-    })
-
+    const user = await userRepository.findOneById(userId);
     if (!user) {
         throw new ResponseError(404, "User not found");
     }
@@ -100,14 +75,14 @@ const get = async (userId) => {
 }
 
 const logout = async (userId) => {
-    await User.update(
-        {token: null, updated_at: Date.now()},
-        {
-            where: {
-                id: userId
-            }
-        }
-    );
+    const user = await userRepository.findOneById(userId);
+    if (!user) {
+        throw new ResponseError(404, "User not found");
+    }
+
+    user.token = null;
+    user.updated_at = Date.now();
+    user.save();
 }
 
 module.exports = {
