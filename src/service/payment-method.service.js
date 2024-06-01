@@ -9,6 +9,7 @@ const {
 } = require('../payload/request/payment-method.request');
 const {PaymentMethodResponse} = require('../payload/response/payment-method.response')
 const {CurrencyResponse} = require('../payload/response/currency.response')
+const paymentMethodRepository = require("../repository/payment-method.repository");
 
 const mapToPaymentResponse = (paymentMethodResponse) => {
     return new PaymentMethodResponse(
@@ -30,11 +31,7 @@ const mapToPaymentResponse = (paymentMethodResponse) => {
 const create = async (request) => {
     const paymentMethod = validate(createPaymentValidation, request);
 
-    const isPaymentMethodExist = await PaymentMethods.findOne({
-        where: {
-            name: paymentMethod.name, is_active: true
-        }, attributes: ['id']
-    })
+    const isPaymentMethodExist = await paymentMethodRepository.findOneByName(paymentMethod.name);
 
     if (isPaymentMethodExist) {
         throw new ResponseError(409, 'Payment method already exists');
@@ -44,16 +41,12 @@ const create = async (request) => {
     paymentMethod.is_active = true;
     paymentMethod.created_at = Date.now();
 
-    const paymentMethodResponse = await PaymentMethods.create(paymentMethod);
+    const paymentMethodResponse = await paymentMethodRepository.create(paymentMethod);
     return mapToPaymentResponse(paymentMethodResponse);
 }
 
 const list = async () => {
-    const paymentMethodResponses = await PaymentMethods.findAll({
-        where: {
-            is_active: true
-        }, order: [['created_at', 'ASC']]
-    })
+    const paymentMethodResponses = await paymentMethodRepository.findAll();
 
     return paymentMethodResponses.map(paymentMethodResponse => {
         return mapToPaymentResponse(paymentMethodResponse);
@@ -63,11 +56,7 @@ const list = async () => {
 const remove = async (paymentMethodId) => {
     paymentMethodId = validate(getPaymentMethodValidation, paymentMethodId);
 
-    const paymentMethod = await PaymentMethods.findOne({
-        where: {
-            id: paymentMethodId, is_active: true
-        }
-    })
+    const paymentMethod = await paymentMethodRepository.findOneById(paymentMethodId);
 
     if (!paymentMethod) {
         throw new ResponseError(404, 'Payment method not found');
@@ -79,5 +68,7 @@ const remove = async (paymentMethodId) => {
 }
 
 module.exports = {
-    create, list, remove
+    create,
+    list,
+    remove
 }
