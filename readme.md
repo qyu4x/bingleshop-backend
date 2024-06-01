@@ -54,7 +54,8 @@ Dependencies:
 First, clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/qyu4x/kelompok1-bej-final-project 
+git clone https://github.com/qyu4x/24001132-11-kelompok1-platinum
+
 ```
 
 ### 2. Navigate to the Project Directory
@@ -62,7 +63,7 @@ git clone https://github.com/qyu4x/kelompok1-bej-final-project
 Change your directory to the project folder:
 
 ```sh
-cd ./kelompok1-bej-final-project 
+cd ./24001132-11-kelompok1-platinum
 ```
 
 ### 3. Install Dependencies
