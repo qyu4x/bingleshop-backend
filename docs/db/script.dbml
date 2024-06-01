@@ -124,6 +124,7 @@ Enum order_status {
  refunded
  failed
 }
+
 Table orders_details {
   id varchar [primary key]
   order_id varchar [ref: > orders.id]
@@ -140,4 +141,12 @@ Table orders_details {
   updated_at bigint
 }
 
-
+Table chat {
+  id varchar [primary key]
+  user_id_sender varchar [ref: > users.id]
+  user_id_recipient varchar [ref: > users.id]
+  message text
+  read_at bigint
+  created_at bigint [not null, default: `now() unix timestamp UTC`]
+  updated_at bigint
+}
