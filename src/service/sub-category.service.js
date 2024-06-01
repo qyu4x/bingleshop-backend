@@ -11,17 +11,11 @@ const {
     getCategoryValidation
 } = require('../payload/request/category.request');
 const {checkCategoryMustExist} = require('./category.service');
+const subCategoryRepository = require("../repository/sub-category.repository");
 
 
 const checkSubCategoryMustExist = async (categoryId, subCategoryId) => {
-    const category = await SubCategories.findOne({
-        where: {
-            id: subCategoryId,
-            category_id: categoryId,
-            is_active: true
-        },
-        attributes: ['id']
-    })
+    const category = await subCategoryRepository.findOneByCategoryIdAndSubCategoryId(categoryId, subCategoryId);
 
     if (!category) {
         throw new ResponseError(404, "Sub category not found");
@@ -37,14 +31,7 @@ const create = async (request, categoryId) => {
     categoryId = await checkCategoryMustExist(categoryId);
 
     subCategory.name = capitalizeEachFirstWord(subCategory.name);
-    const isSubCategoryExist = await SubCategories.findOne({
-        where: {
-            name: subCategory.name,
-            category_id: categoryId,
-            is_active: true
-        },
-        attributes: ['id']
-    });
+    const isSubCategoryExist = await subCategoryRepository.findOneByNameAndCategoryId(subCategory.name, categoryId);
 
     if (isSubCategoryExist) {
         throw new ResponseError(409, 'Sub category already exists');
@@ -55,43 +42,21 @@ const create = async (request, categoryId) => {
     subCategory.is_active = true;
     subCategory.created_at = Date.now();
 
-    await SubCategories.create(subCategory);
-
-    return await SubCategories.findOne({
-        where: {
-            id: subCategory.id, category_id: categoryId
-        },
-        attributes: ['id', 'category_id', 'name', 'description', 'is_active', 'created_at', 'updated_at']
-    })
+    return await subCategoryRepository.create(subCategory);
 }
 
 const list = async (categoryId) => {
     categoryId = validate(getCategoryValidation, categoryId);
     categoryId = await checkCategoryMustExist(categoryId);
 
-    return await SubCategories.findAll({
-        where: {
-            category_id: categoryId,
-            is_active: true
-        },
-        order: [
-            ['name', 'ASC']
-        ],
-        attributes: ['id', 'category_id', 'name', 'description', 'is_active', 'created_at', 'updated_at']
-    })
+    return await subCategoryRepository.findAllByCategoryId(categoryId);
 }
 
 const remove = async (categoryId, subCategoryId) => {
     categoryId = validate(getCategoryValidation, categoryId);
     subCategoryId = validate(getSubCategoryValidation, subCategoryId);
 
-    const subCategory = await SubCategories.findOne({
-        where: {
-            id: subCategoryId,
-            category_id: categoryId,
-            is_active: true
-        }
-    })
+    const subCategory = await subCategoryRepository.findOneByCategoryIdAndSubCategoryId(categoryId, subCategoryId);
 
     if (!subCategory) {
         throw new ResponseError(404, 'Sub category not found');
