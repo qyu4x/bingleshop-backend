@@ -107,7 +107,7 @@ const search = async (request) => {
         filters.sub_category_id = request.subCategoryId;
     }
 
-    const products = await productRepository.searchWithPagination(filters, skip, request.size);
+    const products = await productRepository.searchByFiltersAndPagination(filters, skip, request.size);
     const totalProduct = await productRepository.findTotalByFilters(filters);
 
     return {

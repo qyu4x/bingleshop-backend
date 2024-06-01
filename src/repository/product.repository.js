@@ -21,7 +21,7 @@ const findByIdWithCategoryAndSubCategory = async (productId) => {
     });
 }
 
-const searchWithPagination = async (filters, skip, size) => {
+const searchByFiltersAndPagination = async (filters, skip, size) => {
     return await Products.findAll({
         where: filters,
         include: [
@@ -59,7 +59,7 @@ const findOneById = async (productId) => {
 module.exports = {
     create,
     findByIdWithCategoryAndSubCategory,
-    searchWithPagination,
+    searchByFiltersAndPagination,
     findTotalByFilters,
     findOneById
 }
