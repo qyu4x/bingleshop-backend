@@ -1,4 +1,3 @@
-const path = require('path');
 const { uploadToImageKit } = require('../service/image.service');
 
 const uploadImage = async (req, res) => {
@@ -7,10 +6,8 @@ const uploadImage = async (req, res) => {
         return res.status(400).send('No file uploaded.');
     }
 
-    const filePath = path.join(__dirname, '../', file.path);
-    
     try {
-        const url = await uploadToImageKit(filePath, file.filename);
+        const url = await uploadToImageKit(file.buffer, file.originalname); // storage location to cloud
         res.send({
             success: true,
             url: url
@@ -19,5 +16,6 @@ const uploadImage = async (req, res) => {
         res.status(500).send(error);
     }
 };
-.
+
 module.exports = { uploadImage };
+
