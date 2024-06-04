@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: BingleShop API
+  description: |
+    API for the BingleShop application. This API provides various endpoints to manage the BingleShop Application.
+  version: 1.0.0
+  termsOfService: https://github.com/qyu4x/24001132-11-kelompok1-platinum
+  contact:
+    name: BingleShop Team
+    email: support@bingleshop.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://localhost:8080
+    description: Local server
+  - url: https://api.bingleshop.com
+    description: Production server
+
+
+paths:
+  /api/v1/healths/ping:
+    get:
+      tags:
+        - Health Check
+      summary: Returns health of API.
+      description: Return detail health of API.
+      responses:
+        '200': # status code
+          description: A String of health
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  example: PONG
