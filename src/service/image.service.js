@@ -1,15 +1,18 @@
 const ImageKit = require('imagekit');
 const { v4: uuidv4 } = require('uuid'); 
+const createImage = require('./repository').createImage;
 
 const imagekit = new ImageKit({
     publicKey: "public_aGCXX/pFBjAu6K93bIxo7rXa+uw=",
-    privateKey: "private_0qSg************************",
+    privateKey: "private_0qSgXiGFlTkaGXBf3tfKXAQTj+0=",
     urlEndpoint: "https://ik.imagekit.io/zvqhtklys/product-images"
 });
 
 const uploadToImageKit = async (fileBuffer, fileName) => {
+//const uploadToImageKit = async (file, product_id, sequence, is_active) => {
     try {
         const image_id = uuidv4(); // generate image ID
+        
         const response = await imagekit.upload({
             file: fileBuffer, // binary file data
             fileName: fileName

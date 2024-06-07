@@ -11,12 +11,8 @@ const uploadImage = async (req, res) => {
     }
 
     try {
-        const url = await uploadToImageKit(file.buffer, file.originalname); //storage location to cloud
-        res.send({
-            success: true,
-            image_id: newImage.id,
-            url: newImage.url
-        });
+        const response = await uploadToImageKit(file, product_id, sequence, is_active);
+        res.status(200).json({data:response});
     } catch (error) {
         res.status(500).send(error);
     }
