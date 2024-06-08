@@ -1,6 +1,6 @@
-const db = require('../models');
+const ProductImage = require('../models');
 
-const newImage = async (image_id, product_id, sequence, url, is_active) => {
+const createImage = async (image_id, product_id, sequence, url, is_active) => {
     return await db.product_images.create({
         id: image_id,
         product_id: product_id,
@@ -10,5 +10,5 @@ const newImage = async (image_id, product_id, sequence, url, is_active) => {
     });
 };
 
-module.exports = { newImage };
+module.exports = { createImage };
 
