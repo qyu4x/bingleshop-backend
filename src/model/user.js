@@ -26,14 +26,14 @@ module.exports = (sequelize, DataTypes) => {
                 as: 'orders'
             })
 
-            User.hasMany(models.Chats, {
+            User.hasMany(models.Chat, {
                 foreignKey: 'user_id_sender',
                 onDelete: 'RESTRICT',
                 onUpdate: 'RESTRICT',
                 as: 'senders'
             })
 
-            User.hasMany(models.Chats, {
+            User.hasMany(models.Chat, {
                 foreignKey: 'user_id_recipient',
                 onDelete: 'RESTRICT',
                 onUpdate: 'RESTRICT',
@@ -49,7 +49,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         username: DataTypes.UUID,
         full_name: DataTypes.STRING,
-        email: DataTypes.STRING,
         password: DataTypes.STRING,
         birth_date: DataTypes.DATE,
         role: DataTypes.ENUM('USER', 'ADMIN'),
