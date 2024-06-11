@@ -27,6 +27,13 @@ module.exports = (sequelize, DataTypes) => {
                 onUpdate: 'RESTRICT',
                 as: 'order_details'
             })
+
+            Products.hasMany(models.ProductImages, {
+                foreignKey: 'product_id',
+                onDelete: 'RESTRICT',
+                onUpdate: 'RESTRICT',
+                as: 'product_images'
+            })
         }
     }
 
