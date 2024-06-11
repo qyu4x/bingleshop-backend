@@ -25,6 +25,20 @@ module.exports = (sequelize, DataTypes) => {
                 onUpdate: 'RESTRICT',
                 as: 'orders'
             })
+
+            User.hasMany(models.Chats, {
+                foreignKey: 'user_id_sender',
+                onDelete: 'RESTRICT',
+                onUpdate: 'RESTRICT',
+                as: 'senders'
+            })
+
+            User.hasMany(models.Chats, {
+                foreignKey: 'user_id_recipient',
+                onDelete: 'RESTRICT',
+                onUpdate: 'RESTRICT',
+                as: 'recipients'
+            })
         }
     }
 
@@ -40,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
         role: DataTypes.ENUM('USER', 'ADMIN'),
         token: DataTypes.STRING,
         is_active: DataTypes.BOOLEAN,
+        otp_is_active: DataTypes.BOOLEAN,
+        otp_code: DataTypes.STRING,
+        otp_validation_expired_at: DataTypes.BIGINT,
+        avatar_url: DataTypes.STRING,
         created_at: DataTypes.BIGINT,
         updated_at: DataTypes.BIGINT,
     }, {
