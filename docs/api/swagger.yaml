@@ -35,3 +35,71 @@ paths:
                 items:
                   type: string
                   example: PONG
+
+  /api/v1/users:
+    get:
+      tags:
+        - Users Check
+      summary: Returns health of API.
+      description: Return detail health of API.
+      responses:
+        '200': # status code
+          description: A String of health
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  example: this is user
+
+  /api/v1/categories:
+    get:
+      tags:
+        - Categories products Check
+      summary: Returns categories products of API.
+      description: Return detail categories products of API.
+      responses:
+        '200': # status code
+          description: A String of categories products
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  example: this is categories products
+
+  /api/v1/products:
+    get:
+      tags:
+        - Products Check
+      summary: Returns products of API.
+      description: Return detail products of API.
+      responses:
+        '200': # status code
+          description: A String of products
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  example: this is products
+
+  /api/v1/image-upload:
+    get:
+      tags:
+        - Image Upload Check
+      summary: Returns image upload of API.
+      description: Return detail image upload of API.
+      responses:
+        '200': # status code
+          description: A String of image upload
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  example: this is image upload url
