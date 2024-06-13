@@ -14,6 +14,26 @@
             "date": 1718113713524,
             "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-11-20.log",
             "hash": "22d0cfcef0558607d75e5136c548bdb11ec2ff299446c14bc4b8e5d0c6afdcc5"
+        },
+        {
+            "date": 1718116525887,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-11-21.log",
+            "hash": "375772ee622353261945962e50678243d7160c8f314e8d2f4944fbac97e78f4e"
+        },
+        {
+            "date": 1718118367211,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-11-22.log",
+            "hash": "9b3f9750ebe548bc340af30cc40d4b4317a3f86b35126595e294ba91acc9b744"
+        },
+        {
+            "date": 1718246696678,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-13-09.log",
+            "hash": "5be67bd9a3112c2ed8b44e2b2cf25d2e388466d3b0f9ea45b3d25fe59159c4b0"
+        },
+        {
+            "date": 1718248440392,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-13-10.log",
+            "hash": "fced4753da6d9abc379646c6afd193ac20246e0db19dff379c2fc8f2f9468e92"
         }
     ],
     "hashType": "sha256"
