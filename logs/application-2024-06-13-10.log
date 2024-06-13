@@ -1,7 +1,0 @@
-2024-06-13 10:14:07 [[32minfo[39m]: GET /api-docs/ 304 6ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:14:07 [[32minfo[39m]: GET /api-docs/swagger-ui.css 304 2ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:14:07 [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js 304 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:14:07 [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js 304 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:14:07 [[32minfo[39m]: GET /api-docs/swagger-ui-init.js 200 2ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:14:07 [[32minfo[39m]: GET /api-docs/favicon-32x32.png 200 3ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:14:20 [[32minfo[39m]: GET /api/v1/healths/ping 200 2ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
