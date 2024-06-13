@@ -66,7 +66,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/users/login:
     post:
       tags:
@@ -84,7 +84,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/users/current:
     get:
       tags:
@@ -100,14 +100,14 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/users/logout:
     post:
       tags:
         - user
       summary: logout
       requestBody:
-        content: { }
+        content: {}
       parameters:
         - name: Authorization
           in: header
@@ -118,7 +118,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/addresses:
     post:
       tags:
@@ -132,30 +132,33 @@ paths:
               example:
                 name: Shiina Qirara
                 phone_number: '082351252125'
-                street: shibuya 09
-                city: Tokyo
-                province: Tokyo
-                district: Shibuya
+                street: Kyoto District A
+                city: Kyoto
+                province: Kyoto
+                district: Kyoto
                 postal_code: 123910
                 is_main_address: true
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: bab6ec6e-6fbb-4297-87b3-11a92a227b14
       responses:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
+    get:
+      tags:
+        - address
+      summary: find all
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /api/v1/addresses/{addressId}/main:
     patch:
       tags:
         - address
       summary: update main
       requestBody:
-        content: { }
+        content: {}
       parameters:
         - name: addressId
           in: path
@@ -167,7 +170,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/addresses/{addressId}:
     delete:
       tags:
@@ -184,7 +187,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/categories:
     post:
       tags:
@@ -202,7 +205,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     get:
       tags:
         - category
@@ -211,7 +214,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/categories/{categoryId}:
     delete:
       tags:
@@ -228,7 +231,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/categories/{categoryId}/sub-categories:
     post:
       tags:
@@ -239,7 +242,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              properties: { }
+              properties: {}
       parameters:
         - name: categoryId
           in: path
@@ -251,7 +254,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     get:
       tags:
         - sub category
@@ -267,7 +270,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/categories/{categoryId}/sub-categories/{subCategoryId}:
     delete:
       tags:
@@ -290,7 +293,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     post:
       tags:
         - product
@@ -323,7 +326,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/payments:
     post:
       tags:
@@ -349,7 +352,16 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
+    get:
+      tags:
+        - payment method
+      summary: find all
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /api/v1/payments/{paymentId}:
     delete:
       tags:
@@ -366,7 +378,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/logistics:
     post:
       tags:
@@ -392,7 +404,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     get:
       tags:
         - logistic
@@ -401,7 +413,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/logistics/{logisticId}:
     delete:
       tags:
@@ -418,7 +430,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/products/{productId}:
     get:
       tags:
@@ -435,7 +447,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     put:
       tags:
         - product
@@ -464,7 +476,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     delete:
       tags:
         - product
@@ -480,7 +492,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/products/search:
     get:
       tags:
@@ -490,7 +502,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/orders:
     post:
       tags:
@@ -520,7 +532,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     get:
       tags:
         - order
@@ -529,14 +541,14 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/payments/{paymentCode}/orders/{orderId}:
     patch:
       tags:
         - order
       summary: update payment
       requestBody:
-        content: { }
+        content: {}
       parameters:
         - name: paymentCode
           in: path
@@ -554,7 +566,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/orders/{orderId}/order-details:
     get:
       tags:
@@ -571,7 +583,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/order-details:
     get:
       tags:
@@ -581,7 +593,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/orders/{orderId}/order-details/{orderDetailId}:
     get:
       tags:
@@ -604,7 +616,7 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
     patch:
       tags:
         - order detail
@@ -633,14 +645,14 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
   /api/v1/orders/{orderId}/order-details/{orderDetailId}/received:
     patch:
       tags:
         - order detail
       summary: update received
       requestBody:
-        content: { }
+        content: {}
       parameters:
         - name: orderId
           in: path
@@ -658,4 +670,6 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: { }
+            application/json: {}
+
+
