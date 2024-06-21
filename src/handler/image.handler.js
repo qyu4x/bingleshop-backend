@@ -1,4 +1,6 @@
+const multer = require('multer');
 const { uploadToImageKit } = require('../service/image.service');
+
 const storage = multer.memoryStorage();
 
 const upload = multer({
