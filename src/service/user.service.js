@@ -58,7 +58,7 @@ const register = async (request) => {
         throw new ResponseError(401, "Email or password is incorrect");
     }
 
-    const token = token = jwt.sign({ "id" : user.id, "email" : user.email, "role": user.role, "username": user.username  },process.env.SECRET, { expiresIn: '24h' });
+    const token = jwt.sign({ "id" : user.id, "email" : user.email, "role": user.role, "username": user.username  },process.env.SECRET, { expiresIn: '24h' });
 
     user.token = token;
     user.updated_at = Date.now();

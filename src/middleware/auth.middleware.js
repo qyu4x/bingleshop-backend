@@ -12,8 +12,6 @@ const authorize = (hasRoles = []) => {
             if (!token) {
                 throw new ResponseError(401, "Unauthorized");
             }
-
-            token = token.trim();
            
 
             if (!token) {
@@ -26,18 +24,18 @@ const authorize = (hasRoles = []) => {
                   return res.status(401).json({ message: 'Invalid access token' });
                 }
                 
-                const user = userRepository.findOneByEmail(decoded.email);
+                const user = userRepository.findOneById(decoded.id);
                 if (!user) {
                   return res.status(401).json({ message: 'User not found' });
                 }
-          
 
-                const authorized = hasRoles.some(hasRole => hasRole.toUpperCase() === user.role.toUpperCase());
+                const authorized = hasRoles.some(hasRole => hasRole.toUpperCase() === decoded.role.toUpperCase());
                 if (!authorized) {
                     throw new ResponseError(403, "Forbidden");
                 }
 
-            req.user = user;
+                req.user = decoded;
+            
             next();
             });
         } catch (error) {
