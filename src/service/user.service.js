@@ -60,10 +60,6 @@ const register = async (request) => {
 
     const token = jwt.sign({ "id" : user.id, "email" : user.email, "role": user.role, "username": user.username  },process.env.SECRET, { expiresIn: '24h' });
 
-    user.token = token;
-    user.updated_at = Date.now();
-    user.save();
-
     return token;
 }
 
