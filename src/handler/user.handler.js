@@ -13,6 +13,34 @@ const register = async (req, res, next) => {
     }
 }
 
+const verifyOtpCode = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const request = req.body;
+
+        await userService.verifyOtpCode(userId, request);
+        res.status(200).json({
+            data: 'OK'
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+const refreshOtpCode = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+
+        await userService.refreshOtpCode(userId);
+        res.status(200).json({
+            data: 'OK'
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 const login = async (req, res, next) => {
     try {
         const request = req.body;
@@ -30,7 +58,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        const userId = req.params.userId;
 
         await userService.logout(userId);
         res.status(200).json({
@@ -58,5 +86,7 @@ module.exports = {
     register,
     login,
     logout,
-    get
+    get,
+    verifyOtpCode,
+    refreshOtpCode
 }

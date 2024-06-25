@@ -13,7 +13,13 @@ const loginUserSchema = Joi.object({
     password: Joi.string().min(4).max(255).required(),
 })
 
+const otpCodeSchema = Joi.object({
+    otp_code: Joi.string().pattern(/[0-9]/)
+        .max(6).min(6).required(),
+})
+
 module.exports = {
     createUserSchema,
-    loginUserSchema
+    loginUserSchema,
+    otpCodeSchema
 }
