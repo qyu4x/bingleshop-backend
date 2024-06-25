@@ -1,8 +1,0 @@
-2024-06-13 10:20:27 [[32minfo[39m]: GET /api-docs/ 304 10ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:20:28 [[32minfo[39m]: GET /api-docs/swagger-ui.css 304 3ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:20:28 [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js 304 2ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:20:28 [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js 304 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:20:28 [[32minfo[39m]: GET /api-docs/swagger-ui-init.js 304 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"}
-2024-06-13 10:22:15 [[32minfo[39m]: GET /api/v1/logistics 200 433ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
-2024-06-13 10:22:26 [[32minfo[39m]: GET /api/v1/payments 200 35ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
-2024-06-13 10:23:00 [[32minfo[39m]: GET /api/v1/addresses 401 1ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}

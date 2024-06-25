@@ -1,2 +1,0 @@
-2024-06-25 17:25:22 [[32minfo[39m]: GET /api/v1/healths/ping 200 15ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
-2024-06-25 17:26:15 [[32minfo[39m]: GET /api/v1/healths/ping 304 12ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
