@@ -1,0 +1,12 @@
+2024-06-25 16:34:20 [[32minfo[39m]: GET /api/v1/users/current 401 5ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-25 16:34:22 [[32minfo[39m]: GET /api/v1/users/current 401 2ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/ 200 3ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui-init.js 200 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui-init.js 200 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui.css 200 26ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js 200 68ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui-standalone-preset.js 200 3ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js 200 153ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:35 [[32minfo[39m]: GET /api-docs/swagger-ui-bundle.js 200 13ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:36 [[32minfo[39m]: GET /api-docs/favicon-32x32.png 200 8ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
+2024-06-25 16:34:41 [[32minfo[39m]: GET /api/v1/healths/ping 200 2ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"}
