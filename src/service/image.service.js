@@ -11,7 +11,12 @@ const imagekit = new ImageKit({
 const uploadToImageKit = async (file, product_id, sequence, is_active) => {
     try {
         const image_id = uuidv4(); 
-        
+
+        const existingImage = await getImageByProductId(product_id);
+        if (existingImage) {
+            throw new Error ('Image already exist');
+        }
+    
         const response = await imagekit.upload({
             file: file.buffer, 
             fileName: file.originalname 
