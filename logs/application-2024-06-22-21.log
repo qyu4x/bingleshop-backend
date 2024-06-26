@@ -1,0 +1,35 @@
+2024-06-22 21:05:49 [[32minfo[39m]: GET / 404 5ms {"ip":"::ffff:127.0.0.1","userAgent":"Wget/1.21.2"}
+2024-06-22 21:06:32 [[32minfo[39m]: GET / 404 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"}
+2024-06-22 21:06:32 [[32minfo[39m]: GET /favicon.ico 404 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"}
+2024-06-22 21:06:33 [[32minfo[39m]: GET / 404 0ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"}
+2024-06-22 21:06:33 [[32minfo[39m]: GET /favicon.ico 404 1ms {"ip":"::ffff:127.0.0.1","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"}
+2024-06-22 21:07:59 [[32minfo[39m]: POST /image 404 2ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:08:15 [[32minfo[39m]: POST /upload 404 0ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:08:37 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 3ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:09:25 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 7ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:09:51 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 7ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:09:56 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 3ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:10:09 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 7ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:10:15 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:10:55 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 8ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:13:38 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:15:17 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 10ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:18:02 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 17ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:18:03 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 3ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:18:51 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 10ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:19:03 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 9ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:20:01 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 9ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:20:09 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 9ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:21:03 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 14ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:21:30 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 13ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:23:45 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 12ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:24:16 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 13ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:24:28 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 12ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:25:06 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 13ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:27:47 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 15ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:28:11 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 12ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:28:34 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 12ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:29:38 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 12ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:32:59 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 14ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:35:03 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2450ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-22 21:36:05 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2840ms {"ip":"::ffff:127.0.0.1","userAgent":"PostmanRuntime/7.39.0"}

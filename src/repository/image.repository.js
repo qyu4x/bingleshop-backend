@@ -1,4 +1,4 @@
-// const ProductImage = require('../models');
+const ProductImage = require('../model');
 
 const createImage = async (image_id, product_id, sequence, url, is_active) => {
     return await db.product_images.create({

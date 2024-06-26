@@ -22,6 +22,7 @@ const upload = multer({
     const uploadImage = async (req, res) => {
         upload(req, res, async (err) => {
             if (err) {
+                console.log(err);
                 return res.status(400).json({ error: err.message });
             }
             if (!req.file) {
@@ -33,9 +34,12 @@ const upload = multer({
             const is_active = req.body.is_active || true;
     
             try {
+                console.log("File", file);
                 const response = await uploadToImageKit(file, product_id, sequence, is_active);
+                console.log("response", response);
                 res.status(200).json({ data: response });
             } catch (error) {
+                console.log(error);
                 res.status(500).send(error);
             }
         });

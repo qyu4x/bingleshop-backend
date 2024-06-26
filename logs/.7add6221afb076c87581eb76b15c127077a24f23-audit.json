@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/lazu/Documents/code/24001132-11-kelompok1-platinum/logs/.7add6221afb076c87581eb76b15c127077a24f23-audit.json",
+    "files": [
+        {
+            "date": 1719064912270,
+            "name": "/home/lazu/Documents/code/24001132-11-kelompok1-platinum/logs/application-2024-06-22-21.log",
+            "hash": "bd3d41f747af0b344ed8151e17be973d3e290a3728784d45cf7dcb0e134bdd2a"
+        }
+    ],
+    "hashType": "sha256"
+}

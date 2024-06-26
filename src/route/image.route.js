@@ -9,7 +9,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // Endpoint to handle image upload
-imageRouter.post('/upload', upload.single('image'), uploadImage);
+imageRouter.post('/upload', upload.single('file'), uploadImage);
 
 module.exports = {
     imageRouter

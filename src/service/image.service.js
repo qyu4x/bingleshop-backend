@@ -13,9 +13,10 @@ const uploadToImageKit = async (file, product_id, sequence, is_active) => {
         const image_id = uuidv4(); 
         
         const response = await imagekit.upload({
-            file: file, 
-            fileName: file.name 
+            file: file.buffer, 
+            fileName: file.originalname 
         });
+        console.log(response);
         
         const url = response.url;
         
@@ -23,6 +24,7 @@ const uploadToImageKit = async (file, product_id, sequence, is_active) => {
         
         return url;
     } catch (error) {
+        console.log(error);
         throw new Error('Error uploading file to ImageKit.');
     }
 };
