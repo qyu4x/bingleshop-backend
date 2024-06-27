@@ -1,16 +1,14 @@
-const {User} = require('../model');
-
+const {User} = require("../model");
 const findOneByUsername = async (username) => {
     return await User.findOne({
         where: {username: username, is_active: true},
         attributes: ['id']
     });
 }
-
 const findOneByEmail = async (email) => {
     return await User.findOne({
         where: {email: email, is_active: true},
-        attributes: ['id', 'email', 'password']
+        attributes: ['id', 'email', 'password', 'role', 'username']
     });
 }
 
