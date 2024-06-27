@@ -6,34 +6,29 @@
     "auditLog": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\.18051125fbbb6fce2fd55db9c453f00613d41c83-audit.json",
     "files": [
         {
-            "date": 1717504456621,
-            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-04-19.log",
-            "hash": "17e37f186692e32ea9afa14018d54f482b19ae9de3660b16f334d122755ba647"
+            "date": 1719322612848,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-25-20.log",
+            "hash": "14bc99772cc491de08db27685c8eeb74ed2e3ac265e1366da9d9be49ea5abee9"
         },
         {
-            "date": 1718113713524,
-            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-11-20.log",
-            "hash": "22d0cfcef0558607d75e5136c548bdb11ec2ff299446c14bc4b8e5d0c6afdcc5"
+            "date": 1719324042594,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-25-21.log",
+            "hash": "959f322a58704004bb5474c73f3ac536283a0deaaa7bd1f355eb647dff80c9b3"
         },
         {
-            "date": 1718116525887,
-            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-11-21.log",
-            "hash": "375772ee622353261945962e50678243d7160c8f314e8d2f4944fbac97e78f4e"
+            "date": 1719327905570,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-25-22.log",
+            "hash": "d70b2f4be7af16f014758fa3d7ad5689e4ef38d361def173ff876d07597ca9c1"
         },
         {
-            "date": 1718118367211,
-            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-11-22.log",
-            "hash": "9b3f9750ebe548bc340af30cc40d4b4317a3f86b35126595e294ba91acc9b744"
+            "date": 1719353711630,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-26-05.log",
+            "hash": "5c219cf9a44cc72608e640a6ef2533f078bbd40077fc234286bdae253a7c3bd4"
         },
         {
-            "date": 1718246696678,
-            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-13-09.log",
-            "hash": "5be67bd9a3112c2ed8b44e2b2cf25d2e388466d3b0f9ea45b3d25fe59159c4b0"
-        },
-        {
-            "date": 1718248440392,
-            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-13-10.log",
-            "hash": "fced4753da6d9abc379646c6afd193ac20246e0db19dff379c2fc8f2f9468e92"
+            "date": 1719468072835,
+            "name": "D:\\B\\CODE\\pzn\\uwupedia\\logs\\application-2024-06-27-13.log",
+            "hash": "090134aab5dce5614c3d36943c88624fa4d4bbfdf9e8c1c684e458b477f3233d"
         }
     ],
     "hashType": "sha256"

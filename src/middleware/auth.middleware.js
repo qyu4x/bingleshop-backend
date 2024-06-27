@@ -12,21 +12,21 @@ const authorize = (hasRoles = []) => {
             if (!token) {
                 throw new ResponseError(401, "Unauthorized");
             }
-           
+
 
             if (!token) {
-                return res.status(401).json({ message: 'Access token is missing' });
-              }
-          
-              jwt.verify(token, process.env.SECRET, (err, decoded) => {
+                return res.status(401).json({message: 'Access token is missing'});
+            }
+
+            jwt.verify(token, process.env.SECRET, async (err, decoded) => {
                 if (err) {
-                  console.error('JWT verification error:', err);
-                  return res.status(401).json({ message: 'Invalid access token' });
+                    console.error('JWT verification error:', err);
+                    return res.status(401).json({message: 'Invalid access token'});
                 }
-                
-                const user = userRepository.findOneById(decoded.id);
+
+                const user = await userRepository.findOneById(decoded.id);
                 if (!user) {
-                  return res.status(401).json({ message: 'User not found' });
+                    return res.status(401).json({message: 'User not found'});
                 }
 
                 const authorized = hasRoles.some(hasRole => hasRole.toUpperCase() === decoded.role.toUpperCase());
@@ -35,8 +35,8 @@ const authorize = (hasRoles = []) => {
                 }
 
                 req.user = decoded;
-            
-            next();
+
+                next();
             });
         } catch (error) {
             next(error);
