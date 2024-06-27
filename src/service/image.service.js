@@ -1,6 +1,8 @@
 const ImageKit = require('imagekit');
 const { v4: uuidv4 } = require('uuid');
 const { createImage } = require('../repository/image.repository');
+const imageRepository = require('../repository/image.repository'); 
+
 
 const imagekit = new ImageKit({
     publicKey: "public_aGCXX/pFBjAu6K93bIxo7rXa+uw=",
@@ -12,9 +14,9 @@ const uploadToImageKit = async (file, product_id, sequence, is_active) => {
     try {
         const image_id = uuidv4(); 
 
-        const existingImage = await getImageByProductId(product_id);
-        if (existingImage) {
-            throw new Error ('Image already exist');
+        const product = await imageRepository.findOneById(product_id); //ada di model
+        if (product) {
+            throw new Error ('Product with this id is already exists');
         }
     
         const response = await imagekit.upload({

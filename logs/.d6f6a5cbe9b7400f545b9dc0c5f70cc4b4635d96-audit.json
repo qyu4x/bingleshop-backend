@@ -24,6 +24,31 @@
             "date": 1719396990880,
             "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-26-17.log",
             "hash": "6d0c8d7b3af56db45bb8ec56af871833b05be5dd94b17801c7205fc079213d3e"
+        },
+        {
+            "date": 1719490778830,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-27-19.log",
+            "hash": "ab3185db88b12d55a830565fb57a0a59bba0c63a18fc018e57ba39738e98d833"
+        },
+        {
+            "date": 1719496351601,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-27-20.log",
+            "hash": "f422498e7a5fffad8b4b8b5b5343b7be222a1e00aca779e043c9c4a70169f8cb"
+        },
+        {
+            "date": 1719497667659,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-27-21.log",
+            "hash": "52680a5817481fc44de6e1ca1a3e54afbfdf2535809a5af47b623c956bfa3ba7"
+        },
+        {
+            "date": 1719507403279,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-27-23.log",
+            "hash": "c3776abc178ec3fb712cc6767d393b9edae78137e5567d69dbabb2b93a254977"
+        },
+        {
+            "date": 1719508478564,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-28-00.log",
+            "hash": "e12a92ea1d55f35947f8d74067447991b0b532fd74a1216fc62932ee8ffef95c"
         }
     ],
     "hashType": "sha256"
