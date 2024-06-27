@@ -1,0 +1,12 @@
+2024-06-27 13:02:32 [[32minfo[39m]: POST /api/v1/users/login 401 236ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:03:25 [[32minfo[39m]: POST /api/v1/users/login 200 30ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:03:43 [[32minfo[39m]: GET /api/v1/users/current 401 2ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:04:09 [[32minfo[39m]: GET /api/v1/users/current 404 25ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:04:51 [[32minfo[39m]: GET /api/v1/users/current 401 74ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:06:21 [[32minfo[39m]: GET /api/v1/users/current 401 2ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:06:25 [[32minfo[39m]: GET /api/v1/users/current 401 21ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:06:56 [[32minfo[39m]: GET /api/v1/users/current 401 81ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:07:56 [[32minfo[39m]: GET /api/v1/users/current 200 93ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:08:19 [[32minfo[39m]: GET /api/v1/users/current 200 23ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:08:20 [[32minfo[39m]: GET /api/v1/users/current 200 7ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}
+2024-06-27 13:08:21 [[32minfo[39m]: GET /api/v1/users/current 200 7ms {"ip":"::1","userAgent":"PostmanRuntime/7.37.3"}

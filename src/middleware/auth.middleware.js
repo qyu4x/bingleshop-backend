@@ -1,36 +1,43 @@
 const {ResponseError} = require('../error/response-error');
 const {User} = require('../model');
+const jwt = require('jsonwebtoken');
 const {Op, where} = require('sequelize');
+const userRepository = require('../repository/user.repository');
+require('dotenv').config();
 
 const authorize = (hasRoles = []) => {
     return async (req, res, next) => {
         try {
-            let token = req.get('Authorization');
+            const token = req.headers['authorization']?.split(' ')[1];
             if (!token) {
                 throw new ResponseError(401, "Unauthorized");
             }
 
-            token = token.trim();
-            const user = await User.findOne({
-                where: {
-                    token: {
-                        [Op.eq]: token
-                    }
-                },
-                attributes: ['id', 'username', 'email','role', 'full_name', 'created_at']
-            })
 
-            if (!user) {
-                throw new ResponseError(401, "Unauthorized");
+            if (!token) {
+                return res.status(401).json({message: 'Access token is missing'});
             }
 
-            const authorized = hasRoles.some(hasRole => hasRole.toUpperCase() === user.role.toUpperCase());
-            if (!authorized) {
-                throw new ResponseError(403, "Forbidden");
-            }
+            jwt.verify(token, process.env.SECRET, async (err, decoded) => {
+                if (err) {
+                    console.error('JWT verification error:', err);
+                    return res.status(401).json({message: 'Invalid access token'});
+                }
 
-            req.user = user;
-            next();
+                const user = await userRepository.findOneById(decoded.id);
+                if (!user) {
+                    return res.status(401).json({message: 'User not found'});
+                }
+
+                const authorized = hasRoles.some(hasRole => hasRole.toUpperCase() === decoded.role.toUpperCase());
+                if (!authorized) {
+                    throw new ResponseError(403, "Forbidden");
+                }
+
+                req.user = decoded;
+
+                next();
+            });
         } catch (error) {
             next(error);
         }

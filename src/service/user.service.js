@@ -1,7 +1,9 @@
+require('dotenv').config();
 const {User} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const role = require('../helper/role.helper');
 const {validate} = require('../helper/validation.helper');
 const {ResponseError} = require('../error/response-error')
@@ -13,6 +15,7 @@ const userRepository = require('../repository/user.repository');
 const {generateOtp} = require("../helper/generate-otp");
 const {sendEmail} = require("../helper/send-email.helper");
 const {renderHtml} = require("../helper/render-html.helper");
+
 
 const existByUsername = async (username) => {
     const user = await userRepository.findOneByUsername(username);
@@ -98,11 +101,12 @@ const login = async (request) => {
         throw new ResponseError(401, "Email or password is incorrect");
     }
 
-    const token = uuidv4().toString();
-
-    user.token = token;
-    user.updated_at = Date.now();
-    user.save();
+    const token = jwt.sign({
+        "id": user.id,
+        "email": user.email,
+        "role": user.role,
+        "username": user.username
+    }, process.env.SECRET, {expiresIn: '24h'});
 
     return token;
 }
