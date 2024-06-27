@@ -74,6 +74,56 @@ Response Body Error :
 }
 ```
 
+## Verify OTP Code API
+
+Endpoint : POST /api/v1/users/{userId}/verify-otp
+
+Request Body :
+
+```json
+{
+  "otp_code": "123456"
+}
+```
+
+Response Body Success :
+
+```json
+{
+  "data": "OK"
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "errors": "The OTP code has expired. Please request a new one."
+}
+```
+
+## Refresh OTP Code API
+
+Endpoint : POST /api/v1/users/{userId}/refresh-otp
+
+
+Response Body Success :
+
+```json
+{
+  "data": "OK"
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "errors": "User not found"
+}
+```
+
+
 ## Logout User API
 
 Endpoint : DELETE /api/v1/users/logout
