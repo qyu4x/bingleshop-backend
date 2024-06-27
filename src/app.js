@@ -1,3 +1,6 @@
+require("./middleware/instrument.middleware.js");
+const Sentry = require("@sentry/node");
+
 const express = require('express');
 const path = require('path');
 
@@ -25,8 +28,13 @@ app.use(express.json());
 
 app.use("/", router);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get("/debug-sentry", function mainHandler(req, res) {
+    throw new Error("My first Sentry error!");
+});
 
+Sentry.setupExpressErrorHandler(app);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(errorMiddleware);
 app.use(routeNotFoundMiddleware)
 
