@@ -14,7 +14,7 @@ const uploadToImageKit = async (file, product_id, sequence, is_active) => {
     try {
         const image_id = uuidv4(); 
 
-        const product = await imageRepository.findOneById(product_id); //ada di model
+        const product = await imageRepository.findOneById(product_id); 
         if (product) {
             throw new Error ('Product with this id is already exists');
         }

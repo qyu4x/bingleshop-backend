@@ -12,9 +12,12 @@ const createImage = async (image_id, product_id, sequence, url, is_active) => {
 
 const findOneById = async (product_id) => {
     return await ProductImages.findOne({
-        id : product_id   
-    })
-}
+        where : {
+            id : product_id
+        },
+    });
+};
+
 
 module.exports = { 
     createImage,

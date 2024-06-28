@@ -49,6 +49,16 @@
             "date": 1719508478564,
             "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-28-00.log",
             "hash": "e12a92ea1d55f35947f8d74067447991b0b532fd74a1216fc62932ee8ffef95c"
+        },
+        {
+            "date": 1719565020775,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-28-15.log",
+            "hash": "fd3914454b2586b0bf379edb535802e40f7cc3fb5a81105a5721176b37ea6897"
+        },
+        {
+            "date": 1719565244187,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-28-16.log",
+            "hash": "bdaa4262ea2ab49de60fc6f9d5b94ab723d6dbeed2d1d768bff4a7144e482e39"
         }
     ],
     "hashType": "sha256"

@@ -31,7 +31,7 @@ const upload = multer({
                 console.log(err);
                 return res.status(400).json({ error: err.message });
             }
-            if (!req.file) {
+            if (!file) {
                 return res.status(400).json({ error: 'No file uploaded' });
             }
             
