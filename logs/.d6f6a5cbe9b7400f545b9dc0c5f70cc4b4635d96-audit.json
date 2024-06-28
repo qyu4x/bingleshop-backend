@@ -59,6 +59,11 @@
             "date": 1719565244187,
             "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-28-16.log",
             "hash": "bdaa4262ea2ab49de60fc6f9d5b94ab723d6dbeed2d1d768bff4a7144e482e39"
+        },
+        {
+            "date": 1719587479810,
+            "name": "/Users/dwinayuliatama/Desktop/24001132-11-kelompok1-platinum/logs/application-2024-06-28-22.log",
+            "hash": "a6f4d8061b43fc38930f5d479d63a60f91f1e08cc8cdd7d614c9444a77ffa0bd"
         }
     ],
     "hashType": "sha256"
