@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1719910290613" clover="3.2.0">
-  <project timestamp="1719910290614" name="All files">
-    <metrics statements="525" coveredstatements="31" conditionals="78" coveredconditionals="1" methods="62" coveredmethods="1" elements="665" coveredelements="33" complexity="0" loc="525" ncloc="525" packages="1" files="10" classes="10"/>
+<coverage generated="1719910489189" clover="3.2.0">
+  <project timestamp="1719910489190" name="All files">
+    <metrics statements="525" coveredstatements="26" conditionals="78" coveredconditionals="1" methods="62" coveredmethods="1" elements="665" coveredelements="28" complexity="0" loc="525" ncloc="525" packages="1" files="10" classes="10"/>
     <file name="address.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\address.service.js">
       <metrics statements="45" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <line num="1" count="0" type="stmt"/>
@@ -470,7 +470,7 @@
       <line num="70" count="0" type="stmt"/>
     </file>
     <file name="user.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\user.service.js">
-      <metrics statements="85" coveredstatements="31" conditionals="20" coveredconditionals="1" methods="8" coveredmethods="1"/>
+      <metrics statements="85" coveredstatements="26" conditionals="20" coveredconditionals="1" methods="8" coveredmethods="1"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -526,13 +526,13 @@
       <line num="82" count="1" type="stmt"/>
       <line num="83" count="1" type="stmt"/>
       <line num="85" count="1" type="cond" truecount="1" falsecount="1"/>
-      <line num="86" count="0" type="stmt"/>
-      <line num="89" count="1" type="stmt"/>
-      <line num="90" count="1" type="stmt"/>
-      <line num="91" count="1" type="stmt"/>
-      <line num="92" count="1" type="stmt"/>
-      <line num="94" count="1" type="stmt"/>
-      <line num="95" count="1" type="stmt"/>
+      <line num="86" count="1" type="stmt"/>
+      <line num="89" count="0" type="stmt"/>
+      <line num="90" count="0" type="stmt"/>
+      <line num="91" count="0" type="stmt"/>
+      <line num="92" count="0" type="stmt"/>
+      <line num="94" count="0" type="stmt"/>
+      <line num="95" count="0" type="stmt"/>
       <line num="98" count="1" type="stmt"/>
       <line num="99" count="0" type="stmt"/>
       <line num="101" count="0" type="stmt"/>

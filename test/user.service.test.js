@@ -275,4 +275,35 @@ describe('refresh otp code', () => {
             htmlTemplate
         );
     });
+
+    it('must have failed to refresh otp code due to unregistered account', async () => {
+        const mockUuid = 'random-uuid-v4';
+        const otpCode = '765432';
+
+        uuid.v4.mockReturnValue(mockUuid);
+        generateOtp.mockResolvedValue(otpCode);
+
+        const mockUserData = {
+            id : mockUuid,
+            full_name: 'Neko Hime',
+            email: 'nekohime@gmail.com',
+            username: 'nekohime',
+            otp_is_active: false,
+            otp_code: otpCode,
+            otp_validation_expired_at: Date.now() - (60 * 60 * 1000 * 24 * 365),
+            is_active: false,
+            created_at: Date.now(),
+            save: jest.fn().mockResolvedValue({id : mockUuid})
+        }
+
+        uuid.v4.mockReturnValue(mockUuid);
+        userRepository.findOneInactiveAccountByUserId.mockResolvedValue(null);
+
+        await expect(userService.refreshOtpCode('random-user-id')).rejects.toThrow('User not found');
+
+        expect(mockUserData.save).toHaveBeenCalledTimes(0);
+        expect(renderHtml).toHaveBeenCalledTimes(0);
+
+        expect(sendEmail).toHaveBeenCalledTimes(0);
+    });
 })
