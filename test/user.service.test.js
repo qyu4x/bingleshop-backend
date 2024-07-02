@@ -155,6 +155,31 @@ describe('verify otp code', () => {
         expect(mockUserData.save).toHaveBeenCalledTimes(1);
     });
 
+    it('must fail to verify registered account with otp code because user not found', async () => {
+        const mockUuid = 'random-uuid-v4';
+        const otpCode = '765432';
+
+        const mockUserData = {
+            id : mockUuid,
+            username: 'nekohime',
+            otp_is_active: false,
+            otp_code: '765431',
+            otp_validation_expired_at: Date.now() + (60 * 60 * 1000 * 24 * 365),
+            is_active: false,
+            created_at: Date.now(),
+            save: jest.fn().mockResolvedValue({id : mockUuid})
+        }
+
+        uuid.v4.mockReturnValue(mockUuid);
+        userRepository.findOneByUserIdAndOtpCode.mockResolvedValue(null);
+
+        await expect(userService.verifyOtpCode('random-user-id', {otp_code : otpCode}))
+            .rejects.toThrow('User not found');
+
+        expect(userRepository.findOneByUserIdAndOtpCode).toHaveBeenCalledTimes(1);
+        expect(mockUserData.save).toHaveBeenCalledTimes(0);
+    });
+
     it('must fail to verify registered account with otp code because otp code expired', async () => {
         const mockUuid = 'random-uuid-v4';
         const otpCode = '765432';

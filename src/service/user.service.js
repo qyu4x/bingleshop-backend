@@ -59,6 +59,10 @@ const verifyOtpCode = async (userId, request) => {
     const userRequest = validate(otpCodeSchema, request);
     const user = await userRepository.findOneByUserIdAndOtpCode(userId, userRequest.otp_code);
 
+    if (!user) {
+        throw new ResponseError(404, 'User not found');
+    }
+
     if (Date.now() > user.otp_validation_expired_at) {
         console.log(Date.now() + ' ' + user.otp_validation_expired_at)
         throw new ResponseError(400, 'The OTP code has expired. Please request a new one.');
