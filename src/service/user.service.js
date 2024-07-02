@@ -101,7 +101,7 @@ const login = async (request) => {
     const user = await userRepository.findOneByEmail(loginRequest.email);
 
     if (!user) {
-        throw new ResponseError(401, "Email or password is incorrect");
+        throw new ResponseError(404, "User not found");
     }
 
     const isPasswordValid = bcrypt.compare(loginRequest.password, user.password);
@@ -109,14 +109,12 @@ const login = async (request) => {
         throw new ResponseError(401, "Email or password is incorrect");
     }
 
-    const token = jwt.sign({
+    return jwt.sign({
         "id": user.id,
         "email": user.email,
         "role": user.role,
         "username": user.username
     }, process.env.SECRET, {expiresIn: '24h'});
-
-    return token;
 }
 
 const get = async (userId) => {

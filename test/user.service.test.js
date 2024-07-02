@@ -5,12 +5,15 @@ const uuid = require('uuid');
 const {sendEmail} = require("../src/helper/send-email.helper");
 const {generateOtp} = require('../src/helper/generate-otp');
 const {renderHtml} = require("../src/helper/render-html.helper");
+const role = require("../src/helper/role.helper");
+const bcrypt = require("bcrypt");
 
 jest.mock('../src/repository/user.repository');
 jest.mock('../src/helper/generate-otp');
 jest.mock('../src/helper/send-email.helper');
 jest.mock('../src/helper/render-html.helper');
 jest.mock('uuid');
+jest.mock('bcrypt');
 
 
 describe('register', () => {
@@ -303,7 +306,50 @@ describe('refresh otp code', () => {
 
         expect(mockUserData.save).toHaveBeenCalledTimes(0);
         expect(renderHtml).toHaveBeenCalledTimes(0);
-
         expect(sendEmail).toHaveBeenCalledTimes(0);
     });
+})
+
+describe('login', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should login and return jwt token', async () => {
+        const mockUuid = 'random-uuid-v4';
+
+        const loginRequest = {
+            email: 'nekohime@gmail.com',
+            password: 'plaintextPassword'
+        };
+
+        const mockUserData = {
+            id : mockUuid,
+            full_name: 'Neko Hime',
+            email: 'nekohime@gmail.com',
+            password: 'hashedPassword',
+            username: 'nekohime',
+            role: role.user,
+            is_active: true,
+            created_at: Date.now(),
+        }
+
+        uuid.v4.mockReturnValue(mockUuid);
+        bcrypt.compare.mockResolvedValue(true);
+        userRepository.findOneByEmail.mockResolvedValue(mockUserData);
+
+        const userLoginResult = await userService.login(loginRequest);
+        expect(userLoginResult).toEqual(expect.any(String));
+
+        expect(userRepository.findOneByEmail).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fail to log in and return the error user not found', async () => {
+
+    });
+
+    it('should fail to log in and return the error email or password is incorrect', async () => {
+
+    });
+
 })
