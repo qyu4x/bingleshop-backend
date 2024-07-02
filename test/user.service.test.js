@@ -125,5 +125,35 @@ describe('register', () => {
         expect(sendEmail).toHaveBeenCalledTimes(0)
         expect(userRepository.create).toHaveBeenCalledTimes(0);
     });
+})
+
+describe('verify otp code', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should verify registered account with otp code', async () => {
+        const mockUuid = 'random-uuid-v4';
+        const otpCode = '765432';
+
+        const mockUserData = {
+            id : mockUuid,
+            username: 'nekohime',
+            otp_is_active: false,
+            otp_code: otpCode,
+            otp_validation_expired_at: Date.now() + (60 * 60 * 1000 * 24 * 365),
+            is_active: false,
+            created_at: Date.now(),
+            save: jest.fn().mockResolvedValue({id : mockUuid})
+        }
+
+        uuid.v4.mockReturnValue(mockUuid);
+        userRepository.findOneByUserIdAndOtpCode.mockResolvedValue(mockUserData);
+
+        await expect(userService.verifyOtpCode('random-user-id', {otp_code : otpCode})).resolves.not.toThrow();
+        expect(userRepository.findOneByUserIdAndOtpCode).toHaveBeenCalledTimes(1);
+        expect(mockUserData.save).toHaveBeenCalledTimes(1);
+    });
+
 
 })
