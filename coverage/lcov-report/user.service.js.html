@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.52% </span>
+                <span class="strong">30.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/84</span>
+                <span class='fraction'>26/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10% </span>
+                <span class="strong">5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/20</span>
+                <span class='fraction'>1/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.52% </span>
+                <span class="strong">30.95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/84</span>
+                <span class='fraction'>26/84</span>
             </div>
         
             
@@ -307,21 +307,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,9 +329,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -452,18 +452,18 @@ const refreshOtpCode = <span class="fstat-no" title="function not covered" >as</
 <span class="cstat-no" title="statement not covered" >    await sendEmail(user.email, 'Verify Your Account with This OTP Code (Valid for 5 Minutes)', data);</span>
 }
 &nbsp;
-const login = async (request) =&gt; {
-    const loginRequest = validate(loginUserSchema, request);
+const login = <span class="fstat-no" title="function not covered" >as</span>ync (request) =&gt; {
+    const loginRequest = <span class="cstat-no" title="statement not covered" >validate(loginUserSchema, request);</span>
 &nbsp;
-    const user = await userRepository.findOneByEmail(loginRequest.email);
+    const user = <span class="cstat-no" title="statement not covered" >await userRepository.findOneByEmail(loginRequest.email);</span>
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) {
+<span class="cstat-no" title="statement not covered" >    if (!user) {</span>
 <span class="cstat-no" title="statement not covered" >        throw new ResponseError(404, "User not found");</span>
     }
 &nbsp;
-    const isPasswordValid = bcrypt.compare(loginRequest.password, user.password);
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (!isPasswordValid) {
-        throw new ResponseError(401, "Email or password is incorrect");
+    const isPasswordValid = <span class="cstat-no" title="statement not covered" >bcrypt.compare(loginRequest.password, user.password);</span>
+<span class="cstat-no" title="statement not covered" >    if (!isPasswordValid) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new ResponseError(401, "Email or password is incorrect");</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return jwt.sign({</span>
@@ -474,10 +474,10 @@ const login = async (request) =&gt; {
     }, process.env.SECRET, {expiresIn: '24h'});
 }
 &nbsp;
-const get = <span class="fstat-no" title="function not covered" >as</span>ync (userId) =&gt; {
-    const user = <span class="cstat-no" title="statement not covered" >await userRepository.findOneById(userId);</span>
-<span class="cstat-no" title="statement not covered" >    if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new ResponseError(404, "User not found");</span>
+const get = async (userId) =&gt; {
+    const user = await userRepository.findOneById(userId);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!user) {
+        throw new ResponseError(404, "User not found");
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return user;</span>
@@ -508,7 +508,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-02T10:13:22.560Z
+                at 2024-07-02T11:43:29.872Z
             </div>
         <script src="prettify.js"></script>
         <script>

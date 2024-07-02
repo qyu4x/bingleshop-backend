@@ -388,4 +388,39 @@ describe('login', () => {
         expect(userRepository.findOneByEmail).toHaveBeenCalledTimes(1);
     });
 
+    describe('current', () => {
+        it('should get current user by user id', async () => {
+            const mockUuid = 'random-uuid-v4';
+
+            const mockUserData = {
+                id : mockUuid,
+                full_name: 'Neko Hime',
+                email: 'nekohime@gmail.com',
+                password: 'hashedPassword',
+                username: 'nekohime',
+                role: role.user,
+                is_active: true,
+                created_at: Date.now(),
+            }
+
+            uuid.v4.mockReturnValue(mockUuid);
+            userRepository.findOneById.mockResolvedValue(mockUserData);
+
+            const userResult = await userService.get(mockUuid);
+
+            expect(userResult).toBe(mockUserData);
+            expect(userRepository.findOneById).toHaveBeenCalledTimes(1);
+        });
+
+        it('should not get the current user because the user is not found', async () => {
+            const mockUuid = 'random-uuid-v4';
+
+            uuid.v4.mockReturnValue(mockUuid);
+            userRepository.findOneById.mockResolvedValue(null);
+
+            await expect(userService.get(mockUuid)).rejects.toThrow('User not found');
+            expect(userRepository.findOneById).toHaveBeenCalledTimes(1);
+        });
+    })
+
 })
