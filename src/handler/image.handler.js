@@ -19,7 +19,7 @@ const upload = multer({
     }).single('image');
 
 
-    const uploadImage = async (req, res) => {
+const uploadImage = async (req, res) => {
 
         const file = req.file;
         const product_id = req.body.product_id;
@@ -43,6 +43,7 @@ const upload = multer({
             } catch (error) {
                 console.log(error);
                 res.status(500).send(error);
+                next(error);
             }
         });
     };
