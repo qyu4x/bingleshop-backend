@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.85% </span>
+                <span class="strong">38.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/81</span>
+                <span class='fraction'>31/81</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.85% </span>
+                <span class="strong">38.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/81</span>
+                <span class='fraction'>31/81</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -232,32 +232,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -371,8 +371,8 @@ const existByUsername = async (username) =&gt; {
 &nbsp;
 const existByEmail = async (email) =&gt; {
     const user = await userRepository.findOneByEmail(email);
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (user) {
-<span class="cstat-no" title="statement not covered" >        throw new ResponseError(409, "Email already registered")</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (user) {
+        throw new ResponseError(409, "Email already registered")
     }
 }
 &nbsp;
@@ -382,22 +382,22 @@ const register = async (request) =&gt; {
     await existByUsername(user.username);
     await existByEmail(user.email)
 &nbsp;
-    user.password = await bcrypt.hash(user.password, 10);
+<span class="cstat-no" title="statement not covered" >    user.password = await bcrypt.hash(user.password, 10);</span>
 &nbsp;
-    user.id = uuidv4();
-    user.role = role.user;
-    user.is_active = false;
-    user.otp_is_active = false;
-    user.otp_code = await generateOtp();
-    user.otp_validation_expired_at = Date.now() + (5 * 60 * 1000);
-    user.created_at = Date.now();
+<span class="cstat-no" title="statement not covered" >    user.id = uuidv4();</span>
+<span class="cstat-no" title="statement not covered" >    user.role = role.user;</span>
+<span class="cstat-no" title="statement not covered" >    user.is_active = false;</span>
+<span class="cstat-no" title="statement not covered" >    user.otp_is_active = false;</span>
+<span class="cstat-no" title="statement not covered" >    user.otp_code = await generateOtp();</span>
+<span class="cstat-no" title="statement not covered" >    user.otp_validation_expired_at = Date.now() + (5 * 60 * 1000);</span>
+<span class="cstat-no" title="statement not covered" >    user.created_at = Date.now();</span>
 &nbsp;
-    const data = await renderHtml('otp.ejs', {name: user.full_name, otp: user.otp_code});
-    await sendEmail(user.email, 'Verify Your Account with This OTP Code (Valid for 5 Minutes)', data);
+    const data = <span class="cstat-no" title="statement not covered" >await renderHtml('otp.ejs', {name: user.full_name, otp: user.otp_code});</span>
+<span class="cstat-no" title="statement not covered" >    await sendEmail(user.email, 'Verify Your Account with This OTP Code (Valid for 5 Minutes)', data);</span>
 &nbsp;
 &nbsp;
-    const createdUser = await userRepository.create(user);
-    return await userRepository.findOneInactiveById(createdUser.id);
+    const createdUser = <span class="cstat-no" title="statement not covered" >await userRepository.create(user);</span>
+<span class="cstat-no" title="statement not covered" >    return await userRepository.findOneInactiveById(createdUser.id);</span>
 }
 &nbsp;
 const verifyOtpCode = <span class="fstat-no" title="function not covered" >as</span>ync (userId, request) =&gt; {
@@ -490,7 +490,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-02T06:40:29.898Z
+                at 2024-07-02T07:26:24.429Z
             </div>
         <script src="prettify.js"></script>
         <script>

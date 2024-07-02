@@ -12,7 +12,12 @@ jest.mock('../src/helper/send-email.helper');
 jest.mock('../src/helper/render-html.helper');
 jest.mock('uuid');
 
-describe('user.service', () => {
+
+describe('register', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('should register a new user and send verification email', async () => {
 
         const mockRequest = {
@@ -61,6 +66,64 @@ describe('user.service', () => {
                 email: 'testuser@example.com',
             }
         ));
-
     });
+
+    it('must fail to register a new user because the username already registered', async () => {
+
+        const mockRequest = {
+            username: 'testuser',
+            full_name: 'Test User',
+            email: 'testuser@example.com',
+            password: 'testpassword',
+            birth_date: '2002-08-08'
+        };
+
+        const mockUuid = 'random-uuid-v4';
+
+        uuid.v4.mockReturnValue(mockUuid);
+
+        userRepository.findOneByUsername.mockResolvedValue({id: mockUuid});
+        userRepository.findOneByEmail.mockResolvedValue(null);
+
+
+        await expect(userService.register(mockRequest)).rejects.toThrow('Username already registered');
+
+        expect(sendEmail).toHaveBeenCalledTimes(0);
+        expect(userRepository.create).toHaveBeenCalledTimes(0);
+        expect(userRepository.findOneInactiveById).toHaveBeenCalledTimes(0);
+
+        expect(renderHtml).toHaveBeenCalledTimes(0);
+        expect(sendEmail).toHaveBeenCalledTimes(0)
+        expect(userRepository.create).toHaveBeenCalledTimes(0);
+    });
+
+    it('must fail to register a new user because the email already registered', async () => {
+
+        const mockRequest = {
+            username: 'testuser',
+            full_name: 'Test User',
+            email: 'testuser@example.com',
+            password: 'testpassword',
+            birth_date: '2002-08-08'
+        };
+
+        const mockUuid = 'random-uuid-v4';
+
+        uuid.v4.mockReturnValue(mockUuid);
+
+        userRepository.findOneByUsername.mockResolvedValue(null);
+        userRepository.findOneByEmail.mockResolvedValue({id: mockUuid});
+
+
+        await expect(userService.register(mockRequest)).rejects.toThrow('Email already registered');
+
+        expect(sendEmail).toHaveBeenCalledTimes(0);
+        expect(userRepository.create).toHaveBeenCalledTimes(0);
+        expect(userRepository.findOneInactiveById).toHaveBeenCalledTimes(0);
+
+        expect(renderHtml).toHaveBeenCalledTimes(0);
+        expect(sendEmail).toHaveBeenCalledTimes(0)
+        expect(userRepository.create).toHaveBeenCalledTimes(0);
+    });
+
 })
