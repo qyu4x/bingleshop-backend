@@ -345,11 +345,47 @@ describe('login', () => {
     });
 
     it('should fail to log in and return the error user not found', async () => {
+        const mockUuid = 'random-uuid-v4';
 
+        const loginRequest = {
+            email: 'nekohime@gmail.com',
+            password: 'plaintextPassword'
+        };
+
+        uuid.v4.mockReturnValue(mockUuid);
+        bcrypt.compare.mockResolvedValue(true);
+        userRepository.findOneByEmail.mockResolvedValue(null);
+
+        await expect(userService.login(loginRequest)).rejects.toThrow('User not found');
+
+        expect(userRepository.findOneByEmail).toHaveBeenCalledTimes(1);
     });
 
     it('should fail to log in and return the error email or password is incorrect', async () => {
+        const mockUuid = 'random-uuid-v4';
 
+        const loginRequest = {
+            email: 'nekohime@gmail.com',
+            password: 'plaintextPassword'
+        };
+
+        const mockUserData = {
+            id : mockUuid,
+            full_name: 'Neko Hime',
+            email: 'nekohime@gmail.com',
+            password: 'hashedPassword',
+            username: 'nekohime',
+            role: role.user,
+            is_active: true,
+            created_at: Date.now(),
+        }
+
+        uuid.v4.mockReturnValue(mockUuid);
+        userRepository.findOneByEmail.mockResolvedValue(mockUserData);
+
+        await expect(userService.login(loginRequest)).rejects.toThrow('Email or password is incorrect');
+
+        expect(userRepository.findOneByEmail).toHaveBeenCalledTimes(1);
     });
 
 })
