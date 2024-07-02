@@ -230,3 +230,49 @@ describe('verify otp code', () => {
         expect(mockUserData.save).toHaveBeenCalledTimes(0);
     });
 })
+
+describe('refresh otp code', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should refresh otp code registered account with user id', async () => {
+        const mockUuid = 'random-uuid-v4';
+        const otpCode = '765432';
+
+        uuid.v4.mockReturnValue(mockUuid);
+        generateOtp.mockResolvedValue(otpCode);
+
+        const mockUserData = {
+            id : mockUuid,
+            full_name: 'Neko Hime',
+            email: 'nekohime@gmail.com',
+            username: 'nekohime',
+            otp_is_active: false,
+            otp_code: otpCode,
+            otp_validation_expired_at: Date.now() - (60 * 60 * 1000 * 24 * 365),
+            is_active: false,
+            created_at: Date.now(),
+            save: jest.fn().mockResolvedValue({id : mockUuid})
+        }
+
+        const htmlTemplate = '<html><h1>render some html value</h1>></html>>';
+
+        uuid.v4.mockReturnValue(mockUuid);
+        generateOtp.mockResolvedValue(otpCode);
+        renderHtml.mockResolvedValue(htmlTemplate);
+        sendEmail.mockResolvedValue('email sent');
+        userRepository.findOneInactiveAccountByUserId.mockResolvedValue(mockUserData);
+
+        await expect(userService.refreshOtpCode('random-user-id')).resolves.not.toThrow();
+
+        expect(mockUserData.save).toHaveBeenCalledTimes(1);
+        expect(renderHtml).toHaveBeenCalledWith("otp.ejs", {name: mockUserData.full_name, otp: otpCode});
+
+        expect(sendEmail).toHaveBeenCalledWith(
+            'nekohime@gmail.com',
+            'Verify Your Account with This OTP Code (Valid for 5 Minutes)',
+            htmlTemplate
+        );
+    });
+})

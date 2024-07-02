@@ -82,6 +82,10 @@ const verifyOtpCode = async (userId, request) => {
 const refreshOtpCode = async (userId) => {
     const user = await userRepository.findOneInactiveAccountByUserId(userId);
 
+    if (!user) {
+        throw new ResponseError(404, 'User not found');
+    }
+
     user.otp_code = await generateOtp();
     user.otp_validation_expired_at = Date.now() + (5 * 60 * 1000);
     user.updated_at = Date.now();
