@@ -353,7 +353,7 @@ describe('login', () => {
         };
 
         uuid.v4.mockReturnValue(mockUuid);
-        bcrypt.compare.mockResolvedValue(true);
+        bcrypt.compare.mockReturnValue(true);
         userRepository.findOneByEmail.mockResolvedValue(null);
 
         await expect(userService.login(loginRequest)).rejects.toThrow('User not found');
@@ -381,6 +381,7 @@ describe('login', () => {
         }
 
         uuid.v4.mockReturnValue(mockUuid);
+        bcrypt.compare.mockReturnValue(false);
         userRepository.findOneByEmail.mockResolvedValue(mockUserData);
 
         await expect(userService.login(loginRequest)).rejects.toThrow('Email or password is incorrect');

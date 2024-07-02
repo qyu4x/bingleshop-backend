@@ -126,21 +126,10 @@ const get = async (userId) => {
     return user;
 }
 
-const logout = async (userId) => {
-    const user = await userRepository.findOneById(userId);
-    if (!user) {
-        throw new ResponseError(404, "User not found");
-    }
-
-    user.token = null;
-    user.updated_at = Date.now();
-    user.save();
-}
 
 module.exports = {
     register,
     login,
-    logout,
     get,
     verifyOtpCode,
     refreshOtpCode
