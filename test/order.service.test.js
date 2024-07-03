@@ -700,5 +700,127 @@ describe('create', () => {
         expect(orderDetailService.create).toHaveReturnedTimes(0);
         expect(orderRepository.findWithUserAndPaymentMethodById).toHaveReturnedTimes(0);
     });
+})
 
+describe('update payment status', () => {
+    it('should update payment status to true', async () => {
+
+        const mockOrderResult = {
+            id: 'PYO-1715945334-98450',
+            payment_code: '97-21820-84',
+            payment_expiress_at: 29038193829,
+            payment_status: false,
+            payment_date: null,
+            created_at: 2398193282,
+            updated_at: 2938923219,
+            total_price: 1002400,
+            user: {
+                id: 'random-user-id',
+                username: 'nekochan',
+                email: 'nekochan@gmail.com',
+                full_name: 'neko pyon'
+            },
+            payment_method: {
+                id: 'random-payment-method-id',
+                name: 'BCA',
+                payment_fees: 2000,
+                logo_url: 'https://logo-bca.jpg',
+                is_active: true,
+                description: 'bca payment method',
+                created_at: 93821938293,
+                updated_at: 23182309283
+            },
+            save: jest.fn()
+        }
+
+        orderRepository.findOneByOrderIdAndPaymentCode.mockResolvedValue(mockOrderResult);
+        orderDetailRepository.updateOrderStatusByOrderId.mockResolvedValue('updated order status');
+
+        await expect(orderService.updatePaymentStatus(mockOrderResult.payment_code, mockOrderResult.id)).resolves.not.toThrow();
+
+        expect(orderRepository.findOneByOrderIdAndPaymentCode).toHaveReturnedTimes(1);
+        expect(orderDetailRepository.updateOrderStatusByOrderId).toHaveReturnedTimes(1);
+        expect(mockOrderResult.save).toHaveReturnedTimes(1);
+    });
+
+    it('should not update because order not found', async () => {
+
+        const mockOrderResult = {
+            id: 'PYO-1715945334-98450',
+            payment_code: '97-21820-84',
+            payment_expiress_at: 29038193829,
+            payment_status: false,
+            payment_date: null,
+            created_at: 2398193282,
+            updated_at: 2938923219,
+            total_price: 1002400,
+            user: {
+                id: 'random-user-id',
+                username: 'nekochan',
+                email: 'nekochan@gmail.com',
+                full_name: 'neko pyon'
+            },
+            payment_method: {
+                id: 'random-payment-method-id',
+                name: 'BCA',
+                payment_fees: 2000,
+                logo_url: 'https://logo-bca.jpg',
+                is_active: true,
+                description: 'bca payment method',
+                created_at: 93821938293,
+                updated_at: 23182309283
+            },
+            save: jest.fn()
+        }
+
+        orderRepository.findOneByOrderIdAndPaymentCode.mockResolvedValue(null);
+        orderDetailRepository.updateOrderStatusByOrderId.mockResolvedValue('updated order status');
+
+        await expect(orderService.updatePaymentStatus(mockOrderResult.payment_code, mockOrderResult.id)).rejects.toThrow('Order not found');
+
+        expect(orderRepository.findOneByOrderIdAndPaymentCode).toHaveReturnedTimes(1);
+        expect(orderDetailRepository.updateOrderStatusByOrderId).toHaveReturnedTimes(0);
+        expect(mockOrderResult.save).toHaveReturnedTimes(0);
+    });
+
+    it('should not update because payment time has exceeded the grace period', async () => {
+
+        const mockOrderResult = {
+            id: 'PYO-1715945334-98450',
+            payment_code: '97-21820-84',
+            payment_expires_at: 0,
+            payment_status: false,
+            payment_date: null,
+            created_at: 2398193282,
+            updated_at: 2938923219,
+            total_price: 1002400,
+            user: {
+                id: 'random-user-id',
+                username: 'nekochan',
+                email: 'nekochan@gmail.com',
+                full_name: 'neko pyon'
+            },
+            payment_method: {
+                id: 'random-payment-method-id',
+                name: 'BCA',
+                payment_fees: 2000,
+                logo_url: 'https://logo-bca.jpg',
+                is_active: true,
+                description: 'bca payment method',
+                created_at: 93821938293,
+                updated_at: 23182309283
+            },
+            save: jest.fn()
+        }
+
+        orderRepository.findOneByOrderIdAndPaymentCode.mockResolvedValue(mockOrderResult);
+        orderDetailRepository.updateOrderStatusByOrderId.mockResolvedValue('updated order status');
+
+        await expect(orderService.updatePaymentStatus(mockOrderResult.payment_code, mockOrderResult.id)).rejects.toThrow('Payment time has exceeded the grace period, please reorder!');
+
+        expect(orderRepository.findOneByOrderIdAndPaymentCode).toHaveReturnedTimes(1);
+        expect(orderDetailRepository.updateOrderStatusByOrderId).toHaveReturnedTimes(0);
+        expect(mockOrderResult.save).toHaveReturnedTimes(0);
+
+    });
 })
