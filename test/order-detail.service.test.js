@@ -302,4 +302,117 @@ describe('list', () => {
         expect(getOrderDetailResults).toEqual(expectedResults);
         expect(orderDetailRepository.findAllWithOrderByUserId).toHaveBeenCalledTimes(1);
     });
+});
+
+describe('get specific', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should return specific order detail by user id, order id and order detail id', async () => {
+        const orderDetailId = 'unique-order-detail-id'
+        const orderId = 'unique-order-id';
+        const userId = 'unique-user-id';
+
+        const mockOrderDetails = {
+            "id": "4a21713c-6a9a-4f4b-a922-082c24c2e158",
+            "order_id": "SHI-1717250152-04685",
+            "product": {
+                "id": "4ba73446-3bc7-452c-8a82-bc2d3fc8b90b",
+                "title": "Manga One Room Volume 2 Special",
+                "price": "500000"
+            },
+            "logistic": {
+                "id": "fd8985b4-1e7e-42b4-b7e3-0827616beefc",
+                "name": "TIKI",
+                "payment_fees_permile": "200",
+                "logo_url": "https://uwu.png",
+                "is_active": true,
+                "description": "TIKI Logistic",
+                "created_at": "1717249414454",
+                "updated_at": null
+            },
+            "address": {
+                "id": "e4f1499b-a54b-482e-9809-c9c81972f3d9",
+                "name": "Shiina Qirara",
+                "phone_number": "082351252125",
+                "street": "Kyoto District A",
+                "city": "Kyoto",
+                "province": "Kyoto",
+                "district": "Kyoto",
+                "postal_code": 123910,
+                "is_main_address": true,
+                "is_active": true,
+                "created_at": "1717250128218",
+                "updated_at": null
+            },
+            "quantity": 1,
+            "order_status": "awaiting_payment",
+            "unit_price": "500000",
+            "received_at": null,
+            "is_received": false,
+            "created_at": "1717250153003",
+            "updated_at": null
+        };
+
+        const expectedResults = {
+            "id": "4a21713c-6a9a-4f4b-a922-082c24c2e158",
+            "order_id": "SHI-1717250152-04685",
+            "product": {
+                "id": "4ba73446-3bc7-452c-8a82-bc2d3fc8b90b",
+                "title": "Manga One Room Volume 2 Special",
+                "price": {
+                    "amount": "500000",
+                    "currency": "IDR 500.000,00",
+                    "display": "Rp 500.000,00"
+                }
+            },
+            "logistic": {
+                "id": "fd8985b4-1e7e-42b4-b7e3-0827616beefc",
+                "name": "TIKI",
+                "payment_fees": {
+                    "amount": "200",
+                    "currency": "IDR 200,00",
+                    "display": "Rp 200,00"
+                },
+                "logo_url": "https://uwu.png",
+                "is_active": true,
+                "description": "TIKI Logistic",
+                "created_at": "1717249414454",
+                "updated_at": null
+            },
+            "address": {
+                "id": "e4f1499b-a54b-482e-9809-c9c81972f3d9",
+                "name": "Shiina Qirara",
+                "phone_number": "082351252125",
+                "street": "Kyoto District A",
+                "city": "Kyoto",
+                "province": "Kyoto",
+                "district": "Kyoto",
+                "postal_code": 123910,
+                "is_main_address": true,
+                "is_active": true,
+                "created_at": "1717250128218",
+                "updated_at": null
+            },
+            "quantity": 1,
+            "order_status": "awaiting_payment",
+            "unit_price": {
+                "amount": "500000",
+                "currency": "IDR 500.000,00",
+                "display": "Rp 500.000,00"
+            },
+            "received_at": null,
+            "is_received": false,
+            "created_at": "1717250153003",
+            "updated_at": null
+        };
+
+        orderDetailRepository.findOneWithRelationsByOrderDetailIdAndOrderIdAndUserId.mockResolvedValue(mockOrderDetails);
+
+        const getOrderDetailResults = await orderDetailService.getSpecific(userId, orderId, orderDetailId);
+
+        expect(getOrderDetailResults).toEqual(expectedResults);
+        expect(orderDetailRepository.findOneWithRelationsByOrderDetailIdAndOrderIdAndUserId).toHaveBeenCalledTimes(1);
+    });
 })

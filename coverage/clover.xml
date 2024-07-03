@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1719980002407" clover="3.2.0">
-  <project timestamp="1719980002408" name="All files">
-    <metrics statements="517" coveredstatements="100" conditionals="76" coveredconditionals="0" methods="61" coveredmethods="3" elements="654" coveredelements="103" complexity="0" loc="517" ncloc="517" packages="1" files="10" classes="10"/>
+<coverage generated="1719981447098" clover="3.2.0">
+  <project timestamp="1719981447098" name="All files">
+    <metrics statements="517" coveredstatements="102" conditionals="76" coveredconditionals="0" methods="61" coveredmethods="2" elements="654" coveredelements="104" complexity="0" loc="517" ncloc="517" packages="1" files="10" classes="10"/>
     <file name="address.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\address.service.js">
       <metrics statements="45" coveredstatements="15" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
@@ -135,7 +135,7 @@
       <line num="72" count="0" type="stmt"/>
     </file>
     <file name="order-detail.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\order-detail.service.js">
-      <metrics statements="76" coveredstatements="32" conditionals="4" coveredconditionals="0" methods="13" coveredmethods="3"/>
+      <metrics statements="76" coveredstatements="34" conditionals="4" coveredconditionals="0" methods="13" coveredmethods="2"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -157,9 +157,9 @@
       <line num="19" count="1" type="stmt"/>
       <line num="21" count="1" type="stmt"/>
       <line num="23" count="1" type="stmt"/>
-      <line num="24" count="2" type="stmt"/>
+      <line num="24" count="0" type="stmt"/>
       <line num="44" count="1" type="stmt"/>
-      <line num="45" count="0" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
       <line num="99" count="1" type="stmt"/>
       <line num="100" count="0" type="stmt"/>
       <line num="101" count="0" type="stmt"/>
@@ -184,13 +184,13 @@
       <line num="132" count="0" type="stmt"/>
       <line num="133" count="0" type="stmt"/>
       <line num="136" count="1" type="stmt"/>
-      <line num="137" count="1" type="stmt"/>
-      <line num="138" count="2" type="stmt"/>
+      <line num="137" count="0" type="stmt"/>
+      <line num="138" count="0" type="stmt"/>
       <line num="141" count="1" type="stmt"/>
-      <line num="142" count="0" type="stmt"/>
-      <line num="143" count="0" type="stmt"/>
-      <line num="145" count="0" type="stmt"/>
-      <line num="146" count="0" type="stmt"/>
+      <line num="142" count="1" type="stmt"/>
+      <line num="143" count="1" type="stmt"/>
+      <line num="145" count="1" type="stmt"/>
+      <line num="146" count="1" type="stmt"/>
       <line num="149" count="1" type="stmt"/>
       <line num="150" count="0" type="stmt"/>
       <line num="151" count="0" type="stmt"/>
