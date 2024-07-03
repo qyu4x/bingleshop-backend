@@ -115,7 +115,7 @@ const create = async (request, user) => {
         orderRequest.payment_expires_at = Date.now() + 24 * 60 * 60 * 1000;
         orderRequest.created_at = Date.now();
 
-        const order = await Orders.create(orderRequest);
+        const order = await orderRepository.create(orderRequest);
         await orderDetailService.create(user.id, order.id, orderRequest.order_details);
         tx.commit();
 

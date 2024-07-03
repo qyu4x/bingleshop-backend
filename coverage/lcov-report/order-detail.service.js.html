@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.25% </span>
+                <span class="strong">37.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/78</span>
+                <span class='fraction'>29/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.38% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.84% </span>
+                <span class="strong">38.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/76</span>
+                <span class='fraction'>29/76</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -399,33 +399,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -585,34 +585,34 @@ const getSpecific = <span class="fstat-no" title="function not covered" >as</spa
 <span class="cstat-no" title="statement not covered" >    return mapToSpecificOrderDetailResponse(orderDetail);</span>
 }
 &nbsp;
-const updateOrderStatus = async (request, orderId, orderDetailId) =&gt; {
-    const orderRequest = validate(updateOrderStatusValidation, request);
-    orderId = validate(getOrderValidation, orderId);
-    orderDetailId = validate(getOrderDetailValidation, orderDetailId);
+const updateOrderStatus = <span class="fstat-no" title="function not covered" >as</span>ync (request, orderId, orderDetailId) =&gt; {
+    const orderRequest = <span class="cstat-no" title="statement not covered" >validate(updateOrderStatusValidation, request);</span>
+<span class="cstat-no" title="statement not covered" >    orderId = validate(getOrderValidation, orderId);</span>
+<span class="cstat-no" title="statement not covered" >    orderDetailId = validate(getOrderDetailValidation, orderDetailId);</span>
 &nbsp;
-    const orderDetail = await orderDetailRepository.findOneByOrderDetailIdAndOrderId(orderDetailId, orderId);
-    if (!orderDetail) {
-        throw new ResponseError(404, 'Order detail not found');
+    const orderDetail = <span class="cstat-no" title="statement not covered" >await orderDetailRepository.findOneByOrderDetailIdAndOrderId(orderDetailId, orderId);</span>
+<span class="cstat-no" title="statement not covered" >    if (!orderDetail) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new ResponseError(404, 'Order detail not found');</span>
     }
 &nbsp;
-    orderDetail.order_status = orderRequest.order_status;
-    orderDetail.updated_at = orderRequest.updated_at;
-    await orderDetail.save();
+<span class="cstat-no" title="statement not covered" >    orderDetail.order_status = orderRequest.order_status;</span>
+<span class="cstat-no" title="statement not covered" >    orderDetail.updated_at = orderRequest.updated_at;</span>
+<span class="cstat-no" title="statement not covered" >    await orderDetail.save();</span>
 }
 &nbsp;
-const updateOrderStatusReceived = async (orderId, orderDetailId) =&gt; {
-    orderId = validate(getOrderValidation, orderId);
-    orderDetailId = validate(getOrderDetailValidation, orderDetailId);
+const updateOrderStatusReceived = <span class="fstat-no" title="function not covered" >as</span>ync (orderId, orderDetailId) =&gt; {
+<span class="cstat-no" title="statement not covered" >    orderId = validate(getOrderValidation, orderId);</span>
+<span class="cstat-no" title="statement not covered" >    orderDetailId = validate(getOrderDetailValidation, orderDetailId);</span>
 &nbsp;
-    const orderDetail = await orderDetailRepository.findOneByOrderDetailIdAndOrderId(orderDetailId, orderId);
-    if (!orderDetail) {
-        throw new ResponseError(404, 'Order detail not found');
+    const orderDetail = <span class="cstat-no" title="statement not covered" >await orderDetailRepository.findOneByOrderDetailIdAndOrderId(orderDetailId, orderId);</span>
+<span class="cstat-no" title="statement not covered" >    if (!orderDetail) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new ResponseError(404, 'Order detail not found');</span>
     }
 &nbsp;
-    orderDetail.is_received = true;
-    orderDetail.received_at = Date.now();
-    orderDetail.updated_at = Date.now();
-    await orderDetail.save();
+<span class="cstat-no" title="statement not covered" >    orderDetail.is_received = true;</span>
+<span class="cstat-no" title="statement not covered" >    orderDetail.received_at = Date.now();</span>
+<span class="cstat-no" title="statement not covered" >    orderDetail.updated_at = Date.now();</span>
+<span class="cstat-no" title="statement not covered" >    await orderDetail.save();</span>
 }
 &nbsp;
 &nbsp;
@@ -631,7 +631,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-03T05:33:04.005Z
+                at 2024-07-03T07:10:00.038Z
             </div>
         <script src="prettify.js"></script>
         <script>
