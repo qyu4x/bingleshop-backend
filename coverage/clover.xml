@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1719979702015" clover="3.2.0">
-  <project timestamp="1719979702015" name="All files">
-    <metrics statements="517" coveredstatements="101" conditionals="76" coveredconditionals="0" methods="61" coveredmethods="3" elements="654" coveredelements="104" complexity="0" loc="517" ncloc="517" packages="1" files="10" classes="10"/>
+<coverage generated="1719980002407" clover="3.2.0">
+  <project timestamp="1719980002408" name="All files">
+    <metrics statements="517" coveredstatements="100" conditionals="76" coveredconditionals="0" methods="61" coveredmethods="3" elements="654" coveredelements="103" complexity="0" loc="517" ncloc="517" packages="1" files="10" classes="10"/>
     <file name="address.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\address.service.js">
       <metrics statements="45" coveredstatements="15" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
@@ -135,7 +135,7 @@
       <line num="72" count="0" type="stmt"/>
     </file>
     <file name="order-detail.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\order-detail.service.js">
-      <metrics statements="76" coveredstatements="33" conditionals="4" coveredconditionals="0" methods="13" coveredmethods="3"/>
+      <metrics statements="76" coveredstatements="32" conditionals="4" coveredconditionals="0" methods="13" coveredmethods="3"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -180,12 +180,12 @@
       <line num="124" count="0" type="stmt"/>
       <line num="125" count="0" type="stmt"/>
       <line num="129" count="1" type="stmt"/>
-      <line num="130" count="1" type="stmt"/>
-      <line num="132" count="1" type="stmt"/>
-      <line num="133" count="2" type="stmt"/>
+      <line num="130" count="0" type="stmt"/>
+      <line num="132" count="0" type="stmt"/>
+      <line num="133" count="0" type="stmt"/>
       <line num="136" count="1" type="stmt"/>
-      <line num="137" count="0" type="stmt"/>
-      <line num="138" count="0" type="stmt"/>
+      <line num="137" count="1" type="stmt"/>
+      <line num="138" count="2" type="stmt"/>
       <line num="141" count="1" type="stmt"/>
       <line num="142" count="0" type="stmt"/>
       <line num="143" count="0" type="stmt"/>
