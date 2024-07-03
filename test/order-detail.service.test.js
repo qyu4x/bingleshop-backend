@@ -417,6 +417,67 @@ describe('get specific', () => {
     });
 })
 
+describe('update order status', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should update order  status based on given condition', async () => {
+        const orderId = 'unique-order-id';
+        const orderDetailId = 'unique-order-detail-id';
+
+        const mockOrderDetails = {
+            id: orderDetailId,
+            order_id: orderId,
+            order_status: orderStatus.awaiting_shipped,
+            is_received: false,
+            product_id: "4ba73446-3bc7-452c-8a82-bc2d3fc8b90b",
+            logistic_id: "fd8985b4-1e7e-42b4-b7e3-0827616beefc",
+            address_id: "e4f1499b-a54b-482e-9809-c9c81972f3d9",
+            quantity: 1,
+            unit_price: 500000,
+            received_at: null,
+            updated_at: null,
+            save: jest.fn()
+        }
+
+        orderDetailRepository.findOneByOrderDetailIdAndOrderId.mockResolvedValue(mockOrderDetails);
+
+        await expect(orderDetailService.updateOrderStatus({order_status: orderStatus.awaiting_shipped}, orderId, orderDetailId)).resolves.not.toThrow();
+
+        expect(orderDetailRepository.findOneByOrderDetailIdAndOrderId).toHaveReturnedTimes(1);
+        expect(mockOrderDetails.save).toHaveReturnedTimes(1);
+    });
+
+    it('should not update order  status based on given condition', async () => {
+        const orderId = 'unique-order-id';
+        const orderDetailId = 'unique-order-detail-id';
+
+        const mockOrderDetails = {
+            id: orderDetailId,
+            order_id: orderId,
+            order_status: orderStatus.awaiting_shipped,
+            is_received: false,
+            product_id: "4ba73446-3bc7-452c-8a82-bc2d3fc8b90b",
+            logistic_id: "fd8985b4-1e7e-42b4-b7e3-0827616beefc",
+            address_id: "e4f1499b-a54b-482e-9809-c9c81972f3d9",
+            quantity: 1,
+            unit_price: 500000,
+            received_at: null,
+            updated_at: null,
+            save: jest.fn()
+        }
+
+        orderDetailRepository.findOneByOrderDetailIdAndOrderId.mockResolvedValue(null);
+
+        await expect(orderDetailService.updateOrderStatus({order_status: orderStatus.awaiting_shipped}, orderId, orderDetailId))
+            .rejects.toThrow('Order detail not found');
+
+        expect(orderDetailRepository.findOneByOrderDetailIdAndOrderId).toHaveReturnedTimes(1);
+        expect(mockOrderDetails.save).toHaveReturnedTimes(0);
+    });
+})
+
 describe('update order status received', () => {
     beforeEach(() => {
         jest.clearAllMocks();
