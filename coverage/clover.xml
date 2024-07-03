@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1719991190374" clover="3.2.0">
-  <project timestamp="1719991190374" name="All files">
-    <metrics statements="517" coveredstatements="131" conditionals="76" coveredconditionals="2" methods="61" coveredmethods="1" elements="654" coveredelements="134" complexity="0" loc="517" ncloc="517" packages="1" files="10" classes="10"/>
+<coverage generated="1719992419840" clover="3.2.0">
+  <project timestamp="1719992419841" name="All files">
+    <metrics statements="517" coveredstatements="129" conditionals="76" coveredconditionals="0" methods="61" coveredmethods="3" elements="654" coveredelements="132" complexity="0" loc="517" ncloc="517" packages="1" files="10" classes="10"/>
     <file name="address.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\address.service.js">
       <metrics statements="45" coveredstatements="15" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
@@ -214,7 +214,7 @@
       <line num="180" count="1" type="stmt"/>
     </file>
     <file name="order.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\order.service.js">
-      <metrics statements="86" coveredstatements="34" conditionals="14" coveredconditionals="2" methods="8" coveredmethods="1"/>
+      <metrics statements="86" coveredstatements="32" conditionals="14" coveredconditionals="0" methods="8" coveredmethods="3"/>
       <line num="3" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
@@ -236,7 +236,7 @@
       <line num="24" count="1" type="stmt"/>
       <line num="25" count="1" type="stmt"/>
       <line num="27" count="1" type="stmt"/>
-      <line num="28" count="0" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
       <line num="56" count="1" type="stmt"/>
       <line num="57" count="0" type="stmt"/>
       <line num="58" count="0" type="stmt"/>
@@ -284,22 +284,22 @@
       <line num="129" count="0" type="stmt"/>
       <line num="130" count="0" type="stmt"/>
       <line num="134" count="1" type="stmt"/>
-      <line num="135" count="1" type="stmt"/>
-      <line num="136" count="1" type="stmt"/>
-      <line num="138" count="1" type="stmt"/>
-      <line num="139" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="135" count="0" type="stmt"/>
+      <line num="136" count="0" type="stmt"/>
+      <line num="138" count="0" type="stmt"/>
+      <line num="139" count="0" type="cond" truecount="0" falsecount="2"/>
       <line num="140" count="0" type="stmt"/>
-      <line num="143" count="1" type="cond" truecount="1" falsecount="1"/>
-      <line num="144" count="1" type="stmt"/>
+      <line num="143" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="144" count="0" type="stmt"/>
       <line num="147" count="0" type="stmt"/>
       <line num="149" count="0" type="stmt"/>
       <line num="150" count="0" type="stmt"/>
       <line num="151" count="0" type="stmt"/>
       <line num="152" count="0" type="stmt"/>
       <line num="155" count="1" type="stmt"/>
-      <line num="156" count="0" type="stmt"/>
-      <line num="158" count="0" type="stmt"/>
-      <line num="159" count="0" type="stmt"/>
+      <line num="156" count="1" type="stmt"/>
+      <line num="158" count="1" type="stmt"/>
+      <line num="159" count="2" type="stmt"/>
       <line num="167" count="1" type="stmt"/>
     </file>
     <file name="payment-method.service.js" path="D:\B\CODE\pzn\uwupedia\src\service\payment-method.service.js">

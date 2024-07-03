@@ -13,6 +13,7 @@ const orderHelper = require('../src/helper/order.helper');
 const {ResponseError} = require("../src/error/response-error");
 
 jest.mock('../src/repository/order-detail.repository');
+jest.mock('../src/repository/order.repository');
 jest.mock('../src/repository/logistic.repository');
 jest.mock('../src/repository/product.repository');
 jest.mock('../src/repository/order.repository');
@@ -703,6 +704,10 @@ describe('create', () => {
 })
 
 describe('update payment status', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('should update payment status to true', async () => {
 
         const mockOrderResult = {
@@ -821,6 +826,92 @@ describe('update payment status', () => {
         expect(orderRepository.findOneByOrderIdAndPaymentCode).toHaveReturnedTimes(1);
         expect(orderDetailRepository.updateOrderStatusByOrderId).toHaveReturnedTimes(0);
         expect(mockOrderResult.save).toHaveReturnedTimes(0);
+    });
+})
 
+describe('list', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should return list of order by user id', async () => {
+        const mockOrderResults = [
+            {
+                id: 'PYO-1715945334-98450',
+                payment_code: '97-21820-84',
+                payment_expires_at: 0,
+                payment_status: false,
+                payment_date: null,
+                created_at: 2398193282,
+                updated_at: 2938923219,
+                total_price: 1002400,
+                user: {
+                    id: 'random-user-id',
+                    username: 'nekochan',
+                    email: 'nekochan@gmail.com',
+                    full_name: 'neko pyon'
+                },
+                payment_method: {
+                    id: 'random-payment-method-id',
+                    name: 'BCA',
+                    payment_fees: 2000,
+                    logo_url: 'https://logo-bca.jpg',
+                    is_active: true,
+                    description: 'bca payment method',
+                    created_at: 93821938293,
+                    updated_at: 23182309283
+                },
+                hateos: {
+                    name: 'OrderDetails',
+                    uri: `http://localhost:8080/api/v1/orders/PYO-1715945334-98450/order-details`,
+                    method: 'GET'
+                }
+            },
+            {
+                id: 'PYO-1715945334-98450',
+                payment_code: '97-21820-84',
+                payment_expires_at: 0,
+                payment_status: false,
+                payment_date: null,
+                created_at: 2398193282,
+                updated_at: 2938923219,
+                total_price: 1002400,
+                user: {
+                    id: 'random-user-id',
+                    username: 'nekochan',
+                    email: 'nekochan@gmail.com',
+                    full_name: 'neko pyon'
+                },
+                payment_method: {
+                    id: 'random-payment-method-id',
+                    name: 'BCA',
+                    payment_fees: 2000,
+                    logo_url: 'https://logo-bca.jpg',
+                    is_active: true,
+                    description: 'bca payment method',
+                    created_at: 93821938293,
+                    updated_at: 23182309283
+                },
+                hateos: {
+                    name: 'OrderDetails',
+                    uri: `http://localhost:8080/api/v1/orders/PYO-1715945334-98450/order-details`,
+                    method: 'GET'
+                }
+            }
+        ];
+
+        orderRepository.findAllWithUserAndPaymentMethodByUserId.mockResolvedValue(mockOrderResults);
+
+        const orderResults = await orderService.list('random-user-id');
+
+        console.log(orderResults[0].id)
+
+        expect(orderResults[0].id).toBe(orderResults[0].id);
+        expect(orderResults[0].payment_code).toBe(orderResults[0].payment_code);
+
+        expect(orderResults[1].id).toBe(orderResults[1].id);
+        expect(orderResults[1].payment_code).toBe(orderResults[1].payment_code);
+
+        expect(orderRepository.findAllWithUserAndPaymentMethodByUserId).toHaveReturnedTimes(1);
     });
 })
