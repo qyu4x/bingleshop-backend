@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\bej-njs\\platinum\\24001132-11-kelompok1-platinum\\logs\\.07a24a85f79cc0d299f82620e83ae0fca305ab4d-audit.json",
+    "files": [
+        {
+            "date": 1719202093349,
+            "name": "C:\\bej-njs\\platinum\\24001132-11-kelompok1-platinum\\logs\\application-2024-06-24-11.log",
+            "hash": "a21b2cb80364076a5ab27fa71d2b852f155b3436db3f73080a4be9858885c8e5"
+        }
+    ],
+    "hashType": "sha256"
+}

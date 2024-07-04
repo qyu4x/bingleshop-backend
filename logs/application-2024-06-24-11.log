@@ -1,0 +1,17 @@
+2024-06-24 11:08:24 [[32minfo[39m]: POST /api/v1/users/login 500 238ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:09:13 [[32minfo[39m]: POST /api/v1/users/login 200 366ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:11:14 [[32minfo[39m]: GET /api/v1/users/current 500 6ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:11:17 [[32minfo[39m]: GET /api/v1/users/current 500 4ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:11:47 [[32minfo[39m]: GET /api/v1/users/current 500 20ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:12:22 [[32minfo[39m]: GET /api/v1/users/current 500 41ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:14:44 [[32minfo[39m]: GET /api/v1/users/current 500 9ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:16:14 [[32minfo[39m]: GET /api/v1/users/current 500 6ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:18:34 [[32minfo[39m]: GET /api/v1/users/current 500 23ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:18:35 [[32minfo[39m]: GET /api/v1/users/current 500 9ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:20:50 [[32minfo[39m]: GET /api/v1/users/current 500 73ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:20:51 [[32minfo[39m]: GET /api/v1/users/current 500 13ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:21:40 [[32minfo[39m]: GET /api/v1/users/current 500 21ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:21:44 [[32minfo[39m]: GET /api/v1/users/current 500 10ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:22:17 [[32minfo[39m]: GET /api/v1/users/current 500 18ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:25:45 [[32minfo[39m]: GET /api/v1/users/current 500 11ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-24 11:30:47 [[32minfo[39m]: GET /api/v1/users/current 200 152ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
