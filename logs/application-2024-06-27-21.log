@@ -1,0 +1,2 @@
+2024-06-27 21:15:53 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2654ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
+2024-06-27 21:16:15 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2384ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
