@@ -50,7 +50,6 @@ const register = async (request) => {
     const data = await renderHtml('otp.ejs', {name: user.full_name, otp: user.otp_code});
     await sendEmail(user.email, 'Verify Your Account with This OTP Code (Valid for 5 Minutes)', data);
 
-
     const createdUser = await userRepository.create(user);
     return await userRepository.findOneInactiveById(createdUser.id);
 }

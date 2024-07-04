@@ -19,7 +19,7 @@ const upload = multer({
 }).single('image');
 
 
-const uploadImage = async (req, res) => {
+const uploadImage = async (req, res, next) => {
 
     const file = req.file;
     const product_id = req.body.product_id;
