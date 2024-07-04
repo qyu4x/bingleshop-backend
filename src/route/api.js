@@ -8,6 +8,7 @@ const {logisticRouter} = require('./logistic.route');
 const {orderRouter} = require("./order.route");
 const {productRouter} = require("./product.route");
 const {orderDetailRouter} = require("./order-detail.route");
+const {imageRouter} = require("./image.route");
 
 const express = require("express");
 const router = express.Router();
@@ -44,6 +45,9 @@ router.use('/api/v1/payments/', orderRouter);
 // order detail
 router.use('/api/v1/orders', orderDetailRouter);
 router.use('/api/v1/order-details', orderDetailRouter);
+
+// image upload product
+router.use('/api/v1/image-upload', imageRouter);
 
 module.exports = {
     router
