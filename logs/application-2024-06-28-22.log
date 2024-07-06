@@ -1,9 +1,0 @@
-2024-06-28 22:11:53 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 31ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:17:10 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 3687ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:18:38 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 2370ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:20:57 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 51ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:29:27 [[32minfo[39m]: POST /api/v1/image-upload/upload 400 10ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:31:04 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 38ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:34:42 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 30ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:40:13 [[32minfo[39m]: POST /api/v1/image-upload/upload 500 3540ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}
-2024-06-28 22:46:42 [[32minfo[39m]: POST /api/v1/image-upload/upload 200 3561ms {"ip":"::1","userAgent":"PostmanRuntime/7.39.0"}

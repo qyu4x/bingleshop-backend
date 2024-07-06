@@ -1,4 +1,4 @@
-const {Products, Categories, SubCategories} = require('../model');
+const {Products, Categories, SubCategories, ProductImages} = require('../model');
 
 const create = async (product) => {
     return await Products.create(product);
@@ -16,6 +16,11 @@ const findByIdWithCategoryAndSubCategory = async (productId) => {
                 model: SubCategories,
                 as: 'sub_category',
                 attributes: ['id', 'name', 'description']
+            },
+            {
+                model: ProductImages,
+                as: 'product_images',
+                attributes: ['id', 'url', 'sequence']
             }
         ]
     });
@@ -34,6 +39,11 @@ const searchByFiltersAndPagination = async (filters, skip, size) => {
                 model: SubCategories,
                 as: 'sub_category',
                 attributes: ['id', 'name', 'description']
+            },
+            {
+                model: ProductImages,
+                as: 'product_images',
+                attributes: ['id', 'url', 'sequence']
             }
         ],
         offset: skip,

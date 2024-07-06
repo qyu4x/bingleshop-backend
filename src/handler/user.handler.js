@@ -56,19 +56,6 @@ const login = async (req, res, next) => {
     }
 }
 
-const logout = async (req, res, next) => {
-    try {
-        const userId = req.params.userId;
-
-        await userService.logout(userId);
-        res.status(200).json({
-            data: "OK"
-        });
-    } catch (error) {
-        next(error);
-    }
-}
-
 const get = async (req, res, next) => {
     try {
         const userId = req.user.id;
@@ -85,7 +72,6 @@ const get = async (req, res, next) => {
 module.exports = {
     register,
     login,
-    logout,
     get,
     verifyOtpCode,
     refreshOtpCode

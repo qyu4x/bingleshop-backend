@@ -50,7 +50,6 @@ const register = async (request) => {
     const data = await renderHtml('otp.ejs', {name: user.full_name, otp: user.otp_code});
     await sendEmail(user.email, 'Verify Your Account with This OTP Code (Valid for 5 Minutes)', data);
 
-
     const createdUser = await userRepository.create(user);
     return await userRepository.findOneInactiveById(createdUser.id);
 }
@@ -58,6 +57,10 @@ const register = async (request) => {
 const verifyOtpCode = async (userId, request) => {
     const userRequest = validate(otpCodeSchema, request);
     const user = await userRepository.findOneByUserIdAndOtpCode(userId, userRequest.otp_code);
+
+    if (!user) {
+        throw new ResponseError(404, 'User not found');
+    }
 
     if (Date.now() > user.otp_validation_expired_at) {
         console.log(Date.now() + ' ' + user.otp_validation_expired_at)
@@ -78,6 +81,10 @@ const verifyOtpCode = async (userId, request) => {
 const refreshOtpCode = async (userId) => {
     const user = await userRepository.findOneInactiveAccountByUserId(userId);
 
+    if (!user) {
+        throw new ResponseError(404, 'User not found');
+    }
+
     user.otp_code = await generateOtp();
     user.otp_validation_expired_at = Date.now() + (5 * 60 * 1000);
     user.updated_at = Date.now();
@@ -93,7 +100,7 @@ const login = async (request) => {
     const user = await userRepository.findOneByEmail(loginRequest.email);
 
     if (!user) {
-        throw new ResponseError(401, "Email or password is incorrect");
+        throw new ResponseError(404, "User not found");
     }
 
     const isPasswordValid = bcrypt.compare(loginRequest.password, user.password);
@@ -101,14 +108,12 @@ const login = async (request) => {
         throw new ResponseError(401, "Email or password is incorrect");
     }
 
-    const token = jwt.sign({
+    return jwt.sign({
         "id": user.id,
         "email": user.email,
         "role": user.role,
         "username": user.username
     }, process.env.SECRET, {expiresIn: '24h'});
-
-    return token;
 }
 
 const get = async (userId) => {
@@ -120,21 +125,10 @@ const get = async (userId) => {
     return user;
 }
 
-const logout = async (userId) => {
-    const user = await userRepository.findOneById(userId);
-    if (!user) {
-        throw new ResponseError(404, "User not found");
-    }
-
-    user.token = null;
-    user.updated_at = Date.now();
-    user.save();
-}
 
 module.exports = {
     register,
     login,
-    logout,
     get,
     verifyOtpCode,
     refreshOtpCode

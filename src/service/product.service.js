@@ -19,11 +19,19 @@ const {
 const {checkCategoryMustExist} = require('./category.service');
 const {checkSubCategoryMustExist} = require('./sub-category.service');
 const {ProductResponse} = require('../payload/response/product.response');
+const {ProductImagesResponse} = require('../payload/response/product-images.response');
 const {CategoryResponse} = require('../payload/response/category.response');
 const {SubCategoryResponse} = require('../payload/response/sub-category.response');
 const {CurrencyResponse} = require("../payload/response/currency.response");
 const productRepository = require("../repository/product.repository");
 
+const mapToProductImageResponse = (productImages) => {
+    return new ProductImagesResponse(
+        productImages.id,
+        productImages.url,
+        productImages.sequence,
+    );
+}
 
 const mapToProductResponse = (productResponse) => {
     return new ProductResponse(
@@ -48,6 +56,8 @@ const mapToProductResponse = (productResponse) => {
         productResponse.is_preorder,
         productResponse.description,
         productResponse.is_active,
+        productResponse.product_images
+            .map(productImage => mapToProductImageResponse(productImage)),
         productResponse.created_at,
         productResponse.updated_at
     );
