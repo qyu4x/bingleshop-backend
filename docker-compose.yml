@@ -1,15 +1,45 @@
 version: "3.9"
 services:
-  postgres:
+  bingleshop-postgres:
     image: postgres:14.11-alpine3.18
     ports:
       - 5433:5432
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=bingleshop
+      - POSTGRES_USER=${DB_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DB_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DB_POSTGRES_NAME}
     volumes:
       - bingleshop-data-slaves:/var/lib/postgresql/data
+    networks:
+      - bingleshop-networks
+  bingleshop-backend:
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - bingleshop-networks
+    depends_on:
+      - bingleshop-postgres
+
+  webserver:
+    container_name: webserver
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - 8000:80
+      - 443:443
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - bingleshop-networks
+    depends_on:
+      - bingleshop-backend
+
+networks:
+  bingleshop-networks:
+    driver: bridge
+    name: bingleshop-networks
 
 volumes:
   bingleshop-data-master:

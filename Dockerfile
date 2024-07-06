@@ -1,15 +1,17 @@
 FROM node
 
+ENV NODE_ENV development
+
 WORKDIR /app
 
 COPY . .
 
-RUN npm i
-
-RUN npm run migrate
-
-RUN npm run seed
+RUN npm install
 
 EXPOSE 8080
 
-ENTRYPOINT ["npm", "run", "prod"]
+COPY docker/entrypoint.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["docker/entrypoint.sh"]

@@ -11,6 +11,7 @@ const errorMiddleware = (err, req, res, next) => {
             errors: err.message
         }).end();
     } else {
+        console.log(err);
         res.status(500).json({
             errors: err.message
         }).end();

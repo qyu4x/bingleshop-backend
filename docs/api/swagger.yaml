@@ -1,0 +1,675 @@
+openapi: 3.0.0
+info:
+  title: BingleShop API
+  description: |
+    API for the BingleShop application. This API provides various endpoints to manage the BingleShop Application.
+  version: 1.0.0
+  termsOfService: https://github.com/qyu4x/24001132-11-kelompok1-platinum
+  contact:
+    name: BingleShop Team
+    email: support@bingleshop.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://localhost:8080
+    description: Local server
+  - url: https://api.bingleshop.com
+    description: Production server
+
+tags:
+  - name: health
+  - name: user
+  - name: address
+  - name: category
+  - name: sub category
+  - name: payment method
+  - name: logistic
+  - name: product
+  - name: order
+  - name: order detail
+
+paths:
+  /api/v1/healths/ping:
+    get:
+      tags:
+        - health
+      summary: Returns health of API.
+      description: Return detail health of API.
+      responses:
+        '200': # status code
+          description: A String of health
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  example: PONG
+  /api/v1/users:
+    post:
+      tags:
+        - user
+      summary: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: pyonkyun
+                full_name: Shina Mahiru
+                email: pyonkyun@gmail.com
+                password: shinachan
+                birth_date: '2002-08-08'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/login:
+    post:
+      tags:
+        - user
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: shironeko@uwupedia.com
+                password: nekonyan
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/current:
+    get:
+      tags:
+        - user
+      summary: current
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: 89348854-6eab-40d2-add7-d30e578743f3
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/logout:
+    post:
+      tags:
+        - user
+      summary: logout
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: 2319b1ce-d75c-4143-8468-c728d06cda52
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/addresses:
+    post:
+      tags:
+        - address
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Shiina Qirara
+                phone_number: '082351252125'
+                street: Kyoto District A
+                city: Kyoto
+                province: Kyoto
+                district: Kyoto
+                postal_code: 123910
+                is_main_address: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - address
+      summary: find all
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/addresses/{addressId}/main:
+    patch:
+      tags:
+        - address
+      summary: update main
+      requestBody:
+        content: {}
+      parameters:
+        - name: addressId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 73760f30-df96-487d-86ec-c99d1f17fe8f
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/addresses/{addressId}:
+    delete:
+      tags:
+        - address
+      summary: delete
+      parameters:
+        - name: addressId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: a60c3225-a4a4-42f0-b32c-6a120bfe9515
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/categories:
+    post:
+      tags:
+        - category
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Ups
+                description: Japanese Manga
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - category
+      summary: find all
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/categories/{categoryId}:
+    delete:
+      tags:
+        - category
+      summary: delete
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 50c91060-75da-438f-94a9-3aee6e4a479a
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/categories/{categoryId}/sub-categories:
+    post:
+      tags:
+        - sub category
+      summary: create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 2475f336-641d-4b15-9e20-c79d7ff276e7
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - sub category
+      summary: find all
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 2475f336-641d-4b15-9e20-c79d7ff276e7
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/categories/{categoryId}/sub-categories/{subCategoryId}:
+    delete:
+      tags:
+        - sub category
+      summary: remove
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 2475f336-641d-4b15-9e20-c79d7ff276e7
+        - name: subCategoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 74e86cd2-4732-4a99-9f17-1de82916b964
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - product
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Manga Magical Girl Lyical Nanoha
+                price: 500000
+                stock: 100
+                is_preorder: false
+                description: Manga Magical Girl Lyical Nanoha....
+      parameters:
+        - name: categoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 2475f336-641d-4b15-9e20-c79d7ff276e7
+        - name: subCategoryId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: ac998b85-b9fb-48f2-9a7e-e00b3ceb49f2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/payments:
+    post:
+      tags:
+        - payment method
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: BCA
+                payment_fees: 2000
+                logo_url: https://uwupedia.com/dana.png
+                description: Payment with BCA
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: a133c811-c32d-4854-9f75-57e2eae39104
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - payment method
+      summary: find all
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/payments/{paymentId}:
+    delete:
+      tags:
+        - payment method
+      summary: delete
+      parameters:
+        - name: paymentId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: c300e49d-059c-46cc-80c4-3a608be35392
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/logistics:
+    post:
+      tags:
+        - logistic
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: TIKI
+                payment_fees_permile: 200
+                logo_url: https://uwu.png
+                description: TIKI Logistic
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: a133c811-c32d-4854-9f75-57e2eae39104
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - logistic
+      summary: find all
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/logistics/{logisticId}:
+    delete:
+      tags:
+        - logistic
+      summary: delete
+      parameters:
+        - name: logisticId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 956bafcf-72ff-4619-a395-75bdf0a97348
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/{productId}:
+    get:
+      tags:
+        - product
+      summary: find by id
+      parameters:
+        - name: productId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 4ba73446-3bc7-452c-8a82-bc2d3fc8b90b
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - product
+      summary: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Manga One Room Volume 2 Special
+                price: 500000
+                stock: 100
+                is_preorder: false
+                category_id: 2475f336-641d-4b15-9e20-c79d7ff276e7
+                sub_category_id: ac998b85-b9fb-48f2-9a7e-e00b3ceb49f2
+                description: Manga One Room Volume 2 is towa meet with ...
+      parameters:
+        - name: productId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 4ba73446-3bc7-452c-8a82-bc2d3fc8b90b
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - product
+      summary: delete
+      parameters:
+        - name: productId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 99d707b6-6a17-4555-9212-2690d2c5371f
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/products/search:
+    get:
+      tags:
+        - product
+      summary: search
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders:
+    post:
+      tags:
+        - order
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                payment_method_id: 8f58fad3-9ba7-474c-b183-39c82d1c4c07
+                total_price: 1002400
+                note: test nyaaawww
+                order_details:
+                  - product_id: 4ba73446-3bc7-452c-8a82-bc2d3fc8b90b
+                    logistic_id: fd8985b4-1e7e-42b4-b7e3-0827616beefc
+                    address_id: e4f1499b-a54b-482e-9809-c9c81972f3d9
+                    quantity: 1
+                    unit_price: 500000
+                  - product_id: 17c4cfae-9fd0-4298-8246-e8b3670c3c14
+                    logistic_id: fd8985b4-1e7e-42b4-b7e3-0827616beefc
+                    address_id: e4f1499b-a54b-482e-9809-c9c81972f3d9
+                    quantity: 1
+                    unit_price: 500000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - order
+      summary: list
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/payments/{paymentCode}/orders/{orderId}:
+    patch:
+      tags:
+        - order
+      summary: update payment
+      requestBody:
+        content: {}
+      parameters:
+        - name: paymentCode
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 58-94489-34
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: PYO-1715945334-98450
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/{orderId}/order-details:
+    get:
+      tags:
+        - order detail
+      summary: get
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: PYO-1715945334-98450
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/order-details:
+    get:
+      tags:
+        - order detail
+      summary: list
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/{orderId}/order-details/{orderDetailId}:
+    get:
+      tags:
+        - order detail
+      summary: get specific
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: PYO-1715945334-98450
+        - name: orderDetailId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 95d2b752-d73b-4f98-89c4-ce32ba8b0b5a
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - order detail
+      summary: update status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                order_status: shipped
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: PYO-1715945334-98450
+        - name: orderDetailId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 95d2b752-d73b-4f98-89c4-ce32ba8b0b5a
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/orders/{orderId}/order-details/{orderDetailId}/received:
+    patch:
+      tags:
+        - order detail
+      summary: update received
+      requestBody:
+        content: {}
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: PYO-1715945334-98450
+        - name: orderDetailId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 95d2b752-d73b-4f98-89c4-ce32ba8b0b5a
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+
