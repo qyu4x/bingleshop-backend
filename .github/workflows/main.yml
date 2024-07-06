@@ -37,7 +37,7 @@ jobs:
             cd ~/backend
             echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
             docker compose down
-            docker rmi -f 24001132-11-kelompok1-platinum-bingleshop-backend:latest
+            docker rmi -f backend-bingleshop-backend:latest
             docker compose up -d --build
             
 
