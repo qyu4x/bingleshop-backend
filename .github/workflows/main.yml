@@ -35,10 +35,11 @@ jobs:
           port: 22
           script: |
             cd ~/backend
-            npm install
-            npm run build
-            pm2 stop all
-            pm2 start ./src/app.js
+            echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+            docker-compose down
+            docker rmi -f bingleshop-backend:latest
+            docker-compose up -d --build
+            
 
 
 
