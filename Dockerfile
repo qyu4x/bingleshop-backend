@@ -1,17 +1,17 @@
 FROM node
 
-ENV NODE_ENV development
+ENV NODE_ENV production
 
-WORKDIR /app
+WORKDIR /var/www
 
 COPY . .
 
 RUN npm install
 
+RUN sed -i 's/\r$//' docker/entrypoint.sh
+
+RUN chmod +x docker/entrypoint.sh
+
 EXPOSE 8080
 
-COPY docker/entrypoint.sh /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-ENTRYPOINT ["docker/entrypoint.sh"]
+ENTRYPOINT ["./docker/entrypoint.sh"]
