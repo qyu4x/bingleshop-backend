@@ -38,7 +38,7 @@ jobs:
             npm install
             npm run build
             pm2 stop all
-            pm2 start ./src/main.js
+            pm2 start ./src/app.js
 
 
 
