@@ -1,7 +1,5 @@
 FROM node
 
-ENV NODE_ENV production
-
 WORKDIR /var/www
 
 COPY . .
