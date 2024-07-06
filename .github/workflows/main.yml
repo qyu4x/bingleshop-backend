@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            cd ~/24001132-11-kelompok1-platinum
+            cd ~/backend
             npm install
             npm run build
             pm2 stop all
