@@ -4,18 +4,14 @@
 name: Node Github CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  repository_dispatch:
+    types: [dockerhub_push]
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
+      - name: checkout docker compose prod
         uses: actions/checkout@v2
       - name: copy via ssh
         uses: appleboy/scp-action@master
@@ -24,7 +20,18 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
-          source: .,!node_modules
+          source: "./docker-compose-prod.yml"
+          target: ~/backend
+      - name: checkout docker compose prod
+        uses: actions/checkout@v2
+      - name: copy via ssh
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          source: "./docker/*"
           target: ~/backend
       - name: deploy
         uses: appleboy/ssh-action@master
@@ -36,9 +43,12 @@ jobs:
           script: |
             cd ~/backend
             echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
-            docker compose down
-            docker rmi -f backend-bingleshop-backend:latest
-            docker compose up -d --build
+            docker-compose -f docker-compose-prod.yml down
+            docker rmi -f hikaruyuzu/bingleshop-backend-api:latest
+            docker-compose -f docker-compose-prod.yml pull
+
+          
+         
             
 
 
