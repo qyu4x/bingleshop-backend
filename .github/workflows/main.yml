@@ -43,9 +43,9 @@ jobs:
           script: |
             cd ~/backend
             echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
-            docker-compose -f docker-compose-prod.yml down
+            docker compose -f docker-compose-prod.yml down
             docker rmi -f hikaruyuzu/bingleshop-backend-api:latest
-            docker-compose -f docker-compose-prod.yml pull
+            docker compose -f docker-compose-prod.yml pull
 
           
          
