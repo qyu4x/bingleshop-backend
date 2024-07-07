@@ -37,3 +37,10 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bingleshop-backend-api:latest
+      - 
+        name: Dispatch repository event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: qyu4x/24001132-11-kelompok1-platinum
+          event-type: dockerhub_push
