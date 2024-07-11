@@ -36,9 +36,10 @@ app.use(express.json());
 
 app.use("/", router);
 
-app.get("/debug-sentry", function mainHandler(req, res) {
-    throw new Error("My first Sentry error!");
-});
+// contoh error sentry (tes)
+// app.get("/debug-sentry", function mainHandler(req, res) {
+//     throw new Error("My first Sentry error!");
+// });
 
 Sentry.setupExpressErrorHandler(app);
 

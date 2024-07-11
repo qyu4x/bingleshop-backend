@@ -1,12 +1,28 @@
 const chatService = require('../service/chat.service');
 
 const handleChatConnection = (socket, io) => {
-  socket.on('chat message', async (msg) => {
-    
-    // const chat = await chatService.saveChat(msg);
-    // io.emit('chat message', chat);
+  const {id: userId, role: userRole } = socket.user
+  
+  if (userRole === 'ADMIN') {
+    socket.join('admins');
+  } else {
+    socket.join(userId);
+  }
 
-    io.emit('chat message', msg);
+  socket.on('chat message', async (payload) => {
+    
+    const { user_id_recipient, message } = JSON.parse(payload);
+    
+    if (userRole === 'USER') {
+      const chat = await chatService.saveChat(userId, userId, message);
+      // Emit message to all admins
+      io.to('admins').emit('chat message', chat);
+    } else if (userRole === 'ADMIN') {
+      const chat = await chatService.saveChat(userId, user_id_recipient, message);
+      // Emit message to specific user
+      io.to(user_id_recipient).emit('chat message', chat);
+    }
+    
   });
 };
 

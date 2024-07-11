@@ -44,6 +44,44 @@ const authorize = (hasRoles = []) => {
     }
 }
 
+const authorizeSocket = (hasRoles = []) => {
+    return async (socket, next) => {
+        try {
+            const token = socket.handshake.headers['authorization']?.split(' ')[1]
+            if (!token) {
+                next(new Error('Unauthorized'))
+            }
+
+            if (!token) {
+                next(new Error('Unauthorized'))
+            }
+
+            jwt.verify(token, process.env.SECRET, async (err, decoded) => {
+                if (err) {
+                    console.error('JWT verification error:', err)
+                    next(new Error('Invalid access token'))
+                }
+
+                const user = await userRepository.findOneById(decoded.id);
+                if (!user) {
+                    next(new Error('User not found'))
+                }
+
+                const authorized = hasRoles.some(hasRole => hasRole.toUpperCase() === decoded.role.toUpperCase());
+                if (!authorized) {
+                    next(new Error('Forbidden'))
+                }
+
+                socket.user = decoded;
+
+                next();
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+}
+
 module.exports = {
-    authorize
+    authorize, authorizeSocket
 }
