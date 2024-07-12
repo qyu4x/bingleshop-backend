@@ -1,10 +1,10 @@
 const imageRepository = require('../src/repository/image.repository');
 const imageService = require('../src/service/image.service');
-// const uuid = require('uuid');
+const uuid = require('uuid');
 
 jest.mock('../src/repository/image.repository');
 jest.mock('../src/service/image.service');
-// jest.mock('uuid');
+jest.mock('uuid');
 
 describe('create image', () => {
     beforeEach(() => {
@@ -46,18 +46,20 @@ describe('create image', () => {
     });
 
     it('should throw error when uploading a product with an existing ID', async () => {
-      // const mockUuid = 'random-uuid-v4';
-      // const mockProductId = 'abc123';
-      const mockfindOneById = {
-              id : 1,
+      const mockUuid = 'random-uuid-v4';
+      uuid.v4.mockReturnValue(mockUuid);
+
+      const mockExistingProductId = '4ba73446-3bc7-452c-8a82-bc2d3fc8b90b';
+      const mockExistingProduct = {
+              id : '4ba73446-3bc7-452c-8a82-bc2d3fc8b90b',
               is_active: true
       };
-      // uuid.v4.mockReturnValue(mockUuid);
-      imageRepository.findOneById.mockResolvedValue(mockfindOneById);
+
+      imageRepository.findOneById.mockResolvedValue(mockExistingProduct);
+      await expect(imageService.createImage({ body: { product_id: mockExistingProductId } }))
+      .rejects.toThrow('Product ID already exists');
       expect(imageRepository.findOneById).toHaveBeenCalledTimes(1);
-      await expect(uploadResult).rejects.toThrow('Product ID already exists');
+    
       
   });
-
-   
   
