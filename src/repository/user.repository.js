@@ -14,7 +14,7 @@ const findOneByEmail = async (email) => {
 
 const findOneById = async (userId) => {
     return await User.findOne({
-        where: {id: userId,  otp_is_active: true, is_active: true},
+        where: {id: userId,  otp_is_active: false, is_active: true},
         attributes: ['id', 'username', 'full_name', 'email', 'birth_date', 'role', 'is_active', 'otp_validation_expired_at', 'created_at', 'updated_at']
     })
 }
