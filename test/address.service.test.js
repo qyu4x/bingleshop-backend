@@ -6,18 +6,19 @@ const Joi = require('joi');
 const {validate} = require('../helper/validation.helper');
 const { ResponseError } = require('../src/error/response-error');
 const { createAddressSchema } = require('../src/payload/request/address.request');
+const { it, afterEach } = require('node:test');
 
 
 jest.mock('../src/repository/address.repository');
 jest.mock('../src/helper/render-html.helper');
 jest.mock('uuid');
 
-describe('Address Service', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
 
     describe('create', () =>  {
+        afterEach(() => {
+            jest.clearAllMocks();
+        });
+
         it('should create a new adress' , async () => {
             const mockUserID = 'mock-user-id';
             const mockRequest = {
@@ -30,31 +31,37 @@ describe('Address Service', () => {
                 postal_code: 12345,
                 is_main_address: true,
             };
-            const mockCreatedAddress = { id: 'mock-address-id', ...mockRequest};
+            const mockAddress = { id: 'mock-address-id', 
+                ...mockRequest,
+                created_at: Date.now(),
+                is_active: true
+            };
 
-            addressRepository.create.mockResolvedValue();
-            addressRepository.findOneByAddressId.mockResolvedValue(mockCreatedAddress)
+            uuid.mockResolvedValue(mockAddress.id);
+            validate.mockResolvedValue(mockRequest)
+            addressRepository.updateIsMainAddressByUserId.mockResolvedValue(true);
+            addressRepository.create.mockResolvedValue(mockAddress);
+    
+            const createAddress = await create(mockUserID, mockRequest);
 
-            const {error, value} = createAddressSchema.validate(mockRequest);
-            expect(error).toBeUndefined();
-
-            const result = await create(mockUserID, mockRequest);
-
-            expect(result).toEqual(mockCreatedAddress);
-            expect(addressRepository.create).toHaveBeenCalledWith(expect.objectContaining({
+            expect(createAddress).toEqual(mockAddress);
+            expect(uuid).toHaveBeenCalled();
+            expect(validate).toHaveBeenCalledWith(createAddressSchema,mockRequest);
+            expect(addressRepository.create).toHaveBeenCalledWith({
+                id : 1,
                 user_id: 1,
-                street: 'Example Street',
-                city: 'Example Street',
-                province: 'Example Province',
-                district: 'Example District',
-                postal_code: 12345,
-            }));
-            expect(addressRepository.findOneByAddressId).toHaveBeenCalledWith(mockCreatedAddress.id);
+                ...mockRequest,
+                created_at : expect.any(Number),
+                is_active: true
+            });
         });
     });
-
-    describe('checkAddressMustExist', () => {
-        it('should return address id if address exists', async () => {
+   
+     describe('checkAddressMustExist', () => {
+            afterEach(() => {
+               jest.clearAllMocks();
+        });
+         it('should return address id if address exists', async () => {
             const mockUserId = 'mock-user-id';
             const mockAddressId = 'mock-address-id';
             const mockAddress = { id: mockAddressId };
@@ -78,8 +85,11 @@ describe('Address Service', () => {
             expect(addressRepository.findOneByUserIdAndAddressId).toHaveBeenCalledWith(mockUserId, mockAddressId);
         });
     });
-
+    
     describe('get', () => {
+         afterEach(() => {
+            jest.clearAllMocks();
+        });    
         it('should get an address by userId and addressId', async () => {
             const mockUserId = 'mock-user-id';
             const mockAddressId = 'mock-address-id';
@@ -111,11 +121,9 @@ describe('Address Service', () => {
         });
     });
 
-
     describe('list', () => {
-        it('should return a list of address by user id', async () => {
-            const mockUserId = 'mock-user-id';
-            const mockAddressResults = [
+        const userId = 'user123';
+            const mockAddresses = [
                 {
                     id: 'random-id',
                     user_id: 'random-user-id',
@@ -145,37 +153,65 @@ describe('Address Service', () => {
                     update_at: 2458193283,
                 },
             ]
-            addressRepository.findAllByUserId.mockResolvedValue(mockAddressResults);
 
-            const addressList = await addressService.list(mockUserId);
-            
-            expect(addressList).toEqual(mockAddressResults);
-            expect(addressRepository.findAllByUserId).toHaveBeenCalledWith(mockUserId);
-            expect(addressRepository.findAllByUserId).toHaveBeenCalledTimes(1);
+        beforeEach(() => {
+            jest.clearAllMocks();
         });
-    });
 
-    describe('set main', () => {
-        it('should set main address successfully', async () => {
-            const userId = 1;
-            const addressId = 2;
+        it('should return a list of addresses for a user', async () => {
+            addressRepository.findAllByUserId.mockResolvedValue(mockAddresses);
+    
+            const addresses = await list(userId);
+    
+            expect(addresses).toEqual(mockAddresses);
+            expect(addressRepository.findAllByUserId).toHaveBeenCalledWith(userId);
+        });
 
-            //mocking validate function to return mockAddressId directly
-            addressService.validate.mockResolvedValue(addressId)
-            addressRepository.checkAddressMustExist.mockResolvedValue(addressId);
-            addressRepository
-            validate.mockResolvedValue(addressId);
-            checkAddressMustExist.mockResolvedValue(addressId);
-            addressRepository.updateIsMainAddressByUserId.mockResolvedValue();
-            addressRepository.updateIsMainAddressByAddressIdAndUserId.mockResolvedValue();
+        it('should return an empty data if no addresses are found', async () => {
+            addressRepository.findAllByUserId.mockResolvedValue([]);
+    
+            const addresses = await list(userId);
+    
+            expect(addresses).toEqual([]);
+            expect(addressRepository.findAllByUserId).toHaveBeenCalledWith(userId);
+        });
 
-            await setMain(userId, addressId);
+    describe('setMain', () => {
+        afterEach(() => {
+            jest.clearAllMocks();
+        });
+        it('setMain updates main address successfully', async () => {
+            const userId = '123';
+            const addressId = '456';
+    
+            const address = {
+                id: addressId,
+                user_id: userId,
+                is_main_address: false
+            };
+    
+            const updatedAddress = {
+                ...address,
+                is_main_address: true
+            };
 
-            expect(validate).toHaveBeenCalledWith(expect.any(Function), mockAddressesaddressId);
-            expect(checkAddressMustExist).toHaveBeenCalledWith(userId, addressId);
+            addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(address);
+            addressRepository.updateIsMainAddressByUserId.mockResolvedValue(true);
+            addressRepository.updateIsMainAddressByAddressIdAndUserId.mockResolvedValue(true);
+    
+            await addressService.setMain(userId, addressId);
+    
             expect(addressRepository.updateIsMainAddressByUserId).toHaveBeenCalledWith(false, userId);
             expect(addressRepository.updateIsMainAddressByAddressIdAndUserId).toHaveBeenCalledWith(true, addressId, userId);
-    });
+        });
+        
+        it('setMain throws error if address not found', async () => {
+            const userId = '123';
+            const addressId = '456';
+    
+            addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(null);
+    
+            await expect(addressService.setMain(userId, addressId)).rejects.toThrowError(ResponseError);
         });
     });
 
@@ -183,50 +219,38 @@ describe('Address Service', () => {
         beforeEach(() => {
             jest.clearAllMocks();
         });
-        it('should remove address successfully when not main address', async () => {
+        it('should remove an address successfully', async () => {
             const userId = 1;
             const addressId = 2;
             const mockAddress = {
                 id: addressId,
+                user_id: userId,
                 is_main_address: false, 
-                save: jest.fn()
+                is_active: true,
+                save: jest.fn().mockResolvedValue()
             };
-            validate.mockReturnValue(addressId);
-            checkCategoryMustExist.mockResolvedValue(addressId);
-            get.mockResolvedValue(mockAddress);
-            AddressModel.save.mockResolvedValue();
-
+    
+            addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(mockAddress)
             await remove(userId, addressId);
 
-            expect(validate).toHaveBeenCalledWith(expect.any(Function), addressId);
-            expect(checkAddressMustExist).toHaveBeenCalledWith(userId, addressId);
-            expect(get).toHaveBeenCalledWith(userId, addressId);
-
-            expect(mockAddress.is_active).toBe(false);
-            expect(mockAddress.updated_at).toBeGreaterThan(0);
+            expect(mockAddress.is_active).toBe(false)
             expect(mockAddress.save).toHaveBeenCalled();
         });
 
         it('should throw error when trying to remove main address', async () => {
             const userId = 1;
-            const addressId = 100;
-            const MainAddress = {
-              id: addressId,
-              is_main_address: true
+            const addressId = 2;
+            const mockAddress = {
+                id: addressId,
+                user_id: userId,
+                is_main_address: true, 
+                is_active: true
             };
+            const mainAddress = { ... mockAddress, is_main_address: true};
+            addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(mainAddress)
+
+            await expect(remove(userId,addressId)).rejects.toThrow(ResponseError);
         
-            validate.mockReturnValue(addressId);
-            checkAddressMustExist.mockResolvedValue(addressId);
-            get.mockResolvedValue(MainAddress);
-        
-            addressModel.save.mockImplementation(() => {
-              throw new Error('save should not be called');
-            });
-        
-            await expect(remove(userId, addressId)).rejects.toThrow(ResponseError);
-        
-            expect(validate).toHaveBeenCalledWith(expect.any(Function), addressId);
-            expect(checkAddressMustExist).toHaveBeenCalledWith(userId, addressId);
-            expect(get).toHaveBeenCalledWith(userId, addressId);
           });
         });
+    });
