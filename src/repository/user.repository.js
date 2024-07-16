@@ -26,9 +26,9 @@ const findOneInactiveById = async (userId) => {
     })
 }
 
-const findOneByUserIdAndOtpCode = async (userId, otpCode) => {
+const findOneByUserIdAndOtpCode = async (userId) => {
     return await User.findOne({
-        where: {id: userId, otp_code: otpCode, otp_is_active: false, is_active: false},
+        where: {id: userId, otp_is_active: false, is_active: false},
         attributes: ['id', 'username', 'otp_is_active', 'otp_code', 'otp_validation_expired_at', 'email', 'birth_date', 'full_name', 'role', 'is_active', 'created_at', 'updated_at']
     })
 }
