@@ -11,7 +11,7 @@ describe('create image', () => {
         jest.clearAllMocks();
     });
 
-    it('should upload image and create image', async () => {
+    it('should upload image', async () => {
 
         const mockRequest = {
             file: {
@@ -24,9 +24,7 @@ describe('create image', () => {
               is_active: 'true' 
             }
           };
-
-          const mockUuid = 'random-uuid-v4';
-
+    
         const mockCreateImage = {
             product_id: "4ba73446-3bc7-452c-8a82-bc2d3fc8b90b",
             sequence: 1,
@@ -35,15 +33,33 @@ describe('create image', () => {
             created_at: new Date()
         };
 
-          uuid.v4.mockReturnValue(mockUuid);
-          imageRepository.createImage.mockResolvedValue(imageObject);
-          imageRepository.findOneById.mockResolvedValue(foundImage);
+          imageRepository.createImage.mockResolvedValue(mockCreateImage);
+         
 
           const createImageResult = await imageService.createImage(mockRequest);
 
           expect(createImageResult).toEqual(mockCreateImage);
           expect(imageRepository.createImage).toHaveBeenCalledTimes(1);
-          expect(imageRepository.findOneById).toHaveBeenCalledTimes(1);
+
 
         })
     });
+
+    it('should throw error when uploading a product with an existing ID', async () => {
+      const mockUuid = 'random-uuid-v4';
+      uuid.v4.mockReturnValue(mockUuid);
+
+      const mockExistingProductId = '4ba73446-3bc7-452c-8a82-bc2d3fc8b90b';
+      const mockExistingProduct = {
+              id : '4ba73446-3bc7-452c-8a82-bc2d3fc8b90b',
+              is_active: true
+      };
+
+      imageRepository.findOneById.mockResolvedValue(mockExistingProduct);
+      await expect(imageService.createImage({ body: { product_id: mockExistingProductId } }))
+      .rejects.toThrow('Product ID already exists');
+      expect(imageRepository.findOneById).toHaveBeenCalledTimes(1);
+    
+      
+  });
+  

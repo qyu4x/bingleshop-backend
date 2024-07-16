@@ -22,7 +22,7 @@ describe('register', () => {
     });
 
     it('should register a new user and send verification email', async () => {
-
+        // testing variables
         const mockRequest = {
             username: 'testuser',
             full_name: 'Test User',
@@ -35,7 +35,8 @@ describe('register', () => {
         const htmlTemplate = '<html><h1>render some html value</h1>></html>>';
 
         const mockCreatedUser = {id: mockUuid, ...mockRequest};
-
+        
+        // mock output
         uuid.v4.mockReturnValue(mockUuid);
         generateOtp.mockResolvedValue('76543');
         renderHtml.mockResolvedValue(htmlTemplate);
@@ -46,9 +47,11 @@ describe('register', () => {
 
         userRepository.create.mockResolvedValue(mockCreatedUser);
         userRepository.findOneInactiveById.mockResolvedValue(mockCreatedUser);
-
+        
+        // panggil fungsinya
         const registerResult = await userService.register(mockRequest);
 
+        // cek hasil panggilan fungsi
         expect(registerResult).toEqual(mockCreatedUser);
 
         expect(sendEmail).toHaveBeenCalledTimes(1);
