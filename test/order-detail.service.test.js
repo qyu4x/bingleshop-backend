@@ -9,8 +9,10 @@ const {ResponseError} = require("../src/error/response-error");
 const {CurrencyResponse} = require("../src/payload/response/currency.response");
 const {OrderDetailResponse} = require("../src/payload/response/order-detail.response");
 
-jest.mock('../src/repository/address.repository');
+
+jest.mock('../src/repository/order-detail.repository');
 jest.mock('../src/service/address.service');
+jest.mock('../src/service/product.service');
 jest.mock('uuid');
 
 describe('create', () => {
