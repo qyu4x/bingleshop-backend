@@ -17,7 +17,7 @@ const findOneByName = async (name) => {
             is_active: true
         },
         attributes: ['id']
-    });ç
+    });
 }
 
 const findAll = async () => {
