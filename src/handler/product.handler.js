@@ -1,5 +1,6 @@
 const productService = require('../service/product.service');
 const {WebResponse} = require("../payload/response/web.response");
+const {WebPaginationResponse} = require("../payload/response/web-pagination.response");
 
 const create = async (req, res, next) => {
     try {
@@ -36,7 +37,7 @@ const search = async (req, res, next) => {
         }
 
         const productResponse = await productService.search(request);
-        res.status(200).json(new WebResponse(productResponse, null));
+        res.status(200).json(new WebPaginationResponse(productResponse.data, productResponse.pagination, null));
     } catch (error) {
         next(error);
     }

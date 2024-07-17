@@ -118,14 +118,16 @@ const search = async (request) => {
     }
 
     const products = await productRepository.searchByFiltersAndPagination(filters, skip, request.size);
-    const totalProduct = await productRepository.findTotalByFilters(filters);
+    const totalProductByFilter = await productRepository.findTotalByFilters(filters);
+    const totalProduct = await productRepository.findTotal(filters);
 
     return {
         data: products.map(productResponse => mapToProductResponse(productResponse)),
         pagination: {
             current_page: request.page,
+            total_item_current_page: totalProductByFilter,
             total_item: totalProduct,
-            total_page: Math.floor(totalProduct / request.size)
+            total_page: Math.floor(totalProductByFilter / request.size)
         }
     };
 }
