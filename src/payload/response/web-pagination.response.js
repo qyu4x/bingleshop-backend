@@ -1,13 +1,13 @@
 class WebPaginationResponse {
     data;
     pagination;
-    errors;
+    error;
 
 
-    constructor(data, pagination, errors = null) {
+    constructor(data, pagination, error = null) {
         this.data = data;
         this.pagination = pagination;
-        this.errors = errors;
+        this.error = error;
     }
 }
 

@@ -1,11 +1,11 @@
 class WebResponse {
     data;
-    errors;
+    error;
 
 
-    constructor(data = null, errors = null) {
+    constructor(data = null, error = null) {
         this.data = data;
-        this.errors = errors;
+        this.error = error;
     }
 }
 
