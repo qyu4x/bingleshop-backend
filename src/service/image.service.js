@@ -2,6 +2,7 @@ const ImageKit = require('imagekit');
 const { v4: uuidv4 } = require('uuid');
 const { createImage } = require('../repository/image.repository');
 const imageRepository = require('../repository/image.repository'); 
+const productRepository = require('../repository/product.repository')
 
 
 const imagekit = new ImageKit({

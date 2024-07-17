@@ -38,10 +38,8 @@ const uploadImage = async (req, res) => {
             try {
                 console.log("File", file);
                 const response = await uploadToImageKit(file, product_id, sequence, is_active);
-                console.log("response", response);
                 res.status(200).json({ data: response });
             } catch (error) {
-                console.log(error);
                 res.status(500).send(error);
                 next(error);
             }
