@@ -63,7 +63,6 @@ const verifyOtpCode = async (userId, request) => {
     }
 
     if (Date.now() > user.otp_validation_expired_at) {
-        console.log(Date.now() + ' ' + user.otp_validation_expired_at)
         throw new ResponseError(400, 'The OTP code has expired. Please request a new one.');
     }
 
