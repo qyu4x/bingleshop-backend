@@ -25,7 +25,6 @@ const authorize = (hasRoles = []) => {
                 }
 
                 const user = await userRepository.findOneById(decoded.id);
-
                 if (!user) {
                     return res.status(404).json(new WebResponse(null, 'User not found'));
                 }
