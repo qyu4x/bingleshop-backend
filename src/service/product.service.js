@@ -127,7 +127,7 @@ const search = async (request) => {
             current_page: request.page,
             total_item_current_page: totalProductByFilter,
             total_item: totalProduct,
-            total_page: Math.floor(totalProductByFilter / request.size)
+            total_page: Math.floor(totalProduct / request.size)
         }
     };
 }
