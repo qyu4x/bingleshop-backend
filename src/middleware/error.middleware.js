@@ -1,4 +1,5 @@
 const {ResponseError} = require('../error/response-error');
+const {WebResponse} = require("../payload/response/web.response");
 
 const errorMiddleware = (err, req, res, next) => {
     if (!err) {
@@ -7,14 +8,14 @@ const errorMiddleware = (err, req, res, next) => {
     }
 
     if (err instanceof ResponseError) {
-        res.status(err.status).json({
-            errors: err.message
-        }).end();
+        res.status(err.status).json(
+            new WebResponse(null, err.message)
+        ).end();
     } else {
         console.log(err);
-        res.status(500).json({
-            errors: err.message
-        }).end();
+        res.status(500).json(
+            new WebResponse(null, err.message)
+        ).end();
     }
 }
 

@@ -1,4 +1,5 @@
 const productService = require('../service/product.service');
+const {WebResponse} = require("../payload/response/web.response");
 
 const create = async (req, res, next) => {
     try {
@@ -7,9 +8,7 @@ const create = async (req, res, next) => {
         const subCategoryId = req.params.subCategoryId;
 
         const productResponse = await productService.create(request, categoryId, subCategoryId);
-        res.status(200).json({
-            data: productResponse
-        });
+        res.status(200).json(new WebResponse(productResponse, null));
     } catch (error) {
         next(error);
     }
@@ -20,9 +19,7 @@ const get = async (req, res, next) => {
         const productId = req.params.productId;
 
         const productResponse = await productService.get(productId);
-        res.status(200).json({
-            data: productResponse
-        });
+        res.status(200).json(new WebResponse(productResponse, null));
     } catch (error) {
         next(error);
     }
@@ -39,9 +36,7 @@ const search = async (req, res, next) => {
         }
 
         const productResponse = await productService.search(request);
-        res.status(200).json({
-            data: productResponse
-        });
+        res.status(200).json(new WebResponse(productResponse, null));
     } catch (error) {
         next(error);
     }
@@ -53,9 +48,7 @@ const update = async (req, res, next) => {
         const productId = req.params.productId;
 
         await productService.update(request, productId);
-        res.status(200).json({
-            data: "OK"
-        });
+        res.status(200).json(new WebResponse("OK", null));
     } catch (error) {
         next(error);
     }
@@ -66,9 +59,7 @@ const remove = async (req, res, next) => {
         const productId = req.params.productId;
 
         await productService.remove(productId);
-        res.status(200).json({
-            data: "OK"
-        });
+        res.status(200).json(new WebResponse("OK", null));
     } catch (error) {
         next(error);
     }
