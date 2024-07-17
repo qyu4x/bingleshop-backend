@@ -1,13 +1,12 @@
 const logisticService = require('../service/logistic.service');
+const {WebResponse} = require("../payload/response/web.response");
 
 const create = async (req, res, next) => {
     try {
         const request = req.body;
 
         const logisticResponse = await logisticService.create(request);
-        res.status(200).json({
-            data: logisticResponse
-        });
+        res.status(200).json(new WebResponse(logisticResponse, null));
     } catch (error) {
         next(error);
     }
@@ -16,9 +15,7 @@ const create = async (req, res, next) => {
 const list = async (req, res, next) => {
     try {
         const logisticResponse = await logisticService.list();
-        res.status(200).json({
-            data: logisticResponse
-        });
+        res.status(200).json(new WebResponse(logisticResponse, null));
     } catch (error) {
         next(error);
     }
@@ -29,9 +26,7 @@ const remove = async (req, res, next) => {
         const logisticId = req.params.logisticId;
 
         await logisticService.remove(logisticId);
-        res.status(200).json({
-            data: "OK"
-        });
+        res.status(200).json(new WebResponse('OK', null));
     } catch (error) {
         next(error);
     }

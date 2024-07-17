@@ -63,7 +63,6 @@ const verifyOtpCode = async (userId, request) => {
     }
 
     if (Date.now() > user.otp_validation_expired_at) {
-        console.log(Date.now() + ' ' + user.otp_validation_expired_at)
         throw new ResponseError(400, 'The OTP code has expired. Please request a new one.');
     }
 
@@ -108,12 +107,12 @@ const login = async (request) => {
         throw new ResponseError(401, "Email or password is incorrect");
     }
 
-    return jwt.sign({
-        "id": user.id,
-        "email": user.email,
-        "role": user.role,
-        "username": user.username
-    }, process.env.SECRET, {expiresIn: '24h'});
+    return {token: jwt.sign({
+            "id": user.id,
+            "email": user.email,
+            "role": user.role,
+            "username": user.username
+        }, process.env.SECRET, {expiresIn: '24h'})}
 }
 
 const get = async (userId) => {

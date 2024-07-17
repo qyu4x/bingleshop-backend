@@ -22,7 +22,7 @@ const findOneById = async (userId) => {
 const findOneInactiveById = async (userId) => {
     return await User.findOne({
         where: {id: userId, is_active: false},
-        attributes: ['id', 'username', 'full_name', 'email', 'birth_date', 'role', 'is_active', 'created_at', 'updated_at']
+        attributes: ['id', 'is_active', 'created_at', 'updated_at']
     })
 }
 
