@@ -9,9 +9,9 @@ const path = require("path");
 require('dotenv').config({path: path.resolve(__dirname, '../../.env')});
 
 const imagekit = new ImageKit({
-    publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
-    privateKey: process.env.IMAGE_KIT_PRIVATE_KEY,
-    urlEndpoint: process.env.IMAGE_KIT_URL_ENDPOINT,
+    publicKey: 'public_aGCXX/pFBjAu6K93bIxo7rXa+uw=',
+    privateKey: 'private_0qSgXiGFlTkaGXBf3tfKXAQTj+0=',
+    urlEndpoint: 'https://ik.imagekit.io/zvqhtklys/product-images',
 });
 
 const uploadToImageKit = async (file, product_id, sequence, is_active) => {

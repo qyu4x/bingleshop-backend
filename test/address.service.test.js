@@ -3,7 +3,7 @@ const addressService = require('../src/service/address.service');
 
 const uuid = require('uuid');
 const Joi = require('joi');
-const {validate} = require('../helper/validation.helper');
+const {validate} = require('../src/helper/validation.helper');
 const { ResponseError } = require('../src/error/response-error');
 const { createAddressSchema } = require('../src/payload/request/address.request');
 const { it, afterEach } = require('node:test');
