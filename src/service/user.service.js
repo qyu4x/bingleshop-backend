@@ -103,7 +103,7 @@ const login = async (request) => {
         throw new ResponseError(404, "User not found");
     }
 
-    const isPasswordValid = bcrypt.compare(loginRequest.password, user.password);
+    const isPasswordValid = await bcrypt.compare(loginRequest.password, user.password);
     if (!isPasswordValid) {
         throw new ResponseError(401, "Email or password is incorrect");
     }
