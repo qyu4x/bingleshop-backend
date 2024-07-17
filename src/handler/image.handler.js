@@ -1,6 +1,7 @@
 const multer = require('multer');
 const {uploadToImageKit} = require('../service/image.service');
 const {ResponseError} = require("../error/response-error");
+const {WebResponse} = require("../payload/response/web.response");
 
 const storage = multer.memoryStorage();
 
@@ -36,7 +37,7 @@ const uploadImage = async (req, res, next) => {
 
         try {
             const response = await uploadToImageKit(file, product_id, sequence, is_active);
-            res.status(200).json({data: response});
+            res.status(200).json(new WebResponse(response, null));
         } catch (error) {
             next(error);
         }

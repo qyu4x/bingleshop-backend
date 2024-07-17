@@ -57,6 +57,12 @@ const findTotalByFilters = async (filters) => {
     });
 }
 
+const findTotal = async (filters) => {
+    return await Products.count({
+        is_active: true
+    });
+}
+
 const findOneById = async (productId) => {
     return await Products.findOne({
         where: {
@@ -71,5 +77,6 @@ module.exports = {
     findByIdWithCategoryAndSubCategory,
     searchByFiltersAndPagination,
     findTotalByFilters,
-    findOneById
+    findOneById,
+    findTotal
 }

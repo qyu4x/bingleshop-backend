@@ -31,7 +31,7 @@ const uploadToImageKit = async (file, product_id, sequence, is_active) => {
 
     await createImage(image_id, product_id, sequence, url, is_active);
 
-    return url;
+    return {image_url: url};
 };
 
 module.exports = {uploadToImageKit};

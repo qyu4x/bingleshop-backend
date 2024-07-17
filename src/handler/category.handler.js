@@ -1,13 +1,12 @@
 const categoriesService = require('../service/category.service');
+const {WebResponse} = require("../payload/response/web.response");
 
 const create = async (req, res, next) => {
     try {
         const request = req.body;
 
         const categoryResponse = await categoriesService.create(request);
-        res.status(200).json({
-            data: categoryResponse
-        });
+        res.status(200).json(new WebResponse(categoryResponse, null));
     } catch (error) {
         next(error);
     }
@@ -16,9 +15,7 @@ const create = async (req, res, next) => {
 const list = async (req, res, next) => {
     try {
         const categoryResponse = await categoriesService.list();
-        res.status(200).json({
-            data: categoryResponse
-        });
+        res.status(200).json(new WebResponse(categoryResponse, null));
     } catch (error) {
         next(error);
     }
@@ -29,9 +26,7 @@ const remove = async (req, res, next) => {
         const categoryId = req.params.categoryId;
 
         await categoriesService.remove(categoryId);
-        res.status(200).json({
-            data: "OK"
-        });
+        res.status(200).json(new WebResponse("OK", null));
     } catch (error) {
         next(error);
     }

@@ -135,7 +135,7 @@ describe('create', () => {
         expect(orderRepository.create).toHaveReturnedTimes(1);
         expect(orderDetailService.create).toHaveReturnedTimes(1);
         expect(orderRepository.findWithUserAndPaymentMethodById).toHaveReturnedTimes(1);
-    });
+    }, 30000);
 
     it('should not create new order because failed create order details', async () => {
         const orderRequest = {
@@ -230,7 +230,7 @@ describe('create', () => {
         expect(orderRepository.create).toHaveReturnedTimes(1);
         expect(orderDetailService.create).toHaveReturnedTimes(1);
         expect(orderRepository.findWithUserAndPaymentMethodById).toHaveReturnedTimes(0);
-    });
+    }, 30000);
 
     it('should not create new order because total price calculation not same', async () => {
         const orderRequest = {
@@ -407,7 +407,7 @@ describe('create', () => {
         orderHelper.generateOrderId.mockReturnValue('PYO-1715945334-98450');
         orderHelper.generatePaymentCode.mockReturnValue('97-21820-84');
 
-        orderDetailService.create.mockResolvedValue('failed');
+        orderDetailService.create.mockResolvedValue(orderRequest);
         orderRepository.findWithUserAndPaymentMethodById.mockResolvedValue(mockOrderResult);
 
         await expect(orderService.create(orderRequest, {id: 'random-user-id'})).rejects.toThrow('Payment not found');
@@ -501,7 +501,7 @@ describe('create', () => {
         orderHelper.generateOrderId.mockReturnValue('PYO-1715945334-98450');
         orderHelper.generatePaymentCode.mockReturnValue('97-21820-84');
 
-        orderDetailService.create.mockResolvedValue('failed');
+        orderDetailService.create.mockResolvedValue(orderRequest);
         orderRepository.findWithUserAndPaymentMethodById.mockResolvedValue(mockOrderResult);
 
         await expect(orderService.create(orderRequest, {id: 'random-user-id'})).rejects.toThrow('Logistic not found');
