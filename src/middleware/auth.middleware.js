@@ -25,7 +25,6 @@ const authorize = (hasRoles = []) => {
                 }
 
                 const user = await userRepository.findOneById(decoded.id);
-
                 if (!user) {
                     return res.status(404).json(new WebResponse(null, 'User not found'));
                 }
@@ -35,7 +34,7 @@ const authorize = (hasRoles = []) => {
                     return res.status(403).json(new WebResponse(null, 'Forbidden'));
                 }
 
-                req.user = decoded;
+                req.user = user;
 
                 next();
             });
