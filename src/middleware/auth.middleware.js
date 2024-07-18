@@ -34,7 +34,7 @@ const authorize = (hasRoles = []) => {
                     return res.status(403).json(new WebResponse(null, 'Forbidden'));
                 }
 
-                req.user = decoded;
+                req.user = user;
 
                 next();
             });

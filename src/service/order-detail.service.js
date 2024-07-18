@@ -171,6 +171,7 @@ const updateOrderStatusReceived = async (orderId, orderDetailId) => {
     }
 
     orderDetail.is_received = true;
+    orderDetail.order_status = 'order_completed';
     orderDetail.received_at = Date.now();
     orderDetail.updated_at = Date.now();
     await orderDetail.save();

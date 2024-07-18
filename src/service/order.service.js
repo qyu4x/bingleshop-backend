@@ -96,18 +96,17 @@ const checkStockProduct = async (orderDetails) => {
 }
 const create = async (request, user) => {
     const orderRequest = validate(createOrderValidation, request);
-
     const totalPrice = await calculateTotalPrice(orderRequest);
 
     if (totalPrice != request.total_price) {
+
         throw new ResponseError(400, 'Total price calculation is not the same!');
     }
-
     await checkStockProduct(orderRequest.order_details);
 
     const tx = await sequelize.transaction();
     try {
-        orderRequest.id = generateOrderId(user.username, user.created_at);
+        orderRequest.id = generateOrderId(user.username, user.created_at).toString();
         orderRequest.user_id = user.id;
         orderRequest.total_price = totalPrice;
         orderRequest.payment_status = false;
@@ -117,6 +116,7 @@ const create = async (request, user) => {
 
         const order = await orderRepository.create(orderRequest);
         await orderDetailService.create(user.id, order.id, orderRequest.order_details);
+
         tx.commit();
 
         const orderResponse = await orderRepository.findWithUserAndPaymentMethodById(order.id);
@@ -127,7 +127,7 @@ const create = async (request, user) => {
         )
     } catch (error) {
         tx.rollback();
-        throw new ResponseError(error.statusCode, error.message);
+        throw new ResponseError(500, error.message);
     }
 }
 
