@@ -18,21 +18,23 @@ module.exports = {
      * }], {});
     */
 
-    const admin = await userRepository.findOneByUsername('shironeko');
+    const adminData = {
+      id: uuidv4(),
+      username: 'shironeko',
+      full_name: 'Admin Shiro Neko',
+      email: 'shironeko@bingleshop.com',
+      password: await bcrypt.hash('nekonyan', 10),
+      birth_date: '2000-10-10',
+      role: role.admin,
+      otp_is_active: false,
+      is_active: true,
+      created_at: Date.now()
+    };
+
+    const admin = await userRepository.findOneByUsername(adminData.username);
     if (!admin) {
       return queryInterface.bulkInsert('users', [
-        {
-          id: uuidv4(),
-          username: 'shironeko',
-          full_name: 'Admin Shiro Neko',
-          email: 'shironeko@bingleshop.com',
-          password: await bcrypt.hash('nekonyan', 10),
-          birth_date: '2000-10-10',
-          role: role.admin,
-          otp_is_active: false,
-          is_active: true,
-          created_at: Date.now()
-        }
+        adminData
       ])
     }
   },
