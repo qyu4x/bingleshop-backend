@@ -1,7 +1,7 @@
 const addressRepository = require('../src/repository/address.repository');
 const addressService = require('../src/service/address.service');
 
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const Joi = require('joi');
 const {validate} = require('../src/helper/validation.helper');
 const { ResponseError } = require('../src/error/response-error');
@@ -11,8 +11,8 @@ const { it, afterEach } = require('node:test');
 
 jest.mock('../src/repository/address.repository');
 jest.mock('../src/helper/render-html.helper');
-jest.mock('uuid');
-
+// jest.mock('uuid');
+jest.mock('uuid', () => ({ v4: jest.fn() })); 
 
     describe('create', () =>  {
         afterEach(() => {
