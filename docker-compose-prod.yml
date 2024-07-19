@@ -12,6 +12,7 @@ services:
       - bingleshop-data-slaves:/var/lib/postgresql/data
     networks:
       - bingleshop-networks
+
   bingleshop-backend:
     image: hikaruyuzu/bingleshop-backend-api:latest
     ports:
