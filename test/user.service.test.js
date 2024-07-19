@@ -35,8 +35,7 @@ describe('register', () => {
         const htmlTemplate = '<html><h1>render some html value</h1>></html>>';
 
         const mockCreatedUser = {id: mockUuid, ...mockRequest};
-        
-        // mock output
+
         uuid.v4.mockReturnValue(mockUuid);
         generateOtp.mockResolvedValue('76543');
         renderHtml.mockResolvedValue(htmlTemplate);
