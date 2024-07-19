@@ -2,7 +2,7 @@ require('dotenv').config();
 const {User} = require('../model');
 const {Op, where} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const role = require('../helper/role.helper');
 const {validate} = require('../helper/validation.helper');
@@ -37,7 +37,8 @@ const register = async (request) => {
     await existByUsername(user.username);
     await existByEmail(user.email)
 
-    user.password = await bcrypt.hash(user.password, 10);
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
 
     user.id = uuidv4();
     user.role = role.user;
