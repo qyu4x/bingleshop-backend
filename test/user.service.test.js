@@ -47,11 +47,9 @@ describe('register', () => {
 
         userRepository.create.mockResolvedValue(mockCreatedUser);
         userRepository.findOneInactiveById.mockResolvedValue(mockCreatedUser);
-        
-        // panggil fungsinya
+
         const registerResult = await userService.register(mockRequest);
 
-        // cek hasil panggilan fungsi
         expect(registerResult).toEqual(mockCreatedUser);
 
         expect(sendEmail).toHaveBeenCalledTimes(1);
