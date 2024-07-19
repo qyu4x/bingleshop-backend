@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const createAddressSchema = Joi.object({
     name: Joi.string().min(2).max(255).required(),
-    phone_number: Joi.string().pattern(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/)
+    phone_number: Joi.string().pattern(/^(\+?\d{1,3})?(\d{9,12})$/)
         .max(15).min(10).required(),
     street: Joi.string().max(255).required(),
     city: Joi.string().max(100).required(),
