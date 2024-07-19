@@ -17,6 +17,7 @@ jest.mock('bcrypt');
 
 
 describe('register', () => {
+
     beforeEach(() => {
         jest.clearAllMocks();
     });
