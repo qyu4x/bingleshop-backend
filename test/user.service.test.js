@@ -23,7 +23,6 @@ describe('register', () => {
     });
 
     it('should register a new user and send verification email', async () => {
-        // testing variables
         const mockRequest = {
             username: 'testuser',
             full_name: 'Test User',
