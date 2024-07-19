@@ -65,6 +65,7 @@ describe('register', () => {
             'Verify Your Account with This OTP Code (Valid for 5 Minutes)',
             htmlTemplate
         );
+
         expect(userRepository.create).toHaveBeenCalledWith(expect.objectContaining(
             {
                 username: 'testuser',
