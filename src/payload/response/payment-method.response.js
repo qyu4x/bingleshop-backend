@@ -8,7 +8,6 @@ class PaymentMethodResponse {
     created_at;
     updated_at;
 
-
     constructor(id, name, payment_fees, logo_url, is_active, description, created_at, updated_at) {
         this.id = id;
         this.name = name;
