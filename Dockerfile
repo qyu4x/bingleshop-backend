@@ -2,6 +2,8 @@ FROM node
 
 WORKDIR /var/www
 
+COPY package*.json ./
+
 COPY . .
 
 RUN npm install
