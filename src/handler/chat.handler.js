@@ -1,4 +1,5 @@
 const chatService = require('../service/chat.service');
+const { createChatSchema } = require('../payload/request/chat.request');
 
 const handleChatConnection = (socket, io) => {
   const {id: userId, role: userRole } = socket.user
@@ -10,6 +11,14 @@ const handleChatConnection = (socket, io) => {
   }
 
   socket.on('chat message', async (payload) => {
+    
+    const { error } = createChatSchema.validate(JSON.parse(payload));
+
+    if (error) {
+      socket.emit('error', { message: error.details[0].message });
+      console.log(error)
+      return;
+    }
     
     const { user_id_recipient, message } = JSON.parse(payload);
     
