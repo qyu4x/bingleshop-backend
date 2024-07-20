@@ -9,7 +9,7 @@ module.exports = {
     password: DB_PASSWORD,
     database: DB_NAME,
     host: DB_HOST,
-    dialect: DB_DIALECT,
+    dialect: 'postgres',
     port: DB_PORT,
   },
   test: {
@@ -17,7 +17,7 @@ module.exports = {
     password: DB_PASSWORD,
     database: DB_NAME,
     host: DB_HOST,
-    dialect: DB_DIALECT,
+    dialect: 'postgres',
     port: DB_PORT,
   },
   production: {
