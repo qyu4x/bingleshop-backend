@@ -72,26 +72,54 @@ describe('Address Service', () => {
 
     describe('create', () => {
         it('should create a new address', async () => {
-            validate.mockReturnValue(address);
-            addressRepository.create.mockResolvedValue(address);
-
-            addressRepository.findOneByAddressId.mockResolvedValue(address);
-
+            // Setup Mocks
+            const userId = 'test-user-id';
+            const addressId = 'test-address-id';
+            const address = {
+                name: 'Test Name',
+                phone_number: '1234567890',
+                street: 'Test Street',
+                province: 'Test Province',
+                city: 'Test City',
+                district: 'Test District',
+                postal_code: '12345',
+                is_main_address: true,
+                is_active: true
+            };
+    
+            const validatedAddress = {...address, id: addressId, user_id: userId, created_at: Date.now()};
+    
+            validate.mockReturnValue(validatedAddress);
+            uuidv4.mockReturnValue(addressId);
+    
+            addressRepository.create.mockResolvedValue(validatedAddress);
+            addressRepository.findOneByAddressId.mockResolvedValue(validatedAddress);
+            addressRepository.updateIsMainAddressByUserId.mockResolvedValue();
+    
+            // Call the create function
             const result = await create(userId, address);
-
-            expect(validate).toHaveBeenCalledWith(createAddressSchema,
-                address);
-
-            expect(addressRepository.updateIsMainAddressByUserId).toHaveBeenCalledWith(false,
-                userId);
-
+    
+            // Assertions
+            expect(validate).toHaveBeenCalledWith(createAddressSchema, address);
+    
+            expect(addressRepository.updateIsMainAddressByUserId).toHaveBeenCalledWith(false, userId);
+    
             expect(addressRepository.create).toHaveBeenCalledWith(expect.objectContaining({
                 id: addressId,
                 user_id: userId,
-                created_at: expect.any(Number),
+                name: 'Test Name',
+                phone_number: '1234567890',
+                street: 'Test Street',
+                province: 'Test Province',
+                city: 'Test City',
+                district: 'Test District',
+                postal_code: '12345',
+                is_main_address: true,
                 is_active: true,
+                created_at: expect.any(Number),
             }));
-            expect(result).toEqual(address);
+    
+            expect(result).toEqual(validatedAddress);
         });
     });
 
@@ -151,29 +179,60 @@ describe('Address Service', () => {
             expect(addressRepository.updateIsMainAddressByAddressIdAndUserId).toHaveBeenCalledWith(true,
                 addressId, userId);
         });
+
+        it('should throw an error if address does not exist', async () => {
+            validate.mockReturnValue(addressId);
+
+            addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(null);
+
+            await expect(setMain(userId, addressId)).rejects.toThrow(new ResponseError(404, "Address not found"));
+        });
     });
 
     describe('remove', () => {
-        it('should remove an address', async () => {
-            validate.mockReturnValue(addressId);
+         it('should remove an address', async () => {
+        // Setup Mocks
+        const userId = 'test-user-id';
+        const addressId = 'test-address-id';
+        const address = {
+            id: addressId,
+            user_id: userId,
+            name: 'Test Name',
+            phone_number: '1234567890',
+            street: 'Test Street',
+            province: 'Test Province',
+            city: 'Test City',
+            district: 'Test District',
+            postal_code: '12345',
+            is_main_address: false,
+            is_active: true,
+            created_at: Date.now(),
+            updated_at: Date.now(),
+            save: jest.fn() // Mocking the save method
+        };
 
-            addressRepository.findOneByUserIdAndAddressId.mockResolvedValue({
-                ...address, is_main_address: false
-            });
+        validate.mockReturnValue(addressId);
+        addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(address);
 
-            await remove(userId, addressId);
+        // Call the remove function
+        await remove(userId, addressId);
 
-            expect(validate).toHaveBeenCalledWith(getAddressValidation,
-                addressId);
+        // Assertions
+        expect(validate).toHaveBeenCalledWith(getAddressValidation, addressId);
+        expect(addressRepository.findOneByUserIdAndAddressId).toHaveBeenCalledWith(userId, addressId);
 
-            expect(addressRepository.findOneByUserIdAndAddressId).toHaveBeenCalledWith(userId,
-                addressId);
+        expect(address.save).toHaveBeenCalled();
+        expect(address.is_active).toBe(false);
+        expect(address.updated_at).toEqual(expect.any(Number));
+    });
 
-            expect(addressRepository.update).toHaveBeenCalledWith(expect.objectContaining({
-                is_active: false,
-                updated_at: expect.any(Number),
-            }));
-        });
+    it('should throw an error if address does not exist', async () => {
+        validate.mockReturnValue(addressId);
+
+        addressRepository.findOneByUserIdAndAddressId.mockResolvedValue(null);
+
+        await expect(remove(userId, addressId)).rejects.toThrow(new ResponseError(404, "Address not found"));
+    });
 
         it('should throw an error if trying to remove main address',
             async () => {
