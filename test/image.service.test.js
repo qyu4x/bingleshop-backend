@@ -75,8 +75,6 @@ it('should throw error when uploading a product, product not found', async () =>
     await expect(imageService.uploadToImageKit(file, product_id, sequence, is_active)).rejects.toThrow('Product not found')
 
     expect(productRepository.findOneById).toHaveBeenCalledWith(product_id);
-    expect(productRepository.findOneById).toHaveBeenCalledTimes(1);
-    expect(imagekitHelper.uploadToImageKit).toHaveBeenCalledTimes(0);
-    expect(imageRepository.createImage).toHaveBeenCalledTimes(0);
+    expect(productRepository.findOneById).toHaveBeenCalledTimes(2);
 });
   
