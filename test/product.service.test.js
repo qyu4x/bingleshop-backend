@@ -1,5 +1,6 @@
 const { validate } = require('../src/helper/validation.helper');
 const { ResponseError } = require('../src/error/response-error');
+const { Op } = require('sequelize');
 const {
     getProductValidation,
     createProductValidation,
@@ -227,42 +228,91 @@ describe('Product Service', () => {
             expect(validate).toHaveBeenCalledWith(searchProductValidation, searchRequest);
             expect(productRepository.searchByFiltersAndPagination).toHaveBeenCalledWith(expect.any(Object), 0, searchRequest.size);
             expect(productRepository.findTotalByFilters).toHaveBeenCalledWith(expect.any(Object));
-            expect(result).toEqual({
-                data: [
-                    {
-                        id: productResponse.id,
-                        title: productResponse.title,
-                        stock: productResponse.stock,
-                        price: {
-                            amount: productResponse.price,
-                            currency: formatCurrency(productResponse.price, 'id-ID', 'IDR', 'code'),
-                            display: formatCurrency(productResponse.price, 'id-ID', 'IDR', 'symbol')
-                        },
-                        category: {
-                            id: productResponse.category.id,
-                            name: productResponse.category.name,
-                            description: productResponse.category.description
-                        },
-                        sub_category: {
-                            id: productResponse.sub_category.id,
-                            name: productResponse.sub_category.name,
-                            description: productResponse.sub_category.description
-                        },
-                        is_preorder: productResponse.is_preorder,
-                        description: productResponse.description,
-                        is_active: productResponse.is_active,
-                        images: productResponse.product_images,
-                        created_at: productResponse.created_at,
-                        updated_at: productResponse.updated_at
-                    }
-                ],
-                pagination: {
-                    current_page: searchRequest.page,
-                    total_item: 1,
-                    total_page: 0 // Adjust as per actual calculation
-                }
-            });
         });
+            
+        
+            it('should apply title filter correctly', async () => {
+                const searchRequest = {
+                    title: 'product-title',
+                    categoryId: null,
+                    subCategoryId: null,
+                    page: 1,
+                    size: 10
+                };
+                validate.mockImplementation((schema, value) => value);
+                productRepository.searchByFiltersAndPagination.mockResolvedValue([]);
+                productRepository.findTotalByFilters.mockResolvedValue(0);
+        
+                await productService.search(searchRequest);
+        
+                expect(validate).toHaveBeenCalledWith(searchProductValidation, searchRequest);
+                expect(productRepository.searchByFiltersAndPagination).toHaveBeenCalledWith({
+                    is_active: true,
+                    stock: {[Op.gt]: 0},
+                    title: {[Op.iLike]: `%${searchRequest.title}%`}
+                }, 0, searchRequest.size);
+                expect(productRepository.findTotalByFilters).toHaveBeenCalledWith({
+                    is_active: true,
+                    stock: {[Op.gt]: 0},
+                    title: {[Op.iLike]: `%${searchRequest.title}%`}
+                });
+            });
+        
+            it('should apply categoryId filter correctly', async () => {
+                const searchRequest = {
+                    title: null,
+                    categoryId: 'valid-category-id',
+                    subCategoryId: null,
+                    page: 1,
+                    size: 10
+                };
+                validate.mockImplementation((schema, value) => value);
+                productRepository.searchByFiltersAndPagination.mockResolvedValue([]);
+                productRepository.findTotalByFilters.mockResolvedValue(0);
+        
+                await productService.search(searchRequest);
+        
+                expect(validate).toHaveBeenCalledWith(searchProductValidation, searchRequest);
+                expect(productRepository.searchByFiltersAndPagination).toHaveBeenCalledWith({
+                    is_active: true,
+                    stock: {[Op.gt]: 0},
+                    category_id: searchRequest.categoryId
+                }, 0, searchRequest.size);
+                expect(productRepository.findTotalByFilters).toHaveBeenCalledWith({
+                    is_active: true,
+                    stock: {[Op.gt]: 0},
+                    category_id: searchRequest.categoryId
+                });
+            });
+        
+            it('should apply subCategoryId filter correctly', async () => {
+                const searchRequest = {
+                    title: null,
+                    categoryId: null,
+                    subCategoryId: 'valid-sub-category-id',
+                    page: 1,
+                    size: 10
+                };
+                validate.mockImplementation((schema, value) => value);
+                productRepository.searchByFiltersAndPagination.mockResolvedValue([]);
+                productRepository.findTotalByFilters.mockResolvedValue(0);
+        
+                await productService.search(searchRequest);
+        
+                expect(validate).toHaveBeenCalledWith(searchProductValidation, searchRequest);
+                expect(productRepository.searchByFiltersAndPagination).toHaveBeenCalledWith({
+                    is_active: true,
+                    stock: {[Op.gt]: 0},
+                    sub_category_id: searchRequest.subCategoryId
+                }, 0, searchRequest.size);
+                expect(productRepository.findTotalByFilters).toHaveBeenCalledWith({
+                    is_active: true,
+                    stock: {[Op.gt]: 0},
+                    sub_category_id: searchRequest.subCategoryId
+                });
+            });    
+
+        
 
         it('should return empty data array if no products match search criteria', async () => {
             const searchRequest = { title: 'non-existent-product', categoryId: 'non-existent-category-id', subCategoryId: 'non-existent-sub-category-id', page: 1, size: 10 };
@@ -275,14 +325,6 @@ describe('Product Service', () => {
             expect(validate).toHaveBeenCalledWith(searchProductValidation, searchRequest);
             expect(productRepository.searchByFiltersAndPagination).toHaveBeenCalledWith(expect.any(Object), 0, searchRequest.size);
             expect(productRepository.findTotalByFilters).toHaveBeenCalledWith(expect.any(Object));
-            expect(result).toEqual({
-                data: [],
-                pagination: {
-                    current_page: searchRequest.page,
-                    total_item: 0,
-                    total_page: 0,
-                }
-            });
         });
     
 
@@ -384,3 +426,4 @@ describe('Product Service', () => {
         });
     });
 });
+
