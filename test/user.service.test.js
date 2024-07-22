@@ -342,8 +342,11 @@ describe('login', () => {
         userRepository.findOneByEmail.mockResolvedValue(mockUserData);
 
         const userLoginResult = await userService.login(loginRequest);
-        expect(userLoginResult).toEqual(expect.any(String));
+        expect(userLoginResult).toHaveProperty('token');
+        expect(typeof userLoginResult.token).toBe('string');
 
+        // Optionally, check basic structure of the token (if needed)
+        expect(userLoginResult.token).toMatch(/^eyJ[a-zA-Z0-9-_]+\.[a-zA-Z0-9-_]+\.[a-zA-Z0-9-_]+$/);
         expect(userRepository.findOneByEmail).toHaveBeenCalledTimes(1);
     });
 
