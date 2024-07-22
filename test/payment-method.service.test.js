@@ -1,159 +1,160 @@
+const { create, list, remove } = require('../src/service/payment-method.service');
+const paymentMethodRepository = require('../src/repository/payment-method.repository');
 const { validate } = require('../src/helper/validation.helper');
 const { ResponseError } = require('../src/error/response-error');
-const { v4: uuidv4 } = require('uuid');
-const paymentMethodRepository = require('../src/repository/payment-method.repository');
-const paymentMethodService = require('../src/service/payment-method.service');
 const { PaymentMethodResponse } = require('../src/payload/response/payment-method.response');
-
+const { CurrencyResponse } = require('../src/payload/response/currency.response');
+const { formatCurrency } = require('../src/helper/i18n-currency.helper');
+const { v4: uuidv4 } = require('uuid');
 
 jest.mock('../src/repository/payment-method.repository');
 jest.mock('../src/helper/validation.helper');
-jest.mock('../src/error/response-error');
-jest.mock('uuid', () => ({ v4: jest.fn() }));
+jest.mock('../src/helper/i18n-currency.helper');
+jest.mock('uuid', () => ({
+    v4: jest.fn(),
+}));
+jest.mock('../src/payload/request/payment-method.request', () => ({
+    createPaymentValidation: jest.fn(),
+    getPaymentMethodValidation: jest.fn(),
+}));
 
 describe('Payment Method Service', () => {
-    const mockUuid = 'test-uuid';
-    const now = Date.now();
+    const mockUuid = 'random-uuid-v4';
+    const mockPaymentMethod = {
+        id: mockUuid,
+        name: 'New Payment Method',
+        payment_fees: 2000,
+        logo_url: 'http://example.com/new-logo.png',
+        is_active: true,
+        description: 'New Description',
+        created_at: Date.now(),
+        updated_at: Date.now()
+    };
 
     beforeEach(() => {
         jest.clearAllMocks();
         uuidv4.mockReturnValue(mockUuid);
+        formatCurrency.mockReturnValue('formattedCurrency');
     });
 
     describe('create', () => {
         it('should create a new payment method', async () => {
-            const createRequest = {
-                name: 'Test Payment Method',
-                payment_fees: 100,
-                logo_url: 'https://example.com/logo.png',
-                description: 'Test payment method description'
+            const mockRequest = {
+                name: 'New Payment Method',
+                payment_fees: 2000,
+                logo_url: 'http://example.com/new-logo.png',
+                description: 'New Description'
             };
 
-            const createdPaymentMethod = {
+            const validatedPaymentMethod = {
+                ...mockRequest,
                 id: mockUuid,
-                name: 'Test Payment Method',
-                payment_fees: 100,
-                logo_url: 'https://example.com/logo.png',
                 is_active: true,
-                description: 'Test payment method description',
-                created_at: now,
-                updated_at: null
+                created_at: Date.now()
             };
 
-            validate.mockReturnValue(createRequest);
-            paymentMethodRepository.findOneByName.mockResolvedValue(null); // No existing payment method
-            paymentMethodRepository.create.mockResolvedValue(createdPaymentMethod);
+            validate.mockReturnValue(validatedPaymentMethod);
+            paymentMethodRepository.findOneByName.mockResolvedValue(null);
+            paymentMethodRepository.create.mockResolvedValue(mockPaymentMethod);
 
-            const result = await paymentMethodService.create(createRequest);
+            const result = await create(mockRequest);
 
-            expect(validate).toHaveBeenCalledWith(expect.any(Object), createRequest);
-            expect(paymentMethodRepository.findOneByName).toHaveBeenCalledWith('Test Payment Method');
+            expect(validate).toHaveBeenCalledWith(expect.any(Function), mockRequest);
+            expect(paymentMethodRepository.findOneByName).toHaveBeenCalledWith(mockRequest.name);
             expect(paymentMethodRepository.create).toHaveBeenCalledWith(expect.objectContaining({
                 id: mockUuid,
-                name: 'Test Payment Method',
-                payment_fees: 100,
-                logo_url: 'https://example.com/logo.png',
+                name: mockRequest.name,
+                payment_fees: mockRequest.payment_fees,
+                logo_url: mockRequest.logo_url,
+                description: mockRequest.description,
                 is_active: true,
-                description: 'Test payment method description',
-                created_at: now
+                created_at: expect.any(Number),
             }));
-            expect(result).toBeInstanceOf(PaymentMethodResponse);
-            expect(result).toEqual(expect.objectContaining({
-                id: mockUuid,
-                name: 'Test Payment Method',
-                is_active: true,
-            }));
+            expect(result).toEqual(new PaymentMethodResponse(
+                mockUuid,
+                mockRequest.name,
+                new CurrencyResponse(
+                    mockRequest.payment_fees,
+                    'formattedCurrency',
+                    'formattedCurrency'
+                ),
+                mockRequest.logo_url,
+                true,
+                mockRequest.description,
+                expect.any(Number),
+                expect.any(Number)
+            ));
         });
 
-        it('should throw error if payment method already exists', async () => {
+        it('should throw an error if payment method already exists', async () => {
             const mockRequest = {
-                name: 'Test Payment Method'
+                name: 'Existing Payment Method'
             };
 
             validate.mockReturnValue(mockRequest);
-            paymentMethodRepository.findOneByName.mockResolvedValue({ id: mockUuid, name: 'Test Payment Method' });
+            paymentMethodRepository.findOneByName.mockResolvedValue(mockPaymentMethod);
 
-            await expect(paymentMethodService.create(mockRequest)).rejects.toThrow(ResponseError);
-            expect(paymentMethodRepository.findOneByName).toHaveBeenCalledWith('Test Payment Method');
-            expect(paymentMethodRepository.create).not.toHaveBeenCalled(); 
+            await expect(create(mockRequest)).rejects.toThrow(new ResponseError(409, 'Payment method already exists'));
+            expect(paymentMethodRepository.findOneByName).toHaveBeenCalledWith(mockRequest.name);
+            expect(paymentMethodRepository.create).not.toHaveBeenCalled();
         });
     });
 
     describe('list', () => {
-        it('should list all payment methods', async () => {
-            const mockPaymentMethods = [
-                {
-                    id: uuidv4(),
-                    name: 'Test Payment Method 1',
-                    payment_fees: 50,
-                    logo_url: 'https://example.com/logo1.png',
-                    is_active: true,
-                    description: 'Test payment method 1 description',
-                    created_at: now,
-                    updated_at: null
-                },
-                {
-                    id: uuidv4(),
-                    name: 'Test Payment Method 2',
-                    payment_fees: 75,
-                    logo_url: 'https://example.com/logo2.png',
-                    is_active: true,
-                    description: 'Test payment method 2 description',
-                    created_at: now,
-                    updated_at: null
-                }
-            ];
+        it('should return a list of payment methods', async () => {
+            const paymentMethods = [mockPaymentMethod];
 
-            paymentMethodRepository.findAll.mockResolvedValue(mockPaymentMethods);
+            paymentMethodRepository.findAll.mockResolvedValue(paymentMethods);
 
-            const result = await paymentMethodService.list();
+            const result = await list();
 
-            expect(result.length).toBe(2);
-            expect(result[0]).toBeInstanceOf(PaymentMethodResponse);
-            expect(result[1]).toBeInstanceOf(PaymentMethodResponse);
-
-            expect(paymentMethodRepository.findAll).toHaveBeenCalled();
+            expect(paymentMethodRepository.findAll).toHaveBeenCalledTimes(1);
+            expect(result).toEqual([new PaymentMethodResponse(
+                mockUuid,
+                mockPaymentMethod.name,
+                new CurrencyResponse(
+                    mockPaymentMethod.payment_fees,
+                    'formattedCurrency',
+                    'formattedCurrency'
+                ),
+                mockPaymentMethod.logo_url,
+                mockPaymentMethod.is_active,
+                mockPaymentMethod.description,
+                mockPaymentMethod.created_at,
+                mockPaymentMethod.updated_at
+            )]);
         });
     });
 
     describe('remove', () => {
         it('should remove a payment method', async () => {
-            const paymentMethodId = mockUuid;
-
+            const mockRequestId = 'test-payment-method-id';
             const paymentMethod = {
-                id: paymentMethodId,
-                name: 'Test Payment Method',
-                payment_fees: 100,
-                logo_url: 'https://example.com/logo.png',
-                is_active: true,
-                description: 'Test payment method description',
-                created_at: now,
-                updated_at: null,
+                ...mockPaymentMethod,
+                id: mockRequestId,
                 save: jest.fn()
             };
 
-            validate.mockReturnValue(paymentMethodId);
+            validate.mockReturnValue(mockRequestId);
             paymentMethodRepository.findOneById.mockResolvedValue(paymentMethod);
 
-            await paymentMethodService.remove(paymentMethodId);
+            await remove(mockRequestId);
 
-            expect(validate).toHaveBeenCalledWith(expect.any(Object), paymentMethodId);
-            expect(paymentMethodRepository.findOneById).toHaveBeenCalledWith(paymentMethodId);
+            expect(validate).toHaveBeenCalledWith(expect.any(Function), mockRequestId);
+            expect(paymentMethodRepository.findOneById).toHaveBeenCalledWith(mockRequestId);
+            expect(paymentMethod.save).toHaveBeenCalled();
             expect(paymentMethod.is_active).toBe(false);
             expect(paymentMethod.updated_at).toEqual(expect.any(Number));
-            expect(paymentMethod.save).toHaveBeenCalled();
         });
 
-        it('should throw error if payment method not found', async () => {
-            const paymentMethodId = mockUuid;
+        it('should throw an error if payment method does not exist', async () => {
+            const mockRequestId = 'non-existent-id';
 
-            validate.mockReturnValue(paymentMethodId);
+            validate.mockReturnValue(mockRequestId);
             paymentMethodRepository.findOneById.mockResolvedValue(null);
 
-            await expect(paymentMethodService.remove(paymentMethodId)).rejects.toThrow(ResponseError);
-            expect(paymentMethodRepository.findOneById).toHaveBeenCalledWith(paymentMethodId);
-            expect(paymentMethodRepository.save).not.toHaveBeenCalled(); 
+            await expect(remove(mockRequestId)).rejects.toThrow(new ResponseError(404, 'Payment method not found'));
+            expect(paymentMethodRepository.findOneById).toHaveBeenCalledWith(mockRequestId);
         });
     });
 });
-
